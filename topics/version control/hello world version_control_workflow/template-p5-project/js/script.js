@@ -26,11 +26,11 @@ function setup() {
 */
 function draw() {
     // Make the background black (specified as RGB)
-    background(0, 0, 0);
+    background(204, 204, 255);
 
     // Draw a pyramid
     // How many levels for the pyramid
-    const levels = 10;
+    const levels = 100;
     // Loop through every level (backwards)
     for (let level = levels; level > 0; level--) {
         // Draw this layer
@@ -38,9 +38,9 @@ function draw() {
         // Set the grey shade of the level based on its number
         // e.g. level 1 will get a shade of 10 (dark gray), 
         // level 10 will be 255(white)
-        const shade = map(level, 1, levels, 10, 255);
-        // No line around the levels
-        noStroke();
+        const shade = map(level, 1, levels, 100, 255);
+        // add automatic line stoke weight
+
         // Set the fill colour to our shade (RGB)
         fill(shade, shade, 0);
         // Draw rectangles from the centre
@@ -49,7 +49,7 @@ function draw() {
         // (320, 320) with a size based on the level
         // e.g. level 1 will be a 48x48 rectangle and
         // level 10 will be a 480x480 rectangle
-        rect(320, 320, level * 48, level * 48);
+        rect(320, 320, level * 1.1, level * 15);
         pop();
     }
 
@@ -58,7 +58,7 @@ function draw() {
     // No line around the shape
     noStroke();
     // Make it red (RGB)
-    fill(255, 0, 0);
+    fill(25, 100, 50);
     // Draw a 100x100 circle at the mouse position
     ellipse(mouseX, mouseY, 100, 100);
     pop();
