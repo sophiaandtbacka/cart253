@@ -1,24 +1,24 @@
 /**
- * Title of Project
- * Author Name
+ * Function Calls
+ * Sophia
  * 
- * HOW EMBARRASSING! I HAVE NO DESCRIPTION OF MY PROJECT!
- * PLEASE REMOVE A GRADE FROM MY WORK IF IT'S GRADED!
+ *Working on the function calls examples.
  */
 
 "use strict";
 
 /**
- * OH LOOK I DIDN'T DESCRIBE SETUP!!
+ * once at the beginning of the program
 */
 function setup() {
-
+    createCanvas(400, 400);
 }
 
 
 /**
- * OOPS I DIDN'T DESCRIBE WHAT MY DRAW DOES!
+ * every frame
 */
 function draw() {
-
+    background(50, 100, 100);
+    rect(149, 99, 100, 200);
 }
