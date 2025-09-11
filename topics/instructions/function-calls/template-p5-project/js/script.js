@@ -1,24 +1,32 @@
 /**
- * Function Calls
- * Sophia
+ * Existential Writer's Block
+ * Sophia Andtbacka
  * 
- *Working on the function calls examples.
+ * AN exploration of the existential angst of a novelist
+ * who must sit down at their blue desk and confront the
+ * abyss that is a blank page of paper.
+ * 
+ * The program is non=interactive to convey the inability
+ * to get started on the project.
  */
 
 "use strict";
 
 /**
- * once at the beginning of the program
+ * Creates the canvas for our masterpiece
 */
 function setup() {
+    // Create the canvas at a standard resolution
     createCanvas(400, 400);
 }
 
 
 /**
- * every frame
+ *  Draws the writer's desktop and a blank piece of paper
 */
 function draw() {
+    // The blue desktop
     background(50, 100, 100);
+    // The blank piece of paper
     rect(149, 99, 100, 200);
 }
