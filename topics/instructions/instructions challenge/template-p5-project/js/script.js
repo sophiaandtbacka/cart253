@@ -32,6 +32,28 @@ function draw() {
     rect(0, 200, 400, 400);
     pop();
 
+    //shark
+    //shark nose body edge
+    push();
+    fill(100);
+    noStroke();
+    ellipse(200, 600, 250, 450);
+    pop();
+
+    //shark nose
+    push();
+    fill(100);
+    noStroke();
+    triangle(125, 420, 200, 300, 275, 420);
+    pop();
+
+
+    //shark lighter belly
+    push();
+    fill(150);
+    noStroke();
+    ellipse(200, 600, 260, 420);
+    pop();
 
 
 }
