@@ -12,7 +12,12 @@
  * OH LOOK I DIDN'T DESCRIBE SETUP!!
 */
 function setup() {
-    createCanvas(400, 600)
+    createCanvas(400, 600);
+    //
+    fill(255, 0, 0);
+    textSize(102);
+    textFont('Amity Jack');
+    text('JAWS', 75, 25, 300, 100);
 }
 
 
@@ -20,7 +25,7 @@ function setup() {
  * OOPS I DIDN'T DESCRIBE WHAT MY DRAW DOES!
 */
 function draw() {
-    background("white");
+
 
     //frame
     noFill();
@@ -44,6 +49,22 @@ function draw() {
     strokeWeight(5);
     ellipse(125, 450, 10);
     ellipse(275, 450, 10);
+    pop();
+
+
+    //sad face
+    //head shape
+    push();
+    fill(250, 250, 0);
+    rect(175, 150, 50);
+    pop();
+    //x eyes
+    push();
+    strokeWeight(2);
+    line(185, 170, 195, 180);
+    line(185 + 20, 170, 195 + 20, 180);
+    line(185, 180, 195, 170);
+    line(185 + 20, 180, 195 + 20, 170);
     pop();
 
 
