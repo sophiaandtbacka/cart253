@@ -1,5 +1,5 @@
 /**
- * My House
+ * Starter House
  * Pippin Barr
  * 
  * Draws a house with shapes.
@@ -19,12 +19,30 @@ function setup() {
 }
 
 /**
- * Draws a house
+ * Draws a house and its immediate environment
  */
 function draw() {
-    // The sky
-    background(150, 200, 250);
 
+    drawSky();
+    drawCloud();
+    drawGround();
+    drawHouse();
+
+}
+
+/**
+ * Draws the sky
+ */
+function drawSky() {
+    background(150, 200, 250);
+}
+
+
+/**
+ * Drawes a fluffy white cloud
+ */
+
+function drawCloud() {
     // A cloud
     push();
     noStroke();
@@ -38,21 +56,48 @@ function draw() {
     ellipse(190, 130, 60, 60);
     ellipse(220, 120, 60, 60);
     pop();
+}
 
-    // The ground
+
+/**
+ * Draws the ground
+ */
+function drawGround() {
     push();
     noStroke();
     fill(200);
     rect(0, 400, 640, 480);
     pop();
+}
 
-    // The main body of the house
+/**
+ * Draws a House
+ */
+function drawHouse() {
+
+    drawHouseBody();
+    drawHouseRoof();
+    drawHouseWindow();
+    drawHouseDoor();
+
+}
+
+/**
+//  Draws the main body of the house
+*/
+function drawHouseBody() {
     push();
     noStroke();
     fill(250, 250, 200);
     rect(200, 240, 280, 180);
     pop();
+}
 
+
+/**
+//  Draws the pointy roof of the house
+*/
+function drawHouseRoof() {
     // The roof
     push();
     noStroke();
@@ -60,7 +105,13 @@ function draw() {
     fill("#dc143c");
     triangle(180, 240, 340, 120, 500, 240);
     pop();
+}
 
+
+/**
+//  Draws the window of the house
+*/
+function drawHouseWindow() {
     // A window
     push();
     // You can also write colour names from the CSS standard in quotes
@@ -70,7 +121,12 @@ function draw() {
     fill("blanchedalmond");
     rect(220, 260, 80, 80);
     pop();
+}
 
+/**
+//  Draws the entrance of the house
+*/
+function drawHouseDoor() {
     // An entrace
 
     // The door
