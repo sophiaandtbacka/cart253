@@ -34,12 +34,19 @@ function draw() {
 
     drawShark();
 
-    //shark tooth
+    drawTeeth();
+
+
+
+    //eyes
     push();
-    fill(255);
-    angleMode(DEGREES);
-    arc(200, 460, 55, 55, 250, 290);
+    fill(250, 0, 50);
+    strokeWeight(5);
+    ellipse(125, 450, 10);
+    ellipse(275, 450, 10);
     pop();
+
+
 
 
 }
@@ -69,3 +76,41 @@ function drawShark() {
     ellipse(200, 600, 260, 420);
     pop();
 }
+
+//draws shark teeth
+function drawTeeth() {
+    //shark tooth
+    push();
+    fill(255);
+    angleMode(DEGREES);
+    arc(200, 460, 55, 55, 250, 290);
+    pop();
+
+    push();
+    fill(255);
+    angleMode(DEGREES);
+    arc(200 + 15, 460 + 5, 55 - 10, 55 - 10, 250 + 30, 290 + 30);
+    pop();
+
+    push();
+    fill(255);
+    angleMode(DEGREES);
+    arc(200 + 15 * 2, 460 + 5 * 2, 55 - 10 * 2, 55 - 10 * 2, 250 + 30 * 2, 290 + 30 * 2);
+    pop();
+
+    //other side
+    push();
+    fill(255);
+    angleMode(DEGREES);
+    arc(200 - 15, 460 + 5, 55 - 10, 55 - 10, 250 - 30, 290 - 30);
+    pop();
+
+    push();
+    fill(255);
+    angleMode(DEGREES);
+    arc(200 - 15 * 2, 460 + 5 * 2, 55 - 10 * 2, 55 - 10 * 2, 250 - 30 * 2, 290 - 30 * 2);
+    pop();
+}
+
+
+
