@@ -32,6 +32,20 @@ function draw() {
     rect(0, 200, 400, 400);
     pop();
 
+    drawShark();
+
+    //shark tooth
+    push();
+    fill(255);
+    angleMode(DEGREES);
+    arc(200, 460, 55, 55, 250, 290);
+    pop();
+
+
+}
+
+//draws a shark
+function drawShark() {
     //shark
     //shark nose body edge
     push();
@@ -54,6 +68,4 @@ function draw() {
     noStroke();
     ellipse(200, 600, 260, 420);
     pop();
-
-
 }
