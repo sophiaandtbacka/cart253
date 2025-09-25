@@ -151,7 +151,7 @@ function targetColour() {
     // Set fill based on whether they overlap
 
     if (overlap) {
-        drawTarget.fill = fill(255, 13, 0)
+        target.fill = color(random(0, 255), random(0, 255), random(0, 255))
     }
 
 }
