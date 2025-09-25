@@ -87,13 +87,40 @@ function movePuck() {
     // Set fill based on whether they overlap
 
     if (overlap) {
-        puck.y = puck.y + 10;
-        puck.x = puck.x + 100
+        //if user is on right
+        if (puck.x < user.x) {
+            //user below
+            if (puck.y < user.y) {
+                puck.x = puck.x - 30;
+                puck.y = puck.y - 30
+            }
+            //user above
+            else {
+                puck.x = puck.x - 30;
+                puck.y = puck.y + 30
+            }
+
+
+        }
+        //if user on left
+        else {
+            //user below
+            if (puck.y < user.y) {
+                puck.x = puck.x + 30;
+                puck.y = puck.y - 30
+            }
+            //user above
+            else {
+                puck.x = puck.x + 30;
+                puck.y = puck.y + 30
+            }
+
+        }
+
+
+
     }
-    else {
-        puck.y = puck.y;
-        puck.x = puck.x
-    }
+
 }
 
 
