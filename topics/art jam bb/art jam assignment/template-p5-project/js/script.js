@@ -12,6 +12,7 @@
  * OH LOOK I DIDN'T DESCRIBE SETUP!!
 */
 function setup() {
+    createCanvas(600, 750);
 
 }
 
@@ -20,5 +21,7 @@ function setup() {
  * OOPS I DIDN'T DESCRIBE WHAT MY DRAW DOES!
 */
 function draw() {
-
+    background("#aaaaaa");
+    triangle(150, 500, 300, 100, 450, 500);
+    triangle(150, 500, 300, 650, 450, 500);
 }
