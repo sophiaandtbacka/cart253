@@ -99,6 +99,24 @@ const pointc = {
     },
 }
 
+//line d
+const pointd = {
+    x: 300,
+    y: (500 + 50),
+}
+
+//line e
+const pointe = {
+    x: 300,
+    y: 600,
+}
+
+//line f
+const pointf = {
+    x: 300,
+    y: 650,
+}
+
 
 
 /**
@@ -114,7 +132,7 @@ function draw() {
     // triangle(150, 500, 300, 100, 450, 500);
 
     //bottom tri
-    triangle(150, 500, 300, 650, 450, 500);
+    //triangle(150, 500, 300, 650, 450, 500);
 
     //top row inner
     //triangle(150, 500, 300, 100, 225, 500);
@@ -122,15 +140,21 @@ function draw() {
     //triangle(300, 500, 300, 100, 375, 500);
     //triangle(375, 500, 300, 100, 450, 500);
 
+    //bottom row inner
+    //triangle(150, 500, 300, 650, 225, 500);
+    //triangle(225, 500, 300, 650, 300, 500);
+    //triangle(300, 500, 300, 650, 375, 500);
+    //triangle(375, 500, 300, 650, 450, 500);
 
+    //bottom row 2nd layer inner right
+    //triangle(300, 500, 300, (500 + 50), (300 + 37.5), 500);
+    //triangle((300 + 37.5), 500, 375 - (), (500 + 50), (300 + 37.5), 500);
 
-    //top row 2nd layer inner left, left to right
+    //top row triangles 2nd layer abstraction, left to right
     triangle(pointc.c1.x, pointc.c1.y, pointb.b1.x, pointb.b1.y, pointc.c2.x, pointc.c2.y);
     triangle(pointc.c2.x, pointc.c2.y, pointb.b2.x, pointb.b2.y, pointc.c3.x, pointc.c3.y);
     triangle(pointc.c3.x, pointc.c3.y, pointb.b2.x, pointb.b2.y, pointc.c4.x, pointc.c4.y);
     triangle(pointc.c4.x, pointc.c4.y, pointb.b3.x, pointb.b3.y, pointc.c5.x, pointc.c5.y);
-
-    //top row 2nd layer inner right
     triangle(pointc.c5.x, pointc.c5.y, pointb.b3.x, pointb.b3.y, pointc.c6.x, pointc.c6.y);
     triangle(pointc.c6.x, pointc.c6.y, pointb.b4.x, pointb.b4.y, pointc.c7.x, pointc.c7.y);
     triangle(pointc.c7.x, pointc.c7.y, pointb.b4.x, pointb.b4.y, pointc.c8.x, pointc.c8.y);
@@ -142,23 +166,18 @@ function draw() {
     quad(pointb.b3.x, pointb.b3.y, pointc.c6.x, pointc.c6.y, pointb.b4.x, pointb.b4.y, pointa.x, pointa.y);
     quad(pointb.b4.x, pointb.b4.y, pointc.c8.x, pointc.c8.y, pointb.b5.x, pointb.b5.y, pointa.x, pointa.y);
 
+    //bottom row triangles 2nd layer abstraction, left to right
+    triangle(pointc.c1.x, pointc.c1.y, pointc.c2.x, pointc.c2.y, pointf.x, pointf.y,);
+    quad(pointc.c2.x, pointc.c2.y, pointc.c3.x, pointc.c3.y, pointe.x, pointe.y, pointf.x, pointf.y);
+    quad(pointc.c3.x, pointc.c3.y, pointc.c4.x, pointc.c4.y, pointd.x, pointd.y, pointe.x, pointe.y);
+    triangle(pointc.c4.x, pointc.c4.y, pointd.x, pointd.y, pointc.c5.x, pointc.c5.y);
+
+    triangle(pointc.c5.x, pointc.c5.y, pointc.c6.x, pointc.c6.y, pointd.x, pointd.y,);
+    quad(pointc.c6.x, pointc.c6.y, pointc.c7.x, pointc.c7.y, pointe.x, pointe.y, pointd.x, pointd.y);
+    quad(pointc.c7.x, pointc.c7.y, pointc.c8.x, pointc.c8.y, pointf.x, pointf.y, pointe.x, pointe.y);
+    triangle(pointc.c8.x, pointc.c8.y, pointc.c9.x, pointc.c9.y, pointf.x, pointf.y,);
 
 
-    //bottom row inner
-    triangle(150, 500, 300, 650, 225, 500);
-    triangle(225, 500, 300, 650, 300, 500);
-    triangle(300, 500, 300, 650, 375, 500);
-    triangle(375, 500, 300, 650, 450, 500);
-
-
-    //bottom row 2nd layer inner left
-    //t4
-    triangle((300 - 37.5), 500, 300, (500 + 50), 300, 500);
-    triangle(x1, y1, x2, y2, x3, y3)
-
-    //bottom row 2nd layer inner right
-    triangle(300, 500, 300, (500 + 50), (300 + 37.5), 500);
-    //triangle((300 + 37.5), 500, 375 - (), (500 + 50), (300 + 37.5), 500);
 
 
 
