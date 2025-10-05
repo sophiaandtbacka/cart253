@@ -12,110 +12,16 @@
  * OH LOOK I DIDN'T DESCRIBE SETUP!!
 */
 function setup() {
-    createCanvas(600, 750);
-
-}
-
-//line a
-const pointa = {
-    x: 300,
-    y: 100,
-}
-
-//line b
-const pointb = {
-    b1: {
-        x: (150 + ((125 * 150) / 400)),
-        y: (500 - 125),
-    },
-
-    b2: {
-        x: (225 + ((125 * 75) / 400)),
-        y: (500 - 125),
-    },
-
-    b3: {
-        x: 300,
-        y: (500 - 125),
-    },
-
-    b4: {
-        x: 375 - ((125 * 75) / 400),
-        y: (500 - 125),
-    },
-
-    b5: {
-        x: (450 - ((125 * 150) / 400)),
-        y: (500 - 125),
+    const stagew = {
+        x: 600
     }
+    const stageh = {
+        y: 750
+    }
+    createCanvas(stagew.x, stageh.y);
+
 }
 
-//line c
-const pointc = {
-    c1: {
-        x: 150,
-        y: 500,
-    },
-
-    c2: {
-        x: (150 + 37.5),
-        y: 500,
-    },
-
-    c3: {
-        x: 225,
-        y: 500,
-    },
-
-    c4: {
-        x: (225 + 37.5),
-        y: 500,
-    },
-
-    //midpoint
-    c5: {
-        x: 300,
-        y: 500,
-    },
-
-    c6: {
-        x: (300 + 37.5),
-        y: 500,
-    },
-
-    c7: {
-        x: 375,
-        y: 500,
-    },
-
-    c8: {
-        x: (375 + 37.5),
-        y: 500,
-    },
-
-    c9: {
-        x: 450,
-        y: 500,
-    },
-}
-
-//line d
-const pointd = {
-    x: 300,
-    y: (500 + 50),
-}
-
-//line e
-const pointe = {
-    x: 300,
-    y: 600,
-}
-
-//line f
-const pointf = {
-    x: 300,
-    y: 650,
-}
 
 
 
@@ -124,9 +30,130 @@ const pointf = {
 */
 function draw() {
     background("#aaaaaa");
+    const darkl = {
+        fill: (0, 0, 0)
+    }
+
+    const leftr = {
+        fill: (255, 255, 255)
+    }
+
+    function splitScreen() {
+        color(dark1);
+        rect(0, 0, stagew / 2, stageh);
+        color(leftr);
+        rect(stagew / 2, 0, stagew / 2, stageh)
+    }
+
+    //splitScreen();
+
+
+
     //outline
 
     fill("#ffffff");
+
+    //line a
+    const pointa = {
+        x: 300,
+        y: 100,
+    }
+
+    //line b
+    const pointb = {
+        b1: {
+            x: (150 + ((125 * 150) / 400)),
+            y: (500 - 125),
+        },
+
+        b2: {
+            x: (225 + ((125 * 75) / 400)),
+            y: (500 - 125),
+        },
+
+        b3: {
+            x: 300,
+            y: (500 - 125),
+        },
+
+        b4: {
+            x: 375 - ((125 * 75) / 400),
+            y: (500 - 125),
+        },
+
+        b5: {
+            x: (450 - ((125 * 150) / 400)),
+            y: (500 - 125),
+        }
+    }
+
+    //line c
+    const pointc = {
+        c1: {
+            x: 150,
+            y: 500,
+        },
+
+        c2: {
+            x: (150 + 37.5),
+            y: 500,
+        },
+
+        c3: {
+            x: 225,
+            y: 500,
+        },
+
+        c4: {
+            x: (225 + 37.5),
+            y: 500,
+        },
+
+        //midpoint
+        c5: {
+            x: 300,
+            y: 500,
+        },
+
+        c6: {
+            x: (300 + 37.5),
+            y: 500,
+        },
+
+        c7: {
+            x: 375,
+            y: 500,
+        },
+
+        c8: {
+            x: (375 + 37.5),
+            y: 500,
+        },
+
+        c9: {
+            x: 450,
+            y: 500,
+        },
+    }
+
+    //line d
+    const pointd = {
+        x: 300,
+        y: (500 + 50),
+    }
+
+    //line e
+    const pointe = {
+        x: 300,
+        y: 600,
+    }
+
+    //line f
+    const pointf = {
+        x: 300,
+        y: 650,
+    }
+
 
     //top tri
     // triangle(150, 500, 300, 100, 450, 500);
@@ -162,6 +189,8 @@ function draw() {
 
     //quad top
     quad(pointb.b1.x, pointb.b1.y, pointc.c2.x, pointc.c2.y, pointb.b2.x, pointb.b2.y, pointa.x, pointa.y);
+    //drawQuad1();
+
     quad(pointb.b2.x, pointb.b2.y, pointc.c4.x, pointc.c4.y, pointb.b3.x, pointb.b3.y, pointa.x, pointa.y);
     quad(pointb.b3.x, pointb.b3.y, pointc.c6.x, pointc.c6.y, pointb.b4.x, pointb.b4.y, pointa.x, pointa.y);
     quad(pointb.b4.x, pointb.b4.y, pointc.c8.x, pointc.c8.y, pointb.b5.x, pointb.b5.y, pointa.x, pointa.y);
@@ -180,6 +209,16 @@ function draw() {
 
 
 
+
+    function mousePressed() {
+        // Check if the click was inside the button
+        const d = dist(mouseX, mouseY, button.x, button.y);
+        const overlap = (d < button.size / 2);
+        if (overlap) {
+            button.soundEffect.play();
+            button.fill = button.fills.pressed;
+        }
+    }
 
 
 }
