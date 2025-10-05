@@ -11,17 +11,18 @@
 /**
  * OH LOOK I DIDN'T DESCRIBE SETUP!!
 */
-function setup() {
-    const stagew = {
-        x: 600
-    }
-    const stageh = {
-        y: 750
-    }
-    createCanvas(stagew.x, stageh.y);
 
+//cavas website size
+const stage = {
+    x: 600,
+    y: 750
 }
 
+
+//setup
+function setup() {
+    createCanvas(stage.x, stage.y);
+}
 
 
 
@@ -30,6 +31,8 @@ function setup() {
 */
 function draw() {
     background("#aaaaaa");
+
+    //not working rn
     const darkl = {
         fill: (0, 0, 0)
     }
@@ -38,15 +41,15 @@ function draw() {
         fill: (255, 255, 255)
     }
 
+    //black left, white right 
     function splitScreen() {
-        color(dark1);
-        rect(0, 0, stagew / 2, stageh);
-        color(leftr);
-        rect(stagew / 2, 0, stagew / 2, stageh)
+        fill(0, 0, 0);
+        rect(0, 0, stage.x / 2, stage.y);
+        fill(255, 255, 255);
+        rect(stage.x / 2, 0, stage.x / 2, stage.y);
     }
 
-    //splitScreen();
-
+    splitScreen()
 
 
     //outline
@@ -207,18 +210,61 @@ function draw() {
     triangle(pointc.c8.x, pointc.c8.y, pointc.c9.x, pointc.c9.y, pointf.x, pointf.y,);
 
 
-
-
-
-    function mousePressed() {
-        // Check if the click was inside the button
-        const d = dist(mouseX, mouseY, button.x, button.y);
-        const overlap = (d < button.size / 2);
-        if (overlap) {
-            button.soundEffect.play();
-            button.fill = button.fills.pressed;
-        }
+    //button
+    const button1 = {
+        x: 100,
+        y: 100,
+        size: 50,
+        fill: (255),
+        pressed: (255, 0, 0),
     }
 
+    const button2 = {
+        x: 500,
+        y: 100,
+        size: 50,
+        fill: 255
+    }
+    function button() {
+        strokeWeight(2);
+
+        fill(255, 255, 255);
+        ellipse(button1.x, button1.y, button1.size);
+
+        textAlign(CENTER);
+        textSize(32);
+        fill(0);
+        textFont('Arial');
+        text('D', button1.x, button1.y + 10);
+
+
+
+
+        fill(0, 0, 0);
+        ellipse(button2.x, button2.y, button2.size);
+
+        textAlign(RIGHT);
+        textSize(32);
+        fill(255);
+        textFont('Arial');
+        text('M', button2.x + 12, button2.y + 11.5);
+    }
+
+    button();
+
+    //colours not working
+    //changes when touches pills, not working right now
+
+    function mousePressed() {
+        //Check if the click was inside the button
+        const d = dist(mouseX, mouseY, button1.x, button1.y);
+        const overlap = (d < button1.size / 2);
+        if (overlap) {
+            button.bark.wav.play();
+            button.fill = button.pressed;
+        }
+    };
+
+    mousePressed();
 
 }
