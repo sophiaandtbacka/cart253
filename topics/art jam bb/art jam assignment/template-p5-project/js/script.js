@@ -13,7 +13,47 @@
 //cavas website size constants that I have named stage
 const stage = {
     x: 600,
-    y: 750
+    y: 750,
+    h: 600 / 2,
+}
+
+// The button
+const button1 = {
+    // Position and size
+    x: 100,
+    y: 100,
+    // Colours
+    size: 50,
+    fill: "#ffffffff",
+    fills: {
+        unpressed: "#ffffffff",
+        pressed: "#9b9b9bff"
+    },
+    // The sound effect to play, we'll load it in preload below
+    soundEffect: undefined
+}
+
+const button2 = {
+    // Position and size
+    x: 500,
+    y: 100,
+    // Colours
+    size: 50,
+    fill: "#000000",
+    fills: {
+        unpressed: "#000000",
+        pressed: "#3e3d3dff"
+    },
+    // The sound effect to play, we'll load it in preload below
+    soundEffect: undefined
+}
+
+
+/**
+ * Load the sound effect
+ */
+function preload() {
+    button1.soundEffect = loadSound("assets/sounds/bark.wav");
 }
 
 
@@ -29,6 +69,7 @@ function setup() {
  * Draws Gem
 */
 function draw() {
+
 
     //constants for split screen
     //one has hex value the other rgb
@@ -48,8 +89,10 @@ function draw() {
     function splitScreen() {
         push();
         fill(darkl.fill);
-        rect(0, 0, stage.x / 2, stage.y);
+        rect(0, 0, stage.h, stage.y);
         pop();
+
+
 
         push();
         fill(lightr.fill.r, lightr.fill.g, lightr.fill.b);
@@ -216,49 +259,11 @@ function draw() {
 
 
     //buttons
-    //left button 'D' (for depression) constants
-    const button1 = {
-        //position and size
-        x: 100,
-        y: 100,
-        size: 50,
-
-        //colors
-        fill: "#ffffff",
-        fills: {
-            unpressed: "#ffffff",
-            pressed: "#cccccc"
-        },
-
-        //will be loaded in preload
-        soundEffect: undefined
-    }
-
-    //right button 'M' (for mania) constants
-    const button2 = {
-        x: 500,
-        y: 100,
-        size: 50,
-
-        //colors
-        fill: "#000000",
-        fills: {
-            unpressed: "#000000",
-            pressed: "#aaaaaa"
-        },
-    }
-
-    //load the sound effect
-    function preload() {
-        button1.soundEffect = loadSound("assets/sounds/bark.wav");
-    }
-
-
-    //buttons
     //might change to no stroke depending on whether I change split screen colors
-    //button 1
+    //button 1 //left button 'D' (for depression)
+    // The button 1
     push();
-    strokeWeight(2);
+    noStroke();
     fill(button1.fill);
     ellipse(button1.x, button1.y, button1.size);
 
@@ -270,42 +275,49 @@ function draw() {
     text('D', button1.x, button1.y + 10);
     pop();
 
-    //button 2
+
+    // The button 2
     push();
-    strokeWeight(2);
+    noStroke();
     fill(button2.fill);
     ellipse(button2.x, button2.y, button2.size);
 
     //text in button 2
-    textAlign(RIGHT);
+    textAlign(CENTER);
     textSize(32);
     fill(255);
     textFont('Arial');
-    text('M', button2.x + 12, button2.y + 11.5);
+    text('M', button2.x, button2.y + 10);
     pop();
-
-
-
-
-    //colours not working
-    //changes when touches pills, not working right now
-
-    function mousePressed() {
-        //Check if the click was inside the button
-        const d = dist(mouseX, mouseY, button1.x, button1.y);
-        const overlap = (d < button1.size / 2);
-        if (overlap) {
-            button1.soundEffect.play();
-            button1.fill = button1.fills.pressed;
-        }
-        console.log();
-
-    }
 
 
 
 }
 
+/**
+ * Check if the user clicked and play the sound
+ */
+function mousePressed() {
+    // Check if the click was inside the button
+    const d = dist(mouseX, mouseY, button1.x, button1.y);
+    const overlap = (d < button1.size / 2);
+    if (overlap) {
+        button1.soundEffect.play();
+        button1.fill = button1.fills.pressed;
+    }
+
+    const d1 = dist(mouseX, mouseY, button2.x, button2.y);
+    const overlap1 = (d1 < button2.size / 2);
+    if (overlap1) {
+        button1.soundEffect.play();
+        button2.fill = button2.fills.pressed;
+    }
+}
+
+/**
+ * Make the button unpressed
+ */
 function mouseReleased() {
     button1.fill = button1.fills.unpressed;
-};
+    button2.fill = button2.fills.unpressed;
+}
