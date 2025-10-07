@@ -17,7 +17,7 @@ const stage = {
     h: 600 / 2,
 }
 
-// The button
+// The buttons
 const button1 = {
     // Position and size
     x: 100,
@@ -49,9 +49,8 @@ const button2 = {
 }
 
 
-/**
- * Load the sound effect
- */
+
+//Load the sound effect
 function preload() {
     button1.soundEffect = loadSound("assets/sounds/bark.wav");
 }
@@ -64,11 +63,20 @@ function setup() {
 }
 
 
-
-/**
- * Draws Gem
-*/
+//Draws Gem
 function draw() {
+
+    const rectB = {
+        unchange: stage.x / 2,
+        changed: undefined,
+
+    }
+
+    const rectL = {
+        unchange: stage.x / 2,
+        changed: undefined,
+
+    }
 
 
     //constants for split screen
@@ -89,14 +97,14 @@ function draw() {
     function splitScreen() {
         push();
         fill(darkl.fill);
-        rect(0, 0, stage.h, stage.y);
+        rect(0, 0, rectB.unchange, stage.y);
         pop();
 
 
 
         push();
         fill(lightr.fill.r, lightr.fill.g, lightr.fill.b);
-        rect(stage.x / 2, 0, stage.x / 2, stage.y);
+        rect(stage.h, 0, rectL.unchange, stage.y);
         pop();
     }
 
@@ -291,20 +299,21 @@ function draw() {
     pop();
 
 
+    //Check if the user clicked and play the sound
+    function mousePressed() {
+        // Check if the click was inside the button D
+        const d = dist(mouseX, mouseY, button1.x, button1.y);
+        const overlap = (d < button1.size / 2);
+        if (overlap) {
+            button1.soundEffect.play();
+            button1.fill = button1.fills.pressed;
+            rectB.unchange = rectB.unchange + 100;
 
-}
+        }
 
-/**
- * Check if the user clicked and play the sound
- */
-function mousePressed() {
-    // Check if the click was inside the button
-    const d = dist(mouseX, mouseY, button1.x, button1.y);
-    const overlap = (d < button1.size / 2);
-    if (overlap) {
-        button1.soundEffect.play();
-        button1.fill = button1.fills.pressed;
+
     }
+
 
     const d1 = dist(mouseX, mouseY, button2.x, button2.y);
     const overlap1 = (d1 < button2.size / 2);
@@ -314,9 +323,8 @@ function mousePressed() {
     }
 }
 
-/**
- * Make the button unpressed
- */
+
+//Make the button unpressed
 function mouseReleased() {
     button1.fill = button1.fills.unpressed;
     button2.fill = button2.fills.unpressed;
