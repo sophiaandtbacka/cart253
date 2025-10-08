@@ -5,114 +5,106 @@
  * A button that, when pressed, plays a barking sound
     */
 
-// The button
+"use strict";
+
+const stage = {
+    x: 600,
+    y: 750,
+};
+
 const button1 = {
-    // Position and size
     x: 100,
     y: 100,
-    // Colours
     size: 50,
     fill: "#ffffffff",
     fills: {
         unpressed: "#ffffffff",
         pressed: "#9b9b9bff"
     },
-    // The sound effect to play, we'll load it in preload below
     soundEffect: undefined
-}
+};
 
 const button2 = {
-    // Position and size
     x: 500,
     y: 100,
-    // Colours
     size: 50,
     fill: "#000000",
     fills: {
         unpressed: "#000000",
         pressed: "#3e3d3dff"
     },
-    // The sound effect to play, we'll load it in preload below
     soundEffect: undefined
-}
+};
 
+// Rectangle halves
+let rectB = {
+    width: stage.x / 2,
+    fill: "#000000"
+};
 
+let rectL = {
+    width: stage.x / 2,
+    fill: "#ffffff"
+};
 
-/**
- * Load the sound effect
- */
-function preload() {
-    button1.soundEffect = loadSound("assets/sounds/bark.wav");
-}
+// Flag for animation
+let growing = false;
 
-
-
-/**
- * Create the canvas
- */
 function setup() {
-    createCanvas(600, 750);
+    createCanvas(stage.x, stage.y);
 }
 
-/**
- * Display the button
- */
 function draw() {
     background("#aaaaaa");
 
-    // The button 1
+    // Update rectB if growing
+    if (growing) {
+        rectB.width += 3; // speed of growth per frame
+        rectB.width = constrain(rectB.width, 0, stage.x);
+        if (rectB.width >= stage.x) {
+            growing = false; // stop at edge
+        }
+    }
+
+    // Draw rectangles
+    fill(rectB.fill);
+    rect(0, 0, rectB.width, stage.y);
+
+    fill(rectL.fill);
+    rect(rectB.width, 0, stage.x - rectB.width, stage.y);
+
+    // Draw buttons
+    drawButton(button1, "D", 0);
+    drawButton(button2, "M", 255);
+}
+
+function drawButton(button, label, textColor) {
     push();
     noStroke();
-    fill(button1.fill);
-    ellipse(button1.x, button1.y, button1.size);
-
-    //text in button 1
-    textAlign(CENTER);
+    fill(button.fill);
+    ellipse(button.x, button.y, button.size);
+    textAlign(CENTER, CENTER);
     textSize(32);
-    fill(0);
-    textFont('Arial');
-    text('D', button1.x, button1.y + 10);
-    pop();
-
-
-    // The button 2
-    push();
-    noStroke();
-    fill(button2.fill);
-    ellipse(button2.x, button2.y, button2.size);
-
-    //text in button 2
-    textAlign(CENTER);
-    textSize(32);
-    fill(255);
-    textFont('Arial');
-    text('M', button2.x, button2.y + 10);
+    fill(textColor);
+    textFont("Arial");
+    text(label, button.x, button.y + 2);
     pop();
 }
 
-/**
- * Check if the user clicked and play the sound
- */
 function mousePressed() {
-    // Check if the click was inside the button
-    const d = dist(mouseX, mouseY, button1.x, button1.y);
-    const overlap = (d < button1.size / 2);
-    if (overlap) {
-        button1.soundEffect.play();
+    const d1 = dist(mouseX, mouseY, button1.x, button1.y);
+    if (d1 < button1.size / 2) {
         button1.fill = button1.fills.pressed;
+        growing = true; // start growing animation
     }
 
-    const d1 = dist(mouseX, mouseY, button2.x, button2.y);
-    const overlap1 = (d1 < button2.size / 2);
-    if (overlap1) {
-        button1.soundEffect.play();
+    const d2 = dist(mouseX, mouseY, button2.x, button2.y);
+    if (d2 < button2.size / 2) {
         button2.fill = button2.fills.pressed;
+        growing = false; // stop if “M” clicked
     }
 }
 
-/**
- * Make the button unpressed
- */
 function mouseReleased() {
     button1.fill = button1.fills.unpressed;
     button2.fill = button2.fills.unpressed;

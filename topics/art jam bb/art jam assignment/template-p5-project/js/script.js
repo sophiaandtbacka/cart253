@@ -17,13 +17,15 @@ const stage = {
     h: 600 / 2,
 }
 
+
 // The buttons
 const button1 = {
     // Position and size
     x: 100,
     y: 100,
-    // Colours
     size: 50,
+
+    // Colours
     fill: "#ffffffff",
     fills: {
         unpressed: "#ffffffff",
@@ -37,8 +39,9 @@ const button2 = {
     // Position and size
     x: 500,
     y: 100,
-    // Colours
     size: 50,
+
+    // Colours
     fill: "#000000",
     fills: {
         unpressed: "#000000",
@@ -49,11 +52,131 @@ const button2 = {
 }
 
 
+//def rect halves
+let rectB = {
+    width: stage.h,
+    //can change to undefined and other to color if want to change color
+    fill: "#000000"
+}
+
+let rectL = {
+    width: stage.h,
+    //can change to undefined and other to color if want to change color
+    fill: "#ffffff"
+}
+
+//sets the baseline for the screens activity
+let growing = false;
+
+
+//gem grid constants
+//line a point
+const pointa = {
+    x: 300,
+    y: 100,
+}
+
+//line b points
+const pointb = {
+    b1: {
+        x: (150 + ((125 * 150) / 400)),
+        y: (500 - 125),
+    },
+
+    b2: {
+        x: (225 + ((125 * 75) / 400)),
+        y: (500 - 125),
+    },
+
+    b3: {
+        x: 300,
+        y: (500 - 125),
+    },
+
+    b4: {
+        x: 375 - ((125 * 75) / 400),
+        y: (500 - 125),
+    },
+
+    b5: {
+        x: (450 - ((125 * 150) / 400)),
+        y: (500 - 125),
+    }
+}
+
+//line c points
+const pointc = {
+    c1: {
+        x: 150,
+        y: 500,
+    },
+
+    c2: {
+        x: (150 + 37.5),
+        y: 500,
+    },
+
+    c3: {
+        x: 225,
+        y: 500,
+    },
+
+    c4: {
+        x: (225 + 37.5),
+        y: 500,
+    },
+
+    //midpoint
+    c5: {
+        x: 300,
+        y: 500,
+    },
+
+    c6: {
+        x: (300 + 37.5),
+        y: 500,
+    },
+
+    c7: {
+        x: 375,
+        y: 500,
+    },
+
+    c8: {
+        x: (375 + 37.5),
+        y: 500,
+    },
+
+    c9: {
+        x: 450,
+        y: 500,
+    },
+}
+
+//line d points
+const pointd = {
+    x: 300,
+    y: (500 + 50),
+}
+
+//line e points
+const pointe = {
+    x: 300,
+    y: 600,
+}
+
+//line f points
+const pointf = {
+    x: 300,
+    y: 650,
+}
+
 
 //Load the sound effect
 function preload() {
     button1.soundEffect = loadSound("assets/sounds/bark.wav");
 }
+
 
 
 //setup
@@ -63,179 +186,44 @@ function setup() {
 }
 
 
+
 //Draws Gem
 function draw() {
 
-    const rectB = {
-        unchange: stage.x / 2,
-        changed: undefined,
+    background("#aaaaaa");
 
-    }
-
-    const rectL = {
-        unchange: stage.x / 2,
-        changed: undefined,
-
-    }
-
-
-    //constants for split screen
-    //one has hex value the other rgb
-    const darkl = {
-        fill: "#000000"
-    }
-
-    const lightr = {
-        fill: {
-            r: 255,
-            g: 255,
-            b: 255,
+    if (growing) {
+        rectB.width += 5; // speed of growth per frame
+        rectB.width = constrain(rectB.width, 0, stage.x);
+        rectL.width = stage.x - rectB.width
+        if (rectB.width >= stage.x) {
+            growing = false; // stop at edge
+            //here can put disappearing button like edge hit = true
         }
     }
 
-    //black left, white right 
-    function splitScreen() {
-        push();
-        fill(darkl.fill);
-        rect(0, 0, rectB.unchange, stage.y);
-        pop();
+
+    //split screen to black left half and right white half 
+    push();
+    fill(rectB.fill);
+    rect(0, 0, rectB.width, stage.y);
+    pop();
+
+    push();
+    fill(rectL.fill);
+    rect(rectB.width, 0, rectL.width, stage.y);
+    pop();
+
+    drawGem();
+
+    drawButton(button1, "D", 0);
+    drawButton(button2, "M", 255);
+
+}
 
 
 
-        push();
-        fill(lightr.fill.r, lightr.fill.g, lightr.fill.b);
-        rect(stage.h, 0, rectL.unchange, stage.y);
-        pop();
-    }
-
-    splitScreen()
-
-
-    //gem grid constants
-    //line a
-    const pointa = {
-        x: 300,
-        y: 100,
-    }
-
-    //line b
-    const pointb = {
-        b1: {
-            x: (150 + ((125 * 150) / 400)),
-            y: (500 - 125),
-        },
-
-        b2: {
-            x: (225 + ((125 * 75) / 400)),
-            y: (500 - 125),
-        },
-
-        b3: {
-            x: 300,
-            y: (500 - 125),
-        },
-
-        b4: {
-            x: 375 - ((125 * 75) / 400),
-            y: (500 - 125),
-        },
-
-        b5: {
-            x: (450 - ((125 * 150) / 400)),
-            y: (500 - 125),
-        }
-    }
-
-    //line c
-    const pointc = {
-        c1: {
-            x: 150,
-            y: 500,
-        },
-
-        c2: {
-            x: (150 + 37.5),
-            y: 500,
-        },
-
-        c3: {
-            x: 225,
-            y: 500,
-        },
-
-        c4: {
-            x: (225 + 37.5),
-            y: 500,
-        },
-
-        //midpoint
-        c5: {
-            x: 300,
-            y: 500,
-        },
-
-        c6: {
-            x: (300 + 37.5),
-            y: 500,
-        },
-
-        c7: {
-            x: 375,
-            y: 500,
-        },
-
-        c8: {
-            x: (375 + 37.5),
-            y: 500,
-        },
-
-        c9: {
-            x: 450,
-            y: 500,
-        },
-    }
-
-    //line d
-    const pointd = {
-        x: 300,
-        y: (500 + 50),
-    }
-
-    //line e
-    const pointe = {
-        x: 300,
-        y: 600,
-    }
-
-    //line f
-    const pointf = {
-        x: 300,
-        y: 650,
-    }
-
-
-    //top tri
-    // triangle(150, 500, 300, 100, 450, 500);
-
-    //bottom tri
-    //triangle(150, 500, 300, 650, 450, 500);
-
-    //top row inner
-    //triangle(150, 500, 300, 100, 225, 500);
-    //triangle(225, 500, 300, 100, 300, 500);
-    //triangle(300, 500, 300, 100, 375, 500);
-    //triangle(375, 500, 300, 100, 450, 500);
-
-    //bottom row inner
-    //triangle(150, 500, 300, 650, 225, 500);
-    //triangle(225, 500, 300, 650, 300, 500);
-    //triangle(300, 500, 300, 650, 375, 500);
-    //triangle(375, 500, 300, 650, 450, 500);
-
-    //bottom row 2nd layer inner right
-    //triangle(300, 500, 300, (500 + 50), (300 + 37.5), 500);
-    //triangle((300 + 37.5), 500, 375 - (), (500 + 50), (300 + 37.5), 500);
-
+function drawGem() {
     fill("#ffffff");
 
     //quad top
@@ -264,68 +252,101 @@ function draw() {
     quad(pointc.c6.x, pointc.c6.y, pointc.c7.x, pointc.c7.y, pointe.x, pointe.y, pointd.x, pointd.y);
     quad(pointc.c7.x, pointc.c7.y, pointc.c8.x, pointc.c8.y, pointf.x, pointf.y, pointe.x, pointe.y);
     triangle(pointc.c8.x, pointc.c8.y, pointc.c9.x, pointc.c9.y, pointf.x, pointf.y,);
+}
 
-
-    //buttons
-    //might change to no stroke depending on whether I change split screen colors
-    //button 1 //left button 'D' (for depression)
-    // The button 1
+//buttons
+//might change to no stroke depending on whether I change split screen colors
+//button 1 //left button 'D' (for depression)
+// The button 1
+function drawButton(button, label, textColor) {
     push();
     noStroke();
-    fill(button1.fill);
-    ellipse(button1.x, button1.y, button1.size);
+    fill(button.fill);
+    ellipse(button.x, button.y, button.size);
 
-    //text in button 1
-    textAlign(CENTER);
+    //text in buttons
+    textAlign(CENTER, CENTER);
     textSize(32);
-    fill(0);
+    fill(textColor);
     textFont('Arial');
-    text('D', button1.x, button1.y + 10);
+    text(label, button.x, button.y + 2);
     pop();
+}
 
 
-    // The button 2
-    push();
-    noStroke();
-    fill(button2.fill);
-    ellipse(button2.x, button2.y, button2.size);
+// The button 2
+//push();
+//noStroke();
+//fill(button2.fill);
+//ellipse(button2.x, button2.y, button2.size);
 
-    //text in button 2
-    textAlign(CENTER);
-    textSize(32);
-    fill(255);
-    textFont('Arial');
-    text('M', button2.x, button2.y + 10);
-    pop();
-
-
-    //Check if the user clicked and play the sound
-    function mousePressed() {
-        // Check if the click was inside the button D
-        const d = dist(mouseX, mouseY, button1.x, button1.y);
-        const overlap = (d < button1.size / 2);
-        if (overlap) {
-            button1.soundEffect.play();
-            button1.fill = button1.fills.pressed;
-            rectB.unchange = rectB.unchange + 100;
-
-        }
+//text in button 2
+//textAlign(CENTER);
+//textSize(32);
+//fill(255);
+//textFont('Arial');
+//text('M', button2.x, button2.y + 10);
+//pop();
 
 
-    }
 
+//Check if the user clicked and play the sound
+//used edited version of example code from dog button pippin example
+function mousePressed(event) {
+    // Check if the click was inside the button D
+    const d1 = dist(mouseX, mouseY, button1.x, button1.y);
+    const overlap1 = (d1 < button1.size / 2);
 
-    const d1 = dist(mouseX, mouseY, button2.x, button2.y);
-    const overlap1 = (d1 < button2.size / 2);
     if (overlap1) {
         button1.soundEffect.play();
+        button1.fill = button1.fills.pressed;
+        growing = true;
+        console.log();
+
+    }
+
+    const d2 = dist(mouseX, mouseY, button2.x, button2.y);
+    const overlap2 = (d2 < button2.size / 2);
+    if (overlap2) {
+        button1.soundEffect.play();
         button2.fill = button2.fills.pressed;
+        growing = false;
     }
 }
+
 
 
 //Make the button unpressed
 function mouseReleased() {
     button1.fill = button1.fills.unpressed;
     button2.fill = button2.fills.unpressed;
+
 }
+
+
+
+
+
+
+
+//top tri
+// triangle(150, 500, 300, 100, 450, 500);
+
+//bottom tri
+//triangle(150, 500, 300, 650, 450, 500);
+
+//top row inner
+//triangle(150, 500, 300, 100, 225, 500);
+//triangle(225, 500, 300, 100, 300, 500);
+//triangle(300, 500, 300, 100, 375, 500);
+//triangle(375, 500, 300, 100, 450, 500);
+
+//bottom row inner
+//triangle(150, 500, 300, 650, 225, 500);
+//triangle(225, 500, 300, 650, 300, 500);
+//triangle(300, 500, 300, 650, 375, 500);
+//triangle(375, 500, 300, 650, 450, 500);
+
+//bottom row 2nd layer inner right
+//triangle(300, 500, 300, (500 + 50), (300 + 37.5), 500);
+//triangle((300 + 37.5), 500, 375 - (), (500 + 50), (300 + 37.5), 500);
