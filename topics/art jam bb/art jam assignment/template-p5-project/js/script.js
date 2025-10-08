@@ -22,7 +22,7 @@ const stage = {
 const button1 = {
     // Position and size
     x: 100,
-    y: 100,
+    y: 650,
     size: 50,
 
     // Colours
@@ -66,7 +66,9 @@ let rectL = {
 }
 
 //sets the baseline for the screens activity
-let growing = false;
+let Bgrowing = false;
+
+let Lgrowing = false;
 
 
 //gem grid constants
@@ -190,17 +192,28 @@ function setup() {
 //Draws Gem
 function draw() {
 
-    background("#aaaaaa");
 
-    if (growing) {
-        rectB.width += 5; // speed of growth per frame
+    if (Bgrowing) {
+        rectB.width += 5; // speed of  black growth per frame
         rectB.width = constrain(rectB.width, 0, stage.x);
         rectL.width = stage.x - rectB.width
         if (rectB.width >= stage.x) {
-            growing = false; // stop at edge
+            Bgrowing = false; // stop at edge
             //here can put disappearing button like edge hit = true
         }
     }
+
+    if (Lgrowing) {
+        rectL.width += 5; // speed of  black growth per frame
+        rectL.width = constrain(rectL.width, 0, stage.x);
+        rectB.width = stage.x - rectL.width
+        if (rectB.width >= stage.x) {
+            Bgrowing = false; // stop at edge
+            //here can put disappearing button like edge hit = true
+        }
+    }
+
+
 
 
     //split screen to black left half and right white half 
@@ -214,10 +227,23 @@ function draw() {
     rect(rectB.width, 0, rectL.width, stage.y);
     pop();
 
-    drawGem();
+    if (rectB.width < stage.x && rectL.width < stage.x) {
+        drawButton(button1, "D", 0);
+        drawButton(button2, "M", 255);
+        drawGem();
 
-    drawButton(button1, "D", 0);
-    drawButton(button2, "M", 255);
+    }
+    else if (rectB.width = stage.x) {
+        drawGem();
+        translate(125, 0, 0);
+        drawGem();
+    }
+    else if (rectL.width = stage.x) {
+        drawGem();
+    }
+
+
+
 
 }
 
@@ -274,19 +300,6 @@ function drawButton(button, label, textColor) {
 }
 
 
-// The button 2
-//push();
-//noStroke();
-//fill(button2.fill);
-//ellipse(button2.x, button2.y, button2.size);
-
-//text in button 2
-//textAlign(CENTER);
-//textSize(32);
-//fill(255);
-//textFont('Arial');
-//text('M', button2.x, button2.y + 10);
-//pop();
 
 
 
@@ -300,7 +313,8 @@ function mousePressed(event) {
     if (overlap1) {
         button1.soundEffect.play();
         button1.fill = button1.fills.pressed;
-        growing = true;
+        Bgrowing = true;
+        Lgrowing = false;
         console.log();
 
     }
@@ -310,7 +324,8 @@ function mousePressed(event) {
     if (overlap2) {
         button1.soundEffect.play();
         button2.fill = button2.fills.pressed;
-        growing = false;
+        Lgrowing = true;
+        Bgrowing = false;
     }
 }
 
@@ -324,6 +339,19 @@ function mouseReleased() {
 }
 
 
+// The button 2
+//push();
+//noStroke();
+//fill(button2.fill);
+//ellipse(button2.x, button2.y, button2.size);
+
+//text in button 2
+//textAlign(CENTER);
+//textSize(32);
+//fill(255);
+//textFont('Arial');
+//text('M', button2.x, button2.y + 10);
+//pop();
 
 
 
