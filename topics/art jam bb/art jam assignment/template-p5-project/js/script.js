@@ -167,11 +167,6 @@ let pointf = {
 }
 
 
-//Load the sound effects that will be later activated when the Mania or Depression pill button are pushed
-function preload() {
-    button1.soundEffect = loadSound("assets/sounds/bark.wav");
-}
-
 
 //quad top
 let quadA = {
@@ -358,6 +353,14 @@ let triangleM = {
     }
 }
 
+let img;
+
+//Load the sound effects that will be later activated when the Mania or Depression pill button are pushed
+function preload() {
+    button1.soundEffect = loadSound("assets/sounds/bark.wav");
+    img = loadImage('assets/images/depressed.png');
+}
+
 
 
 //setup canvas size and background
@@ -407,17 +410,19 @@ function draw() {
 
     //controls when the Depression and Mania buttons are drawn, changes gem and gem interaction when depression and mania screens appear 
     if (rectD.width < stage.x && rectM.width < stage.x) {
-        drawButton(button1, "D", 0);
-        drawButton(button2, "M", 255);
+        drawButton(button1, "D", 0, 0);
+        drawButton(button2, "M", 255, 255);
         drawGem();
+        button1.soundEffect.play();
+        image(img, 0, 0, 200, 433);
 
     }
     else if (rectD.width === stage.x) {
+        //makes it so that the gem points will be stagnant at the top and bottom
         pointa.x = 300;
         pointa.y = 100;
         pointf.x = 300;
         pointf.y = 650;
-        //maybe issue later on depression
         pointe.x = 300;
         pointe.y = 600;
         pointd.x = 300;
@@ -425,11 +430,11 @@ function draw() {
         drawGemD();
     }
     else if (rectM.width === stage.x) {
+        //makes it so that the gem points will be stagnant at the top and bottom
         pointa.x = 300;
         pointa.y = 100;
         pointf.x = 300;
         pointf.y = 650;
-        //maybe issue later on mania
         pointe.x = 300;
         pointe.y = 600;
         pointd.x = 300;
@@ -863,11 +868,18 @@ function drawGemD() {
 //might change to no stroke depending on whether I change split screen colors
 //button 1 //left button 'D' (for depression)
 // The button 1
-function drawButton(button, label, textColor) {
+function drawButton(button, label, textColor, color) {
     push();
     noStroke();
     fill(button.fill);
     ellipse(button.x, button.y, button.size);
+
+    push();
+    stroke(color);
+    strokeWeight(7);
+    line(button.x - button.size / 2, button.y, button.x - (button.size / 3.6), button.y);
+    line(button.x + button.size / 2, button.y, button.x + (button.size / 3.5), button.y);
+    pop();
 
     //text in buttons
     textAlign(CENTER, CENTER);
@@ -935,51 +947,3 @@ function mouseReleased() {
 //bottom row 2nd layer inner right
 //triangle(300, 500, 300, (500 + 50), (300 + 37.5), 500);
 //triangle((300 + 37.5), 500, 375 - (), (500 + 50), (300 + 37.5), 500);
-
-
-
-//not working
-//refreshes the quad and triangle points, makes it so the bottom point goes back to it's original position
-//triangleJ = [
-//  pointc.c1.x, pointc.c1.y,
-//  pointc.c2.x, pointc.c2.y,
-//  pointf.x, pointf.y];
-
-//quadE.quad = [
-//pointc.c2.x, pointc.c2.y,
-// pointc.c3.x, pointc.c3.y,
-//pointe.x, pointe.y,
-// pointf.x, pointf.y];
-
-//quadF.quad = [
-// pointc.c3.x, pointc.c3.y,
-// pointc.c4.x, pointc.c4.y,
-// pointd.x, pointd.y,
-//pointe.x, pointe.y];
-
-//triangleK = [
-//pointc.c4.x, pointc.c4.y,
-//pointd.x, pointd.y,
-//pointc.c5.x, pointc.c5.y];
-
-//triangleL = [
-//pointc.c5.x, pointc.c5.y,
-//pointc.c6.x, pointc.c6.y,
-//pointd.x, pointd.y];
-
-//quadG.quad = [
-//pointc.c6.x, pointc.c6.y,
-//pointc.c7.x, pointc.c7.y,
-//pointe.x, pointe.y,
-//pointd.x, pointd.y];
-
-//quadH.quad = [
-//pointc.c7.x, pointc.c7.y,
-//pointc.c8.x, pointc.c8.y,
-// pointf.x, pointf.y,
-//pointe.x, pointe.y];
-
-//triangleM = [
-//pointc.c8.x, pointc.c8.y,
-//pointc.c9.x, pointc.c9.y,
-//pointf.x, pointf.y];
