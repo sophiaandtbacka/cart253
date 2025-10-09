@@ -353,12 +353,15 @@ let triangleM = {
     }
 }
 
-let img;
+let Dimg;
+let Mimg;
+
 
 //Load the sound effects that will be later activated when the Mania or Depression pill button are pushed
 function preload() {
     button1.soundEffect = loadSound("assets/sounds/bark.wav");
-    img = loadImage('assets/images/depressed.png');
+    Dimg = loadImage('assets/images/depressed.png');
+    Mimg = loadImage('assets/images/mania.png');
 }
 
 
@@ -414,7 +417,8 @@ function draw() {
         drawButton(button2, "M", 255, 255);
         drawGem();
         button1.soundEffect.play();
-        image(img, 0, 0, 200, 433);
+        image(Dimg, 0, 0, 200, 433);
+        image(Mimg, 475, stage.y - 433, 125, 433);
 
     }
     else if (rectD.width === stage.x) {
