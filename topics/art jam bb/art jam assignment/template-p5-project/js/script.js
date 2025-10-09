@@ -73,7 +73,7 @@ let Lgrowing = false;
 
 //gem grid constants
 //line a point
-const pointa = {
+let pointa = {
     x: 300,
     y: 100,
 }
@@ -168,7 +168,7 @@ const pointe = {
 }
 
 //line f points
-const pointf = {
+let pointf = {
     x: 300,
     y: 650,
 }
@@ -234,14 +234,48 @@ function draw() {
 
     }
     else if (rectB.width = stage.x) {
-        drawGem();
-        translate(125, 0, 0);
+        pointa.x = 300;
+        pointa.y = 100;
+        pointf.x = 300;
+        pointf.y = 650;
         drawGem();
     }
     else if (rectL.width = stage.x) {
+        pointa.x = 300;
+        pointa.y = 100;
+        pointf.x = 300;
+        pointf.y = 650;
         drawGem();
     }
 
+    //changes gem point to push the player to push the M button or D button
+    if (mouseY < 375 && mouseX > 300) {
+        pointa.x = mouseX;
+        pointa.y = mouseY;
+        pointf.x = 300;
+        pointf.y = 650;
+    }
+    else if (mouseY > 625 && mouseX < 300) {
+        pointf.x = mouseX;
+        pointf.y = mouseY;
+        pointe.x = pointf.x + 50;
+        pointe.y = pointf.y - 50;
+        pointd.x = pointf.x + 100;
+        pointd.y = pointf.y - 100;
+
+
+    }
+    else if (mouseY > 375 || mouseX < 300) {
+        pointa.x = 300;
+        pointa.y = 100;
+        pointf.x = 300;
+        pointf.y = 650;
+        pointe.x = 300;
+        pointe.y = 600;
+        pointd.x = 300;
+        pointd.y = 550;
+
+    }
 
 
 
