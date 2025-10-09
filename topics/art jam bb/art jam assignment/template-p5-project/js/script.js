@@ -1,5 +1,5 @@
 /**
- * Art Jam: the multifacetted image of Sophia Maryse "Diamond" Andtbacka
+ * Art Jam: the two halves of the multifacetted image of Sophia Maryse "Crystal" Andtbacka
  * Sophia Andtbacka
  * 
  * Self portrait about my bipolar disorder
@@ -323,7 +323,6 @@ let triangleK = {
     }
 }
 
-
 let triangleL = {
     triangle: [pointc.c5.x, pointc.c5.y, pointc.c6.x, pointc.c6.y, pointd.x, pointd.y],
     fill: "#ffffff",
@@ -373,7 +372,7 @@ function setup() {
 //Draws Start Screen and Mania and Depression Pages with Gem Changes
 function draw() {
 
-
+    //Controls the expansion the depression and mania screen
     if (Dgrowing) {
         rectD.width += 2; // speed of  black growth per frame
         rectD.width = constrain(rectD.width, 0, stage.x);
@@ -395,9 +394,7 @@ function draw() {
     }
 
 
-
-
-    //split screen to black left half and right white half 
+    //draws the initial split screen depression side (black) left side and mania side (white) right side
     push();
     fill(rectD.fill);
     rect(0, 0, rectD.width, stage.y);
@@ -408,6 +405,8 @@ function draw() {
     rect(rectD.width, 0, rectM.width, stage.y);
     pop();
 
+
+    //controls when the Depression and Mania buttons are drawn, changes gem and gem interaction when depression and mania screens appear 
     if (rectD.width < stage.x && rectM.width < stage.x) {
         drawButton(button1, "D", 0);
         drawButton(button2, "M", 255);
@@ -437,7 +436,7 @@ function draw() {
         drawGemM();
     }
 
-    //changes gem point to push the player to push the M button or D button
+    //adds interaction to the gem points to push the player to push the Mania button or Depression button
     //changes top gem point
     if (50 < mouseY && mouseY < 375 && mouseX > 300 && mouseX < 600) {
         pointa.x = mouseX;
@@ -567,51 +566,6 @@ function drawGemM() {
         pointb.b5.x, pointb.b5.y,
         pointa.x, pointa.y];
 
-    //not working
-    //refreshes the quad and triangle points, makes it so the bottom point goes back to it's original position
-    triangleJ = [
-        pointc.c1.x, pointc.c1.y,
-        pointc.c2.x, pointc.c2.y,
-        pointf.x, pointf.y];
-
-    quadE.quad = [
-        pointc.c2.x, pointc.c2.y,
-        pointc.c3.x, pointc.c3.y,
-        pointe.x, pointe.y,
-        pointf.x, pointf.y];
-
-    quadF.quad = [
-        pointc.c3.x, pointc.c3.y,
-        pointc.c4.x, pointc.c4.y,
-        pointd.x, pointd.y,
-        pointe.x, pointe.y];
-
-    triangleK = [
-        pointc.c4.x, pointc.c4.y,
-        pointd.x, pointd.y,
-        pointc.c5.x, pointc.c5.y];
-
-    triangleL = [
-        pointc.c5.x, pointc.c5.y,
-        pointc.c6.x, pointc.c6.y,
-        pointd.x, pointd.y];
-
-    quadG.quad = [
-        pointc.c6.x, pointc.c6.y,
-        pointc.c7.x, pointc.c7.y,
-        pointe.x, pointe.y,
-        pointd.x, pointd.y];
-
-    quadH.quad = [
-        pointc.c7.x, pointc.c7.y,
-        pointc.c8.x, pointc.c8.y,
-        pointf.x, pointf.y,
-        pointe.x, pointe.y];
-
-    triangleM = [
-        pointc.c8.x, pointc.c8.y,
-        pointc.c9.x, pointc.c9.y,
-        pointf.x, pointf.y];
 
 
     //draw quad top row with pastel Mania fills
@@ -707,51 +661,6 @@ function drawGemD() {
         pointb.b5.x, pointb.b5.y,
         pointa.x, pointa.y];
 
-    //not working
-    //refreshes the quad and triangle points, makes it so the bottom point goes back to it's original position
-    triangleJ = [
-        pointc.c1.x, pointc.c1.y,
-        pointc.c2.x, pointc.c2.y,
-        pointf.x, pointf.y];
-
-    quadE.quad = [
-        pointc.c2.x, pointc.c2.y,
-        pointc.c3.x, pointc.c3.y,
-        pointe.x, pointe.y,
-        pointf.x, pointf.y];
-
-    quadF.quad = [
-        pointc.c3.x, pointc.c3.y,
-        pointc.c4.x, pointc.c4.y,
-        pointd.x, pointd.y,
-        pointe.x, pointe.y];
-
-    triangleK = [
-        pointc.c4.x, pointc.c4.y,
-        pointd.x, pointd.y,
-        pointc.c5.x, pointc.c5.y];
-
-    triangleL = [
-        pointc.c5.x, pointc.c5.y,
-        pointc.c6.x, pointc.c6.y,
-        pointd.x, pointd.y];
-
-    quadG.quad = [
-        pointc.c6.x, pointc.c6.y,
-        pointc.c7.x, pointc.c7.y,
-        pointe.x, pointe.y,
-        pointd.x, pointd.y];
-
-    quadH.quad = [
-        pointc.c7.x, pointc.c7.y,
-        pointc.c8.x, pointc.c8.y,
-        pointf.x, pointf.y,
-        pointe.x, pointe.y];
-
-    triangleM = [
-        pointc.c8.x, pointc.c8.y,
-        pointc.c9.x, pointc.c9.y,
-        pointf.x, pointf.y];
 
 
     //draw quad top row with pastel Mania fills
@@ -791,6 +700,33 @@ function drawGemD() {
 
     fill(triangleH.fills.d);
     triangle(...triangleH.triangle);
+
+    //not working
+    //bottom row triangles and quad, left to right
+    fill(triangleJ.fills.d);
+    triangle(...triangleJ.triangle);
+
+    fill(quadE.fills.d);
+    quad(...quadE.quad);
+
+    fill(quadF.fills.d);
+    quad(...quadF.quad);
+
+    fill(triangleK.fills.d);
+    triangle(...triangleK.triangle);
+
+    fill(triangleL.fills.d);
+    triangle(...triangleL.triangle);
+
+    fill(quadG.fills.d);
+    quad(...quadG.quad);
+
+    fill(quadH.fills.d);
+    quad(...quadH.quad);
+
+    fill(triangleM.fills.d);
+    triangle(...triangleM.triangle);
+
 
 }
 
@@ -870,3 +806,51 @@ function mouseReleased() {
 //bottom row 2nd layer inner right
 //triangle(300, 500, 300, (500 + 50), (300 + 37.5), 500);
 //triangle((300 + 37.5), 500, 375 - (), (500 + 50), (300 + 37.5), 500);
+
+
+
+//not working
+//refreshes the quad and triangle points, makes it so the bottom point goes back to it's original position
+//triangleJ = [
+//  pointc.c1.x, pointc.c1.y,
+//  pointc.c2.x, pointc.c2.y,
+//  pointf.x, pointf.y];
+
+//quadE.quad = [
+//pointc.c2.x, pointc.c2.y,
+// pointc.c3.x, pointc.c3.y,
+//pointe.x, pointe.y,
+// pointf.x, pointf.y];
+
+//quadF.quad = [
+// pointc.c3.x, pointc.c3.y,
+// pointc.c4.x, pointc.c4.y,
+// pointd.x, pointd.y,
+//pointe.x, pointe.y];
+
+//triangleK = [
+//pointc.c4.x, pointc.c4.y,
+//pointd.x, pointd.y,
+//pointc.c5.x, pointc.c5.y];
+
+//triangleL = [
+//pointc.c5.x, pointc.c5.y,
+//pointc.c6.x, pointc.c6.y,
+//pointd.x, pointd.y];
+
+//quadG.quad = [
+//pointc.c6.x, pointc.c6.y,
+//pointc.c7.x, pointc.c7.y,
+//pointe.x, pointe.y,
+//pointd.x, pointd.y];
+
+//quadH.quad = [
+//pointc.c7.x, pointc.c7.y,
+//pointc.c8.x, pointc.c8.y,
+// pointf.x, pointf.y,
+//pointe.x, pointe.y];
+
+//triangleM = [
+//pointc.c8.x, pointc.c8.y,
+//pointc.c9.x, pointc.c9.y,
+//pointf.x, pointf.y];
