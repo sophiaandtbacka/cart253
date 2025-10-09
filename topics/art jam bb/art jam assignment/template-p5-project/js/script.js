@@ -249,13 +249,13 @@ function draw() {
     }
 
     //changes gem point to push the player to push the M button or D button
-    if (mouseY < 375 && mouseX > 300) {
+    if (50 < mouseY && mouseY < 375 && (mouseX > 300)) {
         pointa.x = mouseX;
         pointa.y = mouseY;
         pointf.x = 300;
         pointf.y = 650;
     }
-    else if (mouseY > 625 && mouseX < 300) {
+    else if (mouseY < 725 && mouseY > 625 && mouseX < 300) {
         pointf.x = mouseX;
         pointf.y = mouseY;
         pointe.x = pointf.x + 50;
@@ -265,7 +265,7 @@ function draw() {
 
 
     }
-    else if (mouseY > 375 || mouseX < 300) {
+    else if (mouseY > 725 || 50 > mouseY || mouseY > 375 || mouseX < 300) {
         pointa.x = 300;
         pointa.y = 100;
         pointf.x = 300;
