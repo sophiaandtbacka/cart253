@@ -151,12 +151,12 @@ const pointc = {
     },
 }
 //line d points
-const pointd = {
+let pointd = {
     x: 300,
     y: (500 + 50),
 }
 //line e points
-const pointe = {
+let pointe = {
     x: 300,
     y: 600,
 }
@@ -285,7 +285,6 @@ let triangleH = {
 }
 
 
-//not working?
 //bottom row of triangle and quad
 let triangleJ = {
     triangle: [pointc.c1.x, pointc.c1.y, pointc.c2.x, pointc.c2.y, pointf.x, pointf.y],
@@ -418,6 +417,7 @@ function draw() {
         pointa.y = 100;
         pointf.x = 300;
         pointf.y = 650;
+        //maybe issue later on depression
         pointe.x = 300;
         pointe.y = 600;
         pointd.x = 300;
@@ -429,6 +429,7 @@ function draw() {
         pointa.y = 100;
         pointf.x = 300;
         pointf.y = 650;
+        //maybe issue later on mania
         pointe.x = 300;
         pointe.y = 600;
         pointd.x = 300;
@@ -471,7 +472,6 @@ function draw() {
 
 
 
-
 //Gem States
 //Draws the Gem for the start screen
 function drawGem() {
@@ -501,7 +501,50 @@ function drawGem() {
         pointb.b5.x, pointb.b5.y,
         pointa.x, pointa.y];
 
+    //bottom interaction
+    triangleJ.triangle = [
+        pointc.c1.x, pointc.c1.y,
+        pointc.c2.x, pointc.c2.y,
+        pointf.x, pointf.y];
 
+    quadE.quad = [
+        pointc.c2.x, pointc.c2.y,
+        pointc.c3.x, pointc.c3.y,
+        pointe.x, pointe.y,
+        pointf.x, pointf.y];
+
+    quadF.quad = [
+        pointc.c3.x, pointc.c3.y,
+        pointc.c4.x, pointc.c4.y,
+        pointd.x, pointd.y,
+        pointe.x, pointe.y];
+
+    triangleK.triangle = [
+        pointc.c4.x, pointc.c4.y,
+        pointd.x, pointd.y,
+        pointc.c5.x, pointc.c5.y];
+
+    triangleL.triangle = [
+        pointc.c5.x, pointc.c5.y,
+        pointc.c6.x, pointc.c6.y,
+        pointd.x, pointd.y];
+
+    quadG.quad = [
+        pointc.c6.x, pointc.c6.y,
+        pointc.c7.x, pointc.c7.y,
+        pointe.x, pointe.y,
+        pointd.x, pointd.y];
+
+    quadH.quad = [
+        pointc.c7.x, pointc.c7.y,
+        pointc.c8.x, pointc.c8.y,
+        pointf.x, pointf.y,
+        pointe.x, pointe.y];
+
+    triangleM.triangle = [
+        pointc.c8.x, pointc.c8.y,
+        pointc.c9.x, pointc.c9.y,
+        pointf.x, pointf.y];
 
 
     //fill for all shapes
@@ -566,7 +609,50 @@ function drawGemM() {
         pointb.b5.x, pointb.b5.y,
         pointa.x, pointa.y];
 
+    //bottom interaction
+    triangleJ.triangle = [
+        pointc.c1.x, pointc.c1.y,
+        pointc.c2.x, pointc.c2.y,
+        pointf.x, pointf.y];
 
+    quadE.quad = [
+        pointc.c2.x, pointc.c2.y,
+        pointc.c3.x, pointc.c3.y,
+        pointe.x, pointe.y,
+        pointf.x, pointf.y];
+
+    quadF.quad = [
+        pointc.c3.x, pointc.c3.y,
+        pointc.c4.x, pointc.c4.y,
+        pointd.x, pointd.y,
+        pointe.x, pointe.y];
+
+    triangleK.triangle = [
+        pointc.c4.x, pointc.c4.y,
+        pointd.x, pointd.y,
+        pointc.c5.x, pointc.c5.y];
+
+    triangleL.triangle = [
+        pointc.c5.x, pointc.c5.y,
+        pointc.c6.x, pointc.c6.y,
+        pointd.x, pointd.y];
+
+    quadG.quad = [
+        pointc.c6.x, pointc.c6.y,
+        pointc.c7.x, pointc.c7.y,
+        pointe.x, pointe.y,
+        pointd.x, pointd.y];
+
+    quadH.quad = [
+        pointc.c7.x, pointc.c7.y,
+        pointc.c8.x, pointc.c8.y,
+        pointf.x, pointf.y,
+        pointe.x, pointe.y];
+
+    triangleM.triangle = [
+        pointc.c8.x, pointc.c8.y,
+        pointc.c9.x, pointc.c9.y,
+        pointf.x, pointf.y];
 
     //draw quad top row with pastel Mania fills
     fill(quadA.fills.m);
@@ -661,7 +747,50 @@ function drawGemD() {
         pointb.b5.x, pointb.b5.y,
         pointa.x, pointa.y];
 
+    //bottom interaction
+    triangleJ.triangle = [
+        pointc.c1.x, pointc.c1.y,
+        pointc.c2.x, pointc.c2.y,
+        pointf.x, pointf.y];
 
+    quadE.quad = [
+        pointc.c2.x, pointc.c2.y,
+        pointc.c3.x, pointc.c3.y,
+        pointe.x, pointe.y,
+        pointf.x, pointf.y];
+
+    quadF.quad = [
+        pointc.c3.x, pointc.c3.y,
+        pointc.c4.x, pointc.c4.y,
+        pointd.x, pointd.y,
+        pointe.x, pointe.y];
+
+    triangleK.triangle = [
+        pointc.c4.x, pointc.c4.y,
+        pointd.x, pointd.y,
+        pointc.c5.x, pointc.c5.y];
+
+    triangleL.triangle = [
+        pointc.c5.x, pointc.c5.y,
+        pointc.c6.x, pointc.c6.y,
+        pointd.x, pointd.y];
+
+    quadG.quad = [
+        pointc.c6.x, pointc.c6.y,
+        pointc.c7.x, pointc.c7.y,
+        pointe.x, pointe.y,
+        pointd.x, pointd.y];
+
+    quadH.quad = [
+        pointc.c7.x, pointc.c7.y,
+        pointc.c8.x, pointc.c8.y,
+        pointf.x, pointf.y,
+        pointe.x, pointe.y];
+
+    triangleM.triangle = [
+        pointc.c8.x, pointc.c8.y,
+        pointc.c9.x, pointc.c9.y,
+        pointf.x, pointf.y];
 
     //draw quad top row with pastel Mania fills
     fill(quadA.fills.d);
