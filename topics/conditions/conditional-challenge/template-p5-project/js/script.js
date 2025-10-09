@@ -156,3 +156,26 @@ function targetColour() {
 
 }
 
+
+
+const quada = {
+    a1: {
+        quad: (undefined),
+        fill: "#fffffff",
+        fills: {
+            unchanged: "ffffff",
+            changed: undefined,
+        }
+
+    }
+}
+
+
+
+
+fill("#ffffff");
+
+//quad top
+
+let quad1 = quad(pointb.b2.x, pointb.b2.y, pointc.c4.x, pointc.c4.y, pointb.b3.x, pointb.b3.y, pointa.x, pointa.y);
+

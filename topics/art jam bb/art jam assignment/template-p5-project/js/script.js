@@ -2,12 +2,10 @@
  * Art Jam: the multifacetted image of Sophia Maryse "Diamond" Andtbacka
  * Sophia Andtbacka
  * 
- * HOW EMBARRASSING! I HAVE NO DESCRIPTION OF MY PROJECT!
- * PLEASE REMOVE A GRADE FROM MY WORK IF IT'S GRADED!
+ * Self portrait about my bipolar disorder
  */
 
 "use strict";
-
 
 
 //cavas website size constants that I have named stage
@@ -18,7 +16,7 @@ const stage = {
 }
 
 
-// The buttons
+// The Mania and Depression pill button definitons
 const button1 = {
     // Position and size
     x: 100,
@@ -34,7 +32,6 @@ const button1 = {
     // The sound effect to play, we'll load it in preload below
     soundEffect: undefined
 }
-
 const button2 = {
     // Position and size
     x: 500,
@@ -52,32 +49,32 @@ const button2 = {
 }
 
 
-//def rect halves
-let rectB = {
+// Defines the rectangles that seperate the start screen into depression half and mania half
+// Depression side
+let rectD = {
     width: stage.h,
     //can change to undefined and other to color if want to change color
     fill: "#000000"
 }
-
-let rectL = {
+// Mania side
+let rectM = {
     width: stage.h,
     //can change to undefined and other to color if want to change color
     fill: "#ffffff"
 }
 
-//sets the baseline for the screens activity
-let Bgrowing = false;
 
-let Lgrowing = false;
+//sets the baseline for the split screen activity, 
+let Dgrowing = false;
+let Mgrowing = false;
 
 
-//gem grid constants
+//gem grid point constants
 //line a point
 let pointa = {
     x: 300,
     y: 100,
 }
-
 //line b points
 const pointb = {
     b1: {
@@ -105,7 +102,6 @@ const pointb = {
         y: (500 - 125),
     }
 }
-
 //line c points
 const pointc = {
     c1: {
@@ -154,19 +150,16 @@ const pointc = {
         y: 500,
     },
 }
-
 //line d points
 const pointd = {
     x: 300,
     y: (500 + 50),
 }
-
 //line e points
 const pointe = {
     x: 300,
     y: 600,
 }
-
 //line f points
 let pointf = {
     x: 300,
@@ -174,14 +167,202 @@ let pointf = {
 }
 
 
-//Load the sound effect
+//Load the sound effects that will be later activated when the Mania or Depression pill button are pushed
 function preload() {
     button1.soundEffect = loadSound("assets/sounds/bark.wav");
 }
 
 
+//quad top
+let quadA = {
+    quad: [pointb.b1.x, pointb.b1.y, pointc.c2.x, pointc.c2.y, pointb.b2.x, pointb.b2.y, pointa.x, pointa.y],
+    fill: "#ffffff",
+    fills: {
+        m: "#FBEDC4",
+        d: "#9F6415"
+    }
+}
 
-//setup
+let quadB = {
+    quad: [pointb.b2.x, pointb.b2.y, pointc.c4.x, pointc.c4.y, pointb.b3.x, pointb.b3.y, pointa.x, pointa.y],
+    fill: "#ffffff",
+    fills: {
+        m: "#FBE8DE",
+        d: "#6B1125"
+    }
+}
+
+let quadC = {
+    quad: [pointb.b3.x, pointb.b3.y, pointc.c6.x, pointc.c6.y, pointb.b4.x, pointb.b4.y, pointa.x, pointa.y],
+    fill: "#ffffff",
+    fills: {
+        m: "#EDF0BB",
+        d: "#79653F"
+    }
+}
+
+let quadD = {
+    quad: [pointb.b4.x, pointb.b4.y, pointc.c8.x, pointc.c8.y, pointb.b5.x, pointb.b5.y, pointa.x, pointa.y],
+    fill: "#ffffff",
+    fills: {
+        m: "#E2E8F4",
+        d: "#122561"
+    }
+}
+
+
+//top row triangles, left to right
+let triangleA = {
+    triangle: [pointc.c1.x, pointc.c1.y, pointb.b1.x, pointb.b1.y, pointc.c2.x, pointc.c2.y],
+    fill: "#ffffff",
+    fills: {
+        m: "#EBBA20",
+        d: "#65441A"
+    }
+}
+
+let triangleB = {
+    triangle: [pointc.c2.x, pointc.c2.y, pointb.b2.x, pointb.b2.y, pointc.c3.x, pointc.c3.y],
+    fill: "#ffffff",
+    fills: {
+        m: "#EBBA20",
+        d: "#65441A"
+    }
+}
+
+let triangleC = {
+    triangle: [pointc.c3.x, pointc.c3.y, pointb.b2.x, pointb.b2.y, pointc.c4.x, pointc.c4.y],
+    fill: "#ffffff",
+    fills: {
+        m: "#ECBCA5",
+        d: "#3E1017"
+    }
+}
+
+let triangleD = {
+    triangle: [pointc.c4.x, pointc.c4.y, pointb.b3.x, pointb.b3.y, pointc.c5.x, pointc.c5.y],
+    fill: "#ffffff",
+    fills: {
+        m: "#ECBCA5",
+        d: "#3E1017"
+    }
+}
+
+let triangleE = {
+    triangle: [pointc.c5.x, pointc.c5.y, pointb.b3.x, pointb.b3.y, pointc.c6.x, pointc.c6.y],
+    fill: "#ffffff",
+    fills: {
+        m: "#DADE06",
+        d: "#433A25"
+    }
+}
+
+let triangleF = {
+    triangle: [pointc.c6.x, pointc.c6.y, pointb.b4.x, pointb.b4.y, pointc.c7.x, pointc.c7.y],
+    fill: "#ffffff",
+    fills: {
+        m: "#DADE06",
+        d: "#433A25"
+    }
+}
+
+let triangleG = {
+    triangle: [pointc.c7.x, pointc.c7.y, pointb.b4.x, pointb.b4.y, pointc.c8.x, pointc.c8.y],
+    fill: "#ffffff",
+    fills: {
+        m: "#BFD0EE",
+        d: "#071740"
+    }
+}
+
+let triangleH = {
+    triangle: [pointc.c8.x, pointc.c8.y, pointb.b5.x, pointb.b5.y, pointc.c9.x, pointc.c9.y],
+    fill: "#ffffff",
+    fills: {
+        m: "#BFD0EE",
+        d: "#071740"
+    }
+}
+
+
+//not working?
+//bottom row of triangle and quad
+let triangleJ = {
+    triangle: [pointc.c1.x, pointc.c1.y, pointc.c2.x, pointc.c2.y, pointf.x, pointf.y],
+    fill: "#ffffff",
+    fills: {
+        m: "#EBBA20",
+        d: "#65441A"
+    }
+}
+
+let quadE = {
+    quad: [pointc.c2.x, pointc.c2.y, pointc.c3.x, pointc.c3.y, pointe.x, pointe.y, pointf.x, pointf.y],
+    fill: "#ffffff",
+    fills: {
+        m: "#EBBA20",
+        d: "#65441A"
+    }
+}
+
+let quadF = {
+    quad: [pointc.c3.x, pointc.c3.y, pointc.c4.x, pointc.c4.y, pointd.x, pointd.y, pointe.x, pointe.y],
+    fill: "#ffffff",
+    fills: {
+        m: "#ECBCA5",
+        d: "#3E1017"
+    }
+}
+
+let triangleK = {
+    triangle: [pointc.c4.x, pointc.c4.y, pointd.x, pointd.y, pointc.c5.x, pointc.c5.y],
+    fill: "#ffffff",
+    fills: {
+        m: "#ECBCA5",
+        d: "#3E1017"
+    }
+}
+
+
+let triangleL = {
+    triangle: [pointc.c5.x, pointc.c5.y, pointc.c6.x, pointc.c6.y, pointd.x, pointd.y],
+    fill: "#ffffff",
+    fills: {
+        m: "#DADE06",
+        d: "#433A25"
+    }
+}
+
+let quadG = {
+    quad: [pointc.c6.x, pointc.c6.y, pointc.c7.x, pointc.c7.y, pointe.x, pointe.y, pointd.x, pointd.y],
+    fill: "#ffffff",
+    fills: {
+        m: "#DADE06",
+        d: "#433A25"
+    }
+}
+
+let quadH = {
+    quad: [pointc.c7.x, pointc.c7.y, pointc.c8.x, pointc.c8.y, pointf.x, pointf.y, pointe.x, pointe.y],
+    fill: "#ffffff",
+    fills: {
+        m: "#BFD0EE",
+        d: "#071740"
+    }
+}
+
+let triangleM = {
+    triangle: [pointc.c8.x, pointc.c8.y, pointc.c9.x, pointc.c9.y, pointf.x, pointf.y],
+    fill: "#ffffff",
+    fills: {
+        m: "#BFD0EE",
+        d: "#071740"
+    }
+}
+
+
+
+//setup canvas size and background
 function setup() {
     createCanvas(stage.x, stage.y);
     background("#aaaaaa");
@@ -189,26 +370,26 @@ function setup() {
 
 
 
-//Draws Gem
+//Draws Start Screen and Mania and Depression Pages with Gem Changes
 function draw() {
 
 
-    if (Bgrowing) {
-        rectB.width += 5; // speed of  black growth per frame
-        rectB.width = constrain(rectB.width, 0, stage.x);
-        rectL.width = stage.x - rectB.width
-        if (rectB.width >= stage.x) {
-            Bgrowing = false; // stop at edge
+    if (Dgrowing) {
+        rectD.width += 2; // speed of  black growth per frame
+        rectD.width = constrain(rectD.width, 0, stage.x);
+        rectM.width = stage.x - rectD.width
+        if (rectD.width >= stage.x) {
+            Dgrowing = false; // stop at edge
             //here can put disappearing button like edge hit = true
         }
     }
 
-    if (Lgrowing) {
-        rectL.width += 5; // speed of  black growth per frame
-        rectL.width = constrain(rectL.width, 0, stage.x);
-        rectB.width = stage.x - rectL.width
-        if (rectB.width >= stage.x) {
-            Bgrowing = false; // stop at edge
+    if (Mgrowing) {
+        rectM.width += 2; // speed of  black growth per frame
+        rectM.width = constrain(rectM.width, 0, stage.x);
+        rectD.width = stage.x - rectM.width
+        if (rectD.width >= stage.x) {
+            Dgrowing = false; // stop at edge
             //here can put disappearing button like edge hit = true
         }
     }
@@ -218,34 +399,42 @@ function draw() {
 
     //split screen to black left half and right white half 
     push();
-    fill(rectB.fill);
-    rect(0, 0, rectB.width, stage.y);
+    fill(rectD.fill);
+    rect(0, 0, rectD.width, stage.y);
     pop();
 
     push();
-    fill(rectL.fill);
-    rect(rectB.width, 0, rectL.width, stage.y);
+    fill(rectM.fill);
+    rect(rectD.width, 0, rectM.width, stage.y);
     pop();
 
-    if (rectB.width < stage.x && rectL.width < stage.x) {
+    if (rectD.width < stage.x && rectM.width < stage.x) {
         drawButton(button1, "D", 0);
         drawButton(button2, "M", 255);
         drawGem();
 
     }
-    else if (rectB.width = stage.x) {
+    else if (rectD.width === stage.x) {
         pointa.x = 300;
         pointa.y = 100;
         pointf.x = 300;
         pointf.y = 650;
-        drawGem();
+        pointe.x = 300;
+        pointe.y = 600;
+        pointd.x = 300;
+        pointd.y = 550;
+        drawGemD();
     }
-    else if (rectL.width = stage.x) {
+    else if (rectM.width === stage.x) {
         pointa.x = 300;
         pointa.y = 100;
         pointf.x = 300;
         pointf.y = 650;
-        drawGem();
+        pointe.x = 300;
+        pointe.y = 600;
+        pointd.x = 300;
+        pointd.y = 550;
+        drawGemM();
     }
 
     //changes gem point to push the player to push the M button or D button
@@ -283,35 +472,326 @@ function draw() {
 
 
 
+
+//Gem States
+//Draws the Gem for the start screen
 function drawGem() {
+    //refreshes the quad points, makes it so the top point is interactive
+    quadA.quad = [
+        pointb.b1.x, pointb.b1.y,
+        pointc.c2.x, pointc.c2.y,
+        pointb.b2.x, pointb.b2.y,
+        pointa.x, pointa.y
+    ];
+
+    quadB.quad = [
+        pointb.b2.x, pointb.b2.y,
+        pointc.c4.x, pointc.c4.y,
+        pointb.b3.x, pointb.b3.y,
+        pointa.x, pointa.y];
+
+    quadC.quad = [
+        pointb.b3.x, pointb.b3.y,
+        pointc.c6.x, pointc.c6.y,
+        pointb.b4.x, pointb.b4.y,
+        pointa.x, pointa.y];
+
+    quadD.quad = [
+        pointb.b4.x, pointb.b4.y,
+        pointc.c8.x, pointc.c8.y,
+        pointb.b5.x, pointb.b5.y,
+        pointa.x, pointa.y];
+
+
+
+
+    //fill for all shapes
     fill("#ffffff");
 
-    //quad top
-    quad(pointb.b1.x, pointb.b1.y, pointc.c2.x, pointc.c2.y, pointb.b2.x, pointb.b2.y, pointa.x, pointa.y);
-    quad(pointb.b2.x, pointb.b2.y, pointc.c4.x, pointc.c4.y, pointb.b3.x, pointb.b3.y, pointa.x, pointa.y);
-    quad(pointb.b3.x, pointb.b3.y, pointc.c6.x, pointc.c6.y, pointb.b4.x, pointb.b4.y, pointa.x, pointa.y);
-    quad(pointb.b4.x, pointb.b4.y, pointc.c8.x, pointc.c8.y, pointb.b5.x, pointb.b5.y, pointa.x, pointa.y);
+    //draws the top row quad, left to right
+    quad(...quadA.quad);
+    quad(...quadB.quad);
+    quad(...quadC.quad);
+    quad(...quadD.quad);
+
 
     //top row triangles, left to right
-    triangle(pointc.c1.x, pointc.c1.y, pointb.b1.x, pointb.b1.y, pointc.c2.x, pointc.c2.y);
-    triangle(pointc.c2.x, pointc.c2.y, pointb.b2.x, pointb.b2.y, pointc.c3.x, pointc.c3.y);
-    triangle(pointc.c3.x, pointc.c3.y, pointb.b2.x, pointb.b2.y, pointc.c4.x, pointc.c4.y);
-    triangle(pointc.c4.x, pointc.c4.y, pointb.b3.x, pointb.b3.y, pointc.c5.x, pointc.c5.y);
-    triangle(pointc.c5.x, pointc.c5.y, pointb.b3.x, pointb.b3.y, pointc.c6.x, pointc.c6.y);
-    triangle(pointc.c6.x, pointc.c6.y, pointb.b4.x, pointb.b4.y, pointc.c7.x, pointc.c7.y);
-    triangle(pointc.c7.x, pointc.c7.y, pointb.b4.x, pointb.b4.y, pointc.c8.x, pointc.c8.y);
-    triangle(pointc.c8.x, pointc.c8.y, pointb.b5.x, pointb.b5.y, pointc.c9.x, pointc.c9.y);
+    triangle(...triangleA.triangle);
+    triangle(...triangleB.triangle);
+    triangle(...triangleC.triangle);
+    triangle(...triangleD.triangle);
+    triangle(...triangleE.triangle);
+    triangle(...triangleF.triangle);
+    triangle(...triangleG.triangle);
+    triangle(...triangleH.triangle);
 
+
+    //interaction not working
     //bottom row triangles and quad, left to right
-    triangle(pointc.c1.x, pointc.c1.y, pointc.c2.x, pointc.c2.y, pointf.x, pointf.y,);
-    quad(pointc.c2.x, pointc.c2.y, pointc.c3.x, pointc.c3.y, pointe.x, pointe.y, pointf.x, pointf.y);
-    quad(pointc.c3.x, pointc.c3.y, pointc.c4.x, pointc.c4.y, pointd.x, pointd.y, pointe.x, pointe.y);
-    triangle(pointc.c4.x, pointc.c4.y, pointd.x, pointd.y, pointc.c5.x, pointc.c5.y);
+    triangle(...triangleJ.triangle);
+    quad(...quadE.quad);
+    quad(...quadF.quad);
+    triangle(...triangleK.triangle);
 
-    triangle(pointc.c5.x, pointc.c5.y, pointc.c6.x, pointc.c6.y, pointd.x, pointd.y,);
-    quad(pointc.c6.x, pointc.c6.y, pointc.c7.x, pointc.c7.y, pointe.x, pointe.y, pointd.x, pointd.y);
-    quad(pointc.c7.x, pointc.c7.y, pointc.c8.x, pointc.c8.y, pointf.x, pointf.y, pointe.x, pointe.y);
-    triangle(pointc.c8.x, pointc.c8.y, pointc.c9.x, pointc.c9.y, pointf.x, pointf.y,);
+    triangle(...triangleL.triangle);
+    quad(...quadG.quad);
+    quad(...quadH.quad);
+    triangle(...triangleM.triangle);
+
+}
+//Draws the Gem for the Mania Screen
+function drawGemM() {
+    //refreshes the quad points, makes it so the top point goes back to it's original position
+    quadA.quad = [
+        pointb.b1.x, pointb.b1.y,
+        pointc.c2.x, pointc.c2.y,
+        pointb.b2.x, pointb.b2.y,
+        pointa.x, pointa.y
+    ];
+
+    quadB.quad = [
+        pointb.b2.x, pointb.b2.y,
+        pointc.c4.x, pointc.c4.y,
+        pointb.b3.x, pointb.b3.y,
+        pointa.x, pointa.y];
+
+    quadC.quad = [
+        pointb.b3.x, pointb.b3.y,
+        pointc.c6.x, pointc.c6.y,
+        pointb.b4.x, pointb.b4.y,
+        pointa.x, pointa.y];
+
+    quadD.quad = [
+        pointb.b4.x, pointb.b4.y,
+        pointc.c8.x, pointc.c8.y,
+        pointb.b5.x, pointb.b5.y,
+        pointa.x, pointa.y];
+
+    //not working
+    //refreshes the quad and triangle points, makes it so the bottom point goes back to it's original position
+    triangleJ = [
+        pointc.c1.x, pointc.c1.y,
+        pointc.c2.x, pointc.c2.y,
+        pointf.x, pointf.y];
+
+    quadE.quad = [
+        pointc.c2.x, pointc.c2.y,
+        pointc.c3.x, pointc.c3.y,
+        pointe.x, pointe.y,
+        pointf.x, pointf.y];
+
+    quadF.quad = [
+        pointc.c3.x, pointc.c3.y,
+        pointc.c4.x, pointc.c4.y,
+        pointd.x, pointd.y,
+        pointe.x, pointe.y];
+
+    triangleK = [
+        pointc.c4.x, pointc.c4.y,
+        pointd.x, pointd.y,
+        pointc.c5.x, pointc.c5.y];
+
+    triangleL = [
+        pointc.c5.x, pointc.c5.y,
+        pointc.c6.x, pointc.c6.y,
+        pointd.x, pointd.y];
+
+    quadG.quad = [
+        pointc.c6.x, pointc.c6.y,
+        pointc.c7.x, pointc.c7.y,
+        pointe.x, pointe.y,
+        pointd.x, pointd.y];
+
+    quadH.quad = [
+        pointc.c7.x, pointc.c7.y,
+        pointc.c8.x, pointc.c8.y,
+        pointf.x, pointf.y,
+        pointe.x, pointe.y];
+
+    triangleM = [
+        pointc.c8.x, pointc.c8.y,
+        pointc.c9.x, pointc.c9.y,
+        pointf.x, pointf.y];
+
+
+    //draw quad top row with pastel Mania fills
+    fill(quadA.fills.m);
+    quad(...quadA.quad);
+
+    fill(quadB.fills.m);
+    quad(...quadB.quad);
+
+    fill(quadC.fills.m);
+    quad(...quadC.quad);
+
+    fill(quadD.fills.m);
+    quad(...quadD.quad);
+
+    //triangle top row with darker pastel Mania fills
+    fill(triangleA.fills.m);
+    triangle(...triangleA.triangle);
+
+    fill(triangleB.fills.m);
+    triangle(...triangleB.triangle);
+
+    fill(triangleC.fills.m);
+    triangle(...triangleC.triangle);
+
+    fill(triangleD.fills.m);
+    triangle(...triangleD.triangle);
+
+    fill(triangleE.fills.m);
+    triangle(...triangleE.triangle);
+
+    fill(triangleF.fills.m);
+    triangle(...triangleF.triangle);
+
+    fill(triangleG.fills.m);
+    triangle(...triangleG.triangle);
+
+    fill(triangleH.fills.m);
+    triangle(...triangleH.triangle);
+
+    //not working
+    //bottom row triangles and quad, left to right
+    fill(triangleJ.fills.m);
+    triangle(...triangleJ.triangle);
+
+    fill(quadE.fills.m);
+    quad(...quadE.quad);
+
+    fill(quadF.fills.m);
+    quad(...quadF.quad);
+
+    fill(triangleK.fills.m);
+    triangle(...triangleK.triangle);
+
+    fill(triangleL.fills.m);
+    triangle(...triangleL.triangle);
+
+    fill(quadG.fills.m);
+    quad(...quadG.quad);
+
+    fill(quadH.fills.m);
+    quad(...quadH.quad);
+
+    fill(triangleM.fills.m);
+    triangle(...triangleM.triangle);
+
+
+}
+function drawGemD() {
+    //refreshes the quad points, makes it so the top point goes back to it's original position
+    quadA.quad = [
+        pointb.b1.x, pointb.b1.y,
+        pointc.c2.x, pointc.c2.y,
+        pointb.b2.x, pointb.b2.y,
+        pointa.x, pointa.y
+    ];
+
+    quadB.quad = [
+        pointb.b2.x, pointb.b2.y,
+        pointc.c4.x, pointc.c4.y,
+        pointb.b3.x, pointb.b3.y,
+        pointa.x, pointa.y];
+
+    quadC.quad = [
+        pointb.b3.x, pointb.b3.y,
+        pointc.c6.x, pointc.c6.y,
+        pointb.b4.x, pointb.b4.y,
+        pointa.x, pointa.y];
+
+    quadD.quad = [
+        pointb.b4.x, pointb.b4.y,
+        pointc.c8.x, pointc.c8.y,
+        pointb.b5.x, pointb.b5.y,
+        pointa.x, pointa.y];
+
+    //not working
+    //refreshes the quad and triangle points, makes it so the bottom point goes back to it's original position
+    triangleJ = [
+        pointc.c1.x, pointc.c1.y,
+        pointc.c2.x, pointc.c2.y,
+        pointf.x, pointf.y];
+
+    quadE.quad = [
+        pointc.c2.x, pointc.c2.y,
+        pointc.c3.x, pointc.c3.y,
+        pointe.x, pointe.y,
+        pointf.x, pointf.y];
+
+    quadF.quad = [
+        pointc.c3.x, pointc.c3.y,
+        pointc.c4.x, pointc.c4.y,
+        pointd.x, pointd.y,
+        pointe.x, pointe.y];
+
+    triangleK = [
+        pointc.c4.x, pointc.c4.y,
+        pointd.x, pointd.y,
+        pointc.c5.x, pointc.c5.y];
+
+    triangleL = [
+        pointc.c5.x, pointc.c5.y,
+        pointc.c6.x, pointc.c6.y,
+        pointd.x, pointd.y];
+
+    quadG.quad = [
+        pointc.c6.x, pointc.c6.y,
+        pointc.c7.x, pointc.c7.y,
+        pointe.x, pointe.y,
+        pointd.x, pointd.y];
+
+    quadH.quad = [
+        pointc.c7.x, pointc.c7.y,
+        pointc.c8.x, pointc.c8.y,
+        pointf.x, pointf.y,
+        pointe.x, pointe.y];
+
+    triangleM = [
+        pointc.c8.x, pointc.c8.y,
+        pointc.c9.x, pointc.c9.y,
+        pointf.x, pointf.y];
+
+
+    //draw quad top row with pastel Mania fills
+    fill(quadA.fills.d);
+    quad(...quadA.quad);
+
+    fill(quadB.fills.d);
+    quad(...quadB.quad);
+
+    fill(quadC.fills.d);
+    quad(...quadC.quad);
+
+    fill(quadD.fills.d);
+    quad(...quadD.quad);
+
+    //triangle top row with darker pastel Mania fills
+    fill(triangleA.fills.d);
+    triangle(...triangleA.triangle);
+
+    fill(triangleB.fills.d);
+    triangle(...triangleB.triangle);
+
+    fill(triangleC.fills.d);
+    triangle(...triangleC.triangle);
+
+    fill(triangleD.fills.d);
+    triangle(...triangleD.triangle);
+
+    fill(triangleE.fills.d);
+    triangle(...triangleE.triangle);
+
+    fill(triangleF.fills.d);
+    triangle(...triangleF.triangle);
+
+    fill(triangleG.fills.d);
+    triangle(...triangleG.triangle);
+
+    fill(triangleH.fills.d);
+    triangle(...triangleH.triangle);
+
 }
 
 //buttons
@@ -334,10 +814,8 @@ function drawButton(button, label, textColor) {
 }
 
 
-
-
-
-//Check if the user clicked and play the sound
+//button activation and split screen action
+//Check if the mania or depression button is pressed and if so plays a sound and expands the relevant Depression or mania side
 //used edited version of example code from dog button pippin example
 function mousePressed(event) {
     // Check if the click was inside the button D
@@ -347,8 +825,8 @@ function mousePressed(event) {
     if (overlap1) {
         button1.soundEffect.play();
         button1.fill = button1.fills.pressed;
-        Bgrowing = true;
-        Lgrowing = false;
+        Dgrowing = true;
+        Mgrowing = false;
         console.log();
 
     }
@@ -358,36 +836,16 @@ function mousePressed(event) {
     if (overlap2) {
         button1.soundEffect.play();
         button2.fill = button2.fills.pressed;
-        Lgrowing = true;
-        Bgrowing = false;
+        Mgrowing = true;
+        Dgrowing = false;
     }
 }
-
-
-
-//Make the button unpressed
+//Make the Mania and Depression buttons unpressed and changes their fill back to black or white
 function mouseReleased() {
     button1.fill = button1.fills.unpressed;
     button2.fill = button2.fills.unpressed;
 
 }
-
-
-// The button 2
-//push();
-//noStroke();
-//fill(button2.fill);
-//ellipse(button2.x, button2.y, button2.size);
-
-//text in button 2
-//textAlign(CENTER);
-//textSize(32);
-//fill(255);
-//textFont('Arial');
-//text('M', button2.x, button2.y + 10);
-//pop();
-
-
 
 
 
