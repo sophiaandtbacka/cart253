@@ -353,17 +353,20 @@ let triangleM = {
     }
 }
 
+let button;
+let startAudio;
 let Dimg;
 let Mimg;
 
 
-//Load the sound effects that will be later activated when the Mania or Depression pill button are pushed
 function preload() {
-    button1.soundEffect = loadSound("assets/sounds/bark.wav");
+    button = loadSound("assets/sounds/pill.mp3");
+    startAudio = loadSound("assets/sounds/startAudio.mp3");
     Dimg = loadImage('assets/images/depressed.png');
     Mimg = loadImage('assets/images/mania.png');
 }
 
+let startPlayed = false;
 
 
 //setup canvas size and background
@@ -416,9 +419,12 @@ function draw() {
         drawButton(button1, "D", 0, 0);
         drawButton(button2, "M", 255, 255);
         drawGem();
-        button1.soundEffect.play();
         image(Dimg, 0, 0, 200, 433);
         image(Mimg, 475, stage.y - 433, 125, 433);
+        if (!startPlayed) {
+            startAudio.play();
+            startPlayed = true;
+        }
 
     }
     else if (rectD.width === stage.x) {
@@ -904,7 +910,7 @@ function mousePressed(event) {
     const overlap1 = (d1 < button1.size / 2);
 
     if (overlap1) {
-        button1.soundEffect.play();
+        button.play();
         button1.fill = button1.fills.pressed;
         Dgrowing = true;
         Mgrowing = false;
@@ -915,7 +921,7 @@ function mousePressed(event) {
     const d2 = dist(mouseX, mouseY, button2.x, button2.y);
     const overlap2 = (d2 < button2.size / 2);
     if (overlap2) {
-        button1.soundEffect.play();
+        button.play();
         button2.fill = button2.fills.pressed;
         Mgrowing = true;
         Dgrowing = false;
