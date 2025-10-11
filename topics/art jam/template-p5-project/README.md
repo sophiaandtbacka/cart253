@@ -2,7 +2,7 @@
 
 Sophia Andtbacka
 
-[View this project online](http://127.0.0.1:5501/art%20jam%20assignment/template-p5-project/)
+[View this project online](https://sophiaandtbacka.github.io/cart253/topics/art%20jam/template-p5-project/)
 
 ## Description
  This is an interactive art piece and self-portrait exploring my bipolar disorder.
