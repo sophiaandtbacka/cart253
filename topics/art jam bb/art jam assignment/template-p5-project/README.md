@@ -1,32 +1,51 @@
-# TITLE OF PROJECT
+# Bipolar Brilliance an Art Jam
 
-AUTHOR NAME
+Sophia Andtbacka
 
-[View this project online](URL_FOR_THE_RUNNING_PROJECT)
+[View this project online](http://127.0.0.1:5501/art%20jam%20assignment/template-p5-project/)
 
 ## Description
-
-This description should help the reader understand what the program is, anything they should know to be able to experience it (controls, special features, etc.), and what the desired user experience is. For example:
-
-> *The Mayor of Clown Town* is a simulator experience that allows the user to control a small town populated entirely by clowns.
-
-> The experience is controlled via the mouse, with left click selecting a clown and bringing up a menu of options such as "slip of banana peel" or "get into impossible capacious clown-car."
-
-> The project is meant to give the user a sense of what it would be the mayor of a town of clowns, eventually getting the sense that clowns are not taking their civic duties seriously.
-
+ This is an interactive art piece and self-portrait exploring my bipolar disorder.
+ 
+ The user begins on a sterile, clinical start screen where a monotone lecture plays —
+ setting a mood of detached malaise.
+  
+ At the center, a clear white-outlined gem represents the “clinical” simplification
+ of a complex inner experience.
+  
+ The screen splits like a playing card — a black side depicting a drawn figure of depression,
+ and a white side showing an uplifted figure of mania.
+ 
+ Moving the cursor over the gem prompts an interaction: pushing the user to take
+ either the “depressive pill” or the “manic pill.”
+  
+ Upon clicking a pill, a medicine bottle rattling sound plays as the scene transitions slowly
+ into either the depressive or manic screens.
+  
+ Each of these states is visualized through the new color grading of the gem facets,
+ representing the multiple layers and versions within depressive and manic experiences.
+ 
 ## Screenshot(s)
 
 This bit should have some images of the program running so that the reader has a sense of what it looks like. For example:
 
-> ![Image of a clown face](./assets/images/clown.png)
+> ![Image of start screen with gem top point interaction](./assets/images/Screenshot 1.png)
+> ![Image of start screen with gem bottom point interaction](./assets/images/Screenshot 2.png)
+> ![Image of a the Mania screen](./assets/images/Screenshot 3.png)
+
 
 ## Attribution
 
 This bit should attribute any code, assets or other elements used taken from other sources. For example:
 
 > - This project uses [p5.js](https://p5js.org).
-> - The clown image is a capture of the clown from the Apple emoji character set.
-> - The barking sound effect is "single dog bark 1" by crazymonke9 from freesound.org: https://freesound.org/people/crazymonke9/sounds/418107/
+> - Audio excerpts sourced and edited from: Dr. Patrick McKeon — Bipolar Disorder (lecture, July 2014).
+    YouTube: https://www.youtube.com/watch?v=HByl6pCGEps
+> - Sound effect: Pill bottles open, pour out, close louder — sourced from Pixabay
+    Licensed under the Pixabay Content License (free for non-commercial use, no attribution required — attribution given voluntarily).
+> - Image references both sourced via Pinterest
+    Original artists unknown — used for educational and non-commercial purposes as part of an interactive artwork exploring bipolar disorder.
+> - used edited version of example code from dog button pippin example for pill button interaction and sound effects
 
 ## License
 
