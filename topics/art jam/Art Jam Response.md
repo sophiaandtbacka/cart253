@@ -18,6 +18,7 @@ While reviewing the projects of Tasha, Xui, and Yann, I chose to focus my reflec
 
 
 Interactivity
+
 After completing my own project and viewing the others, I realized that one of the greatest strengths of JavaScript-based art is its capacity for user interactivity. Each project engaged with interactivity differently, and in doing so had to operate within different technical and creative limitations to succeed.
 
 Tasha’s project allows the user to draw lines and add to a pre-existing cat design. The drawing mechanism invites users to add their own design language to the image and alter its narrative. The accompanying text box is also effective as it gives the cat character a voice and suggests ideas for what the player might draw next, creating a sense of dialogue between the user and program. While engaging with this project I imagine a group of children taking turns drawing, each wanting to clear the canvas easily for the next person. Therefore, I believe including an erase or reset button would make the project much more fluid and allow for iterative design.
@@ -28,6 +29,7 @@ Yann’s project features two framed portraits of himself, one gradually turns g
 
 
 Commenting
+
 Looking through my peers’ code, I was surprised by how much commenting style can influence readability and introduce an artist’s voice.
 
 Tasha’s code uses personalized comments, such as // all the piercings (wish I had more :D). This challenged my earlier assumption that inline comments should only serve a utilitarian purpose, and instead, her comments bring her artistic voice into the code itself. This also adds interest and removes the banal nature that can come from reading straight code.
@@ -38,6 +40,7 @@ Separately, one thing I noticed missing across all three projects, including my 
 
 
 Arranging
+
 All three projects are quite illustration-based, which makes the element arrangement and layering hierarchy crucial for visual clarity.
 
 In Tasha’s project, the lowered opacity of both the text box and the star cursor is an effective choice as it allows the user’s drawing to remain visible. However, I noticed that some parts of the cat drawing, like the inner ear, were accidentally cut off due to an incorrect layering order. 
