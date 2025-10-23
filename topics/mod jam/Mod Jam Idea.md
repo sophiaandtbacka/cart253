@@ -12,10 +12,10 @@ Mod Jam Idea
 9. Mean, Median, Mode Toad, math game, fly now number, textbox at top with a set of numbers have to press the right frog to eat the number based on if the number is the mean,      median, or mode of the set
 10. Smog frog, smog comes and health down have to find water fast, can’t eat fly or will die
 11. Big fly have to eat is 3 times to swallow, galaga arcade game
-12. Frog eat girl, becomes prince, prince starts eating money, kids, partner, game of life concept, game about balance
-    Death: accused of greed, eat too much money
-    Death: accused of overpopulation, eat too many kids
-    Death: accused of infedelity, eat too many partners
+12. Frog eat girl, becomes prince, prince starts eating money, kids, partner, game of life concept, game about balance can die if eat too much of one thing, 
+    Death: accused of greed (eat too much money),
+    Death: accused of overpopulation (eat too many kids),
+    Death: accused of infedelity (eat too many partners)
 13. Frog misses eating a fly so now log appears, frog sitting on log, if eats fly log disappears, if on so many logs that hits the top of screen then dies
 14. Frog can have multiple tongue if press down on keys, good if only flies on screen, bad if there are thing on screen you don’t want to eat so have to use this power selectively
 15. Frog eats party pill, color lights start flashing and frog response get jerky and delayed, has to drink water before time runs out otherwise dies
