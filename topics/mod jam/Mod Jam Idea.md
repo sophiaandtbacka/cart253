@@ -17,7 +17,7 @@ Mod Jam Idea
     Death: accused of overpopulation (eat too many kids),
     Death: accused of infedelity (eat too many partners)
 13. Frog misses eating a fly so now log appears, frog sitting on log, if eats fly log disappears, if on so many logs that hits the top of screen then dies
-14. Frog can have multiple tongue if press down on keys, good if only flies on screen, bad if there are thing on screen you don’t want to eat so have to use this power selectively
+14. Frog can have multiple tongues if press down on keys, good if only flies on screen, bad if there are thing on screen you don’t want to eat so have to use this power selectively
 15. Frog eats party pill, color lights start flashing and frog response get jerky and delayed, has to drink water before time runs out otherwise dies
 16. Frog eats coffee, starts moving around the screen randomly but you still have to eat the flies and drink water otherwise you’ll die
 17. Frog can jump to eat, if overlaps counts as eating,  if frog jumps and tongue comes out then get a boost and jump higher
