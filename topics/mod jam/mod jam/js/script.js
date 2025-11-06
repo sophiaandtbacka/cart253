@@ -60,124 +60,174 @@ function draw() {
     drawFly();
     moveFrog();
     moveTongue();
-    drawFrog();
+    /*drawFrog();*/
     checkTongueFlyOverlap();
+
     drawFrogSkin();
-    drawFrogMuscle();
-    drawFrogBone();
-    drawFrogDead();
-
-
-
+    /*
+   drawFrogMuscle();
+   drawFrogBone();
+   drawFrogDead();
+*/
 
 }
 
 function drawFrogSkin() {
     push();
+    translate(frog.body.x, frog.body.y); // move the whole frog to its current position
     fill("#00ff00");
     noStroke();
-    ellipse(320, 520, 140, 225);
-    ellipse(320, 422, 55, 50);
-    ellipse(284, 435, 30, 35);
-    ellipse(284 + 72, 435, 30, 35);
+
+    // Body parts relative to center (0,0)
+    ellipse(0, 0, 140, 225); // main body
+    ellipse(0, -98, 55, 50); // head
+    ellipse(-36, -85, 30, 35); // left eye bump
+    ellipse(36, -85, 30, 35); // right eye bump
+
+    // Head bottom cutout effect
     fill("#87ceeb");
-    ellipse(255, 495, 15, 55);
-    ellipse(255 + 130, 495, 15, 55);
+    ellipse(-65, -25, 15, 55);
+    ellipse(65, -25, 15, 55);
 
+    // Left eye
     push();
     stroke("black");
-    strokeWeight(1.0)
+    strokeWeight(1);
     fill("white");
+    translate(-36, -85);
     rotate(30);
-    ellipse(459, 233, 14, 22);
+    ellipse(0, 0, 14, 22);
     fill("black");
-    ellipse(459, 233, 8, 14);
+    ellipse(0, 0, 8, 14);
     pop();
 
+    // Right eye
     push();
     stroke("black");
-    strokeWeight(1.0)
+    strokeWeight(1);
     fill("white");
+    translate(36, -85);
     rotate(-30);
-    ellipse(96, 553, 14, 22);
+    ellipse(0, 0, 14, 22);
     fill("black");
-    ellipse(96, 553, 8, 14);
+    ellipse(0, 0, 8, 14);
     pop();
 
+    pop();
 }
+
 
 function drawFrogMuscle() {
     push();
-    translate(150, 0);
+    translate(frog.body.x + 150, frog.body.y); // move the whole frog to its current position
 
+    //Green Outer Skin
     fill("#00ff00");
     noStroke();
-    ellipse(320, 520, 140, 225);
-    ellipse(320, 422, 55, 50);
-    ellipse(284, 435, 30, 35);
-    ellipse(284 + 72, 435, 30, 35);
-    fill("red");
-    ellipse(320, 520, 135, 220);
-    ellipse(320, 422, 50, 45);
-    fill("#87ceeb");
-    ellipse(255, 495, 15, 55);
-    ellipse(255 + 130, 495, 15, 55);
+    //main body outline
+    ellipse(0, 0, 140, 225);
+    //nose outline
+    ellipse(0, -98, 55, 50);
+    //left eye outline
+    ellipse(-36, -85, 30, 35);
+    //right eye outline
+    ellipse(36, -85, 30, 35);
 
+    //Red "muscle" Interior
+    fill("red");
+    noStroke();
+    //main body outline
+    ellipse(0, 0, 135, 220);
+    //nose outline
+    ellipse(0, -98, 50, 45);
+
+    //Head bottom cutout effect
+    fill("#87ceeb");
+    ellipse(-65, 25, 15, 55);
+    ellipse(65, 25, 15, 55);
+
+    //White of Eyes
     stroke("black");
     strokeWeight(1.5)
     fill("white");
-    ellipse(284, 433, 26, 26);
-    ellipse(284 + 72, 433, 26, 26);
+    //left eye
+    ellipse(-36, -87, 26, 26);
+    //right eye
+    ellipse(36, -87, 26, 26);
 
+    //Left pupil
     push();
-    fill("black");
+    translate(-39, -90);
     rotate(30);
-    ellipse(459, 233, 17, 22);
+    fill("black");
+    ellipse(0, 0, 17, 22);
     pop();
 
+    // Right pupil
     push();
     fill("black");
+    translate(39, -90);
     rotate(-30);
-    ellipse(96, 553, 17, 22);
+    ellipse(0, 0, 17, 22);
     pop();
 
     pop();
-
 }
+
 
 
 function drawFrogBone() {
     push();
-    translate(-120, 0);
+    translate(frog.body.x - 120, frog.body.y); // move the whole frog to its current position
 
+    //Green Outer Skin
     fill("#00ff00");
     noStroke();
-    ellipse(320, 520, 140, 225);
-    ellipse(320, 422, 55, 50);
-    ellipse(284, 435, 30, 35);
-    ellipse(284 + 72, 435, 30, 35);
+    //main body outline
+    ellipse(0, 0, 140, 225);
+    //nose outline
+    ellipse(0, -98, 55, 50);
+    //left eye outline
+    ellipse(-36, -85, 30, 35);
+    //right eye outline
+    ellipse(36, -85, 30, 35);
+
+    //Red "muscle" Interior
     fill("bone");
-    ellipse(320, 520, 135, 220);
-    ellipse(320, 422, 50, 45);
+    noStroke();
+    //main body outline
+    ellipse(0, 0, 135, 220);
+    //nose outline
+    ellipse(0, -98, 50, 45);
+
+    //Head bottom cutout effect
     fill("#87ceeb");
-    ellipse(255, 495, 15, 55);
-    ellipse(255 + 130, 495, 15, 55);
-    fill("white");
+    ellipse(-65, 25, 15, 55);
+    ellipse(65, 25, 15, 55);
+
+    //White of Eyes
     stroke("black");
     strokeWeight(1.5)
-    ellipse(284, 433, 26, 26);
-    ellipse(284 + 72, 433, 26, 26);
+    fill("white");
+    //left eye
+    ellipse(-36, -87, 26, 26);
+    //right eye
+    ellipse(36, -87, 26, 26);
 
+    //Left pupil
     push();
-    fill("black");
+    translate(-39, -90);
     rotate(30);
-    ellipse(459, 233, 17, 22);
+    fill("black");
+    ellipse(0, 0, 17, 22);
     pop();
 
+    // Right pupil
     push();
     fill("black");
+    translate(39, -90);
     rotate(-30);
-    ellipse(96, 553, 17, 22);
+    ellipse(0, 0, 17, 22);
     pop();
 
     pop();
@@ -186,71 +236,57 @@ function drawFrogBone() {
 
 function drawFrogDead() {
     push();
-    translate(-250, 0);
+    translate(frog.body.x - 250, frog.body.y); // move the whole frog to its current position
 
+    //Green Outer Skin
     fill("#00ff00");
     noStroke();
-    ellipse(320, 520, 140, 225);
-    ellipse(320, 422, 55, 50);
-    ellipse(284, 435, 30, 35);
-    ellipse(284 + 72, 435, 30, 35);
+    //main body outline
+    ellipse(0, 0, 140, 225);
+    //nose outline
+    ellipse(0, -98, 55, 50);
+    //left eye outline
+    ellipse(-36, -85, 30, 35);
+    //right eye outline
+    ellipse(36, -85, 30, 35);
+
+    //White "bone" Interior
     fill("bone");
-    ellipse(320, 520, 135, 220);
-    ellipse(320, 422, 50, 45);
+    noStroke();
+    //main body outline
+    ellipse(0, 0, 135, 220);
+    //nose outline
+    ellipse(0, -98, 50, 45);
+
+    //Head bottom cutout effect
     fill("#87ceeb");
-    ellipse(255, 495, 15, 55);
-    ellipse(255 + 130, 495, 15, 55);
+    ellipse(-65, 25, 15, 55);
+    ellipse(65, 25, 15, 55);
+
+    //White of Eyes
     fill("white");
+    //left eye
+    ellipse(-36, -87, 26, 26);
+    //right eye
+    ellipse(36, -87, 26, 26);
 
-    ellipse(284, 433, 26, 26);
-    ellipse(284 + 72, 433, 26, 26);
-
+    //Red X Eyes
     stroke("red");
     strokeWeight(2);
-    line(284 - 9, 433 - 9, 284 + 9, 433 + 9);
-    line(284 + 9, 433 - 9, 284 - 9, 433 + 9);
+    //left eye
+    line(-36 - 9, -87 - 9, -36 + 9, -87 + 9);
+    line(-36 + 9, -87 - 9, -36 - 9, -87 + 9);
 
-    line(284 - 9 + 72, 433 - 9, 284 + 9 + 72, 433 + 9);
-    line(284 + 9 + 72, 433 - 9, 284 - 9 + 72, 433 + 9);
+    //right eye
+    line(36 - 9, -87 - 9, 36 + 9, -87 + 9);
+    line(36 + 9, -87 - 9, 36 - 9, -87 + 9);
+
     pop();
 }
 
 
 
-function drawFrog() {
-    // Draw the tongue tip
-    push();
-    fill("#ff0000");
-    noStroke();
-    ellipse(frog.tongue.x, frog.tongue.y, frog.tongue.size);
-    pop();
-
-    // Draw the rest of the tongue
-    push();
-    stroke("#ff0000");
-    strokeWeight(frog.tongue.size);
-    line(frog.tongue.x, frog.tongue.y, frog.body.x, frog.body.y);
-    pop();
-
-    // Draw the frog's body
-    push();
-    fill("#00ff00");
-    noStroke();
-    ellipse(frog.body.x, frog.body.y, frog.body.size);
-    pop();
-}
-/**
-const frog = {
-    // The frog's body has a position and size
-    body: {
-        x: 320,
-        y: 520,
-        size: 150
-    }
-}
-*/
-
-function drawFrog2() {
+function drawFrogOG() {
 
     // Draw the frog's body
     push();
