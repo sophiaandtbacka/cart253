@@ -9,6 +9,39 @@
  */
 
 "use strict";
+const machines = [
+    {
+        type: "incinerator",
+        x: 0,
+        y: 100,
+        width: 100,
+        height: 100,
+        fill: "#ff4400",
+        draggable: true,
+        functionality: 100
+    },
+    {
+        type: "freezer",
+        x: 150,
+        y: 100,
+        width: 100,
+        height: 100,
+        fill: "#bbbbff",
+        draggable: false,
+        functionality: 80
+    },
+    {
+        type: "crusher",
+        x: 300,
+        y: 100,
+        width: 100,
+        height: 100,
+        fill: "#777777",
+        draggable: true,
+        functionality: 45
+    }];
+
+
 
 /**
  * Create the canvas
@@ -23,24 +56,15 @@ function setup() {
 function draw() {
     background(0);
 
-    // Incinerator
-    push();
-    noStroke();
-    fill("#ff4400");
-    rect(0, 100, 100, 100);
-    pop();
+    for (let machine of machines) {
+        drawMachine(machine);
+    }
+}
 
-    // Freezer
+function drawMachine(machine) {
     push();
     noStroke();
-    fill("#bbbbff");
-    rect(150, 100, 100, 100);
-    pop();
-
-    // Crusher
-    push();
-    noStroke();
-    fill("#777777");
-    rect(300, 100, 100, 100);
+    fill(machine.fill);
+    rect(machine.x, machine.y, machine.width, machine.height);
     pop();
 }
