@@ -4,8 +4,8 @@ This is my dense critique to specific elements of each of Tasha, Xueyi, and Yann
 # Tasha O'Leary
 https://mewmewpewpew.github.io/cart253/topics/mod-jam/
 
-## Play Screen Movement
-The flies and fairies have a shaking effect caused by the fly’s x and y values being changed randomly between buzziness indexes. This adds dynamic quality and unpredictability. This sometimes makes the flies harder to catch as they buzz right out of the expected target range, increasing difficulty and engagement.
+## Fly and Fairy Movement
+The flies and fairies have a shaking effect caused by the fly/fairy’s x and y values being changed randomly between buzziness indexes. This adds dynamic quality and unpredictability. It sometimes makes the flies harder to catch as they buzz right out of the expected target range, increasing difficulty and engagement.
 
 ```javascript
 const fly = {
@@ -54,7 +54,7 @@ function checkTongueButtonOverlap() {
 ```
 
 ## Screen Transitions & Code Structure
-<p>The code is organized by individual elements rather than by distinct start, play, and end screens, resulting in redundant transitions. When the player clicks the start button, all non-gameplay elements are redrawn again but with zero opacity, visually disappearing; a process that could be streamlined through a single opacity function. Similarly, all end and start screen shared elements are called twice despite differing only in color; this could be eliminated by redefining the colors and using a single function to draw the shared elements. These revisions would not affect user experience but would improve program readability.</p>
+<p>The code is organized by individual elements rather than by distinct start, play, and end screens, resulting in redundant transitions. When the player clicks the start button, all non-gameplay elements are redrawn again but with zero opacity, visually disappearing; a process that could be streamlined through a single opacity function. Similarly, all end and start screen shared elements are written twice despite differing only in color; this could be eliminated by redefining the colors and using a single function to draw the shared elements. These revisions would not affect user experience but would improve program readability.</p>
 
 <p>The only user issue with this organization is the inability to replay the game again without reloading the program.</p>
 
@@ -62,7 +62,7 @@ function checkTongueButtonOverlap() {
 https://xiaxueyi00-eng.github.io/cart253/mod-jam-frog/
 
 ## Fly Movement Pattern
-The flies’ sine-wave movement introduces an interesting rhythm and greater visual interest than typical linear motion. However, upon capture, each fly resets a random y coordinate on the left side of the screen, restarting its sine pattern with no variation in amplitude, or speed. This organization limits the game to a single on-screen fly at a time and results in repetitive gameplay. Even small adjustments to these parameters would substantially increase dynamism.
+The flies’ sine-wave movement introduces an interesting rhythm and greater visual interest than typical linear motion. However, upon capture, each fly resets to a random y coordinate on the left side of the screen, restarting its sine pattern with no variation in amplitude, or speed. This organization limits the game to a single on-screen fly at a time and results in repetitive gameplay. Even small adjustments to these parameters would substantially increase dynamism.
 
 ## Lerps 
 <p>A notable strength of this project is the diverse use of lerp. In the capture mechanic, when a fly overlaps the tongue, a conditional triggers a lerp that pulls the fly toward the frog’s mouth. This creates a highly convincing “stuck to the tongue” effect, resulting in the most accurate fly capture among the projects I’ve reviewed.</p>
@@ -131,12 +131,12 @@ function drawEndScreen() {
 # Yann Kruplewicz
 https://yannkruplewicz-afk.github.io/cart253/MOD%20JAM/
 
-## Streak gameplay
-<p>This is the first project I have seen to implement distinct stages or a streak mode, which effectively incentivizes player progression. In streak mode, gameplay changes significantly: fly speed increases, the background updates, a shaking effect is added, and harmful elements appear to threaten the frog. This design creates a dynamic challenge, intentionally preventing players from becoming too proficient and encouraging critical engagement aimed at sustainability.</p>
+## Streak Gameplay
+<p>This is the first project I have seen implement distinct stages or a streak mode, which effectively incentivizes player progression. In streak mode, gameplay changes significantly: fly speed increases, the background updates, a shaking effect is added, and harmful elements appear to threaten the frog. This design creates a dynamic challenge, intentionally preventing players from becoming too proficient and encouraging critical engagement aimed at sustainability.</p>
 <p>The game doesn’t want you to get too good!</p>
 
 ## Fly Movement
-When a fly is categorized as escaping, it sometimes follows a leftward half-circle trajectory determined by the sine of π times the escape factor. This can cause the fly to exit the left side of the screen, making capture impossible. The behavior feels unpredictable when playing, and can occur repeatedly near the left edge of the screen, substantially increasing difficulty as multiple flies leave the screen before the player can attempt to catch them. The half-circle motion is visually interesting, but directing the trajectory rightward would prevent this unwanted effect.
+When a fly is categorized as escaping, it follows a leftward half-circle trajectory determined by the sine of π times the escape factor. This can cause the fly to exit the left side of the screen, making capture impossible. The behavior feels unpredictable when playing, and can occur repeatedly near the left edge of the screen, substantially increasing difficulty as multiple flies leave the screen before the player can attempt to catch them. The half-circle motion is visually interesting, but directing the trajectory rightward would prevent this unwanted effect.
 
 ```javascript
 function moveFly() {// makes the fly move
