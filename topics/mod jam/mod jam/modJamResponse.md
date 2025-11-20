@@ -4,11 +4,8 @@ This is my dense critique to specific elements of each of Tasha, Xueyi, and Yann
 # Tasha O'Leary
 https://mewmewpewpew.github.io/cart253/topics/mod-jam/
 
-## Gameplay & Core Mechanics
-I realized that even a small change in speed can significantly enhance gameplay dynamism. Making fairies faster than flies compels players to monitor pollution and health closely, prioritizing which targets to capture. Having to balance frog health and pond pollution promotes active, strategic decision-making.
-
 ## Play Screen Movement
-The flies and fairies have a shaking effect created by a buzziness attribute, this adds dynamic quality and unpredictability. This sometimes makes the flies harder to catch as they buzz right out of the expected target range, increasing difficulty and engagement.
+The flies and fairies have a shaking effect caused by the fly’s x and y values being changed randomly between buzziness indexes. This adds dynamic quality and unpredictability. This sometimes makes the flies harder to catch as they buzz right out of the expected target range, increasing difficulty and engagement.
 
 ```javascript
 const fly = {
@@ -180,5 +177,4 @@ function moveFly() {// makes the fly move
 ```
 
 ## Score and Impact on Game Strategy
-In the current design, the score is tied directly to the remaining time, making it difficult to track how much each captured element contributes to points or damage. Because the time is constantly changing, developing a strategic approach to gameplay is challenging. Separating time and score as distinct elements and having both displayed prominently, would improve clarity. Alternatively, providing on-screen feedback such as a brief animation above the frog indicating +3 sec or -5 sec would clearly communicate the value of each action during gameplay.
-
+In the current design, the score is tied directly to the remaining time, making it difficult to track how much each captured element contributes to points or damage. Because the time is constantly changing, developing a strategic approach to gameplay is challenging. 
