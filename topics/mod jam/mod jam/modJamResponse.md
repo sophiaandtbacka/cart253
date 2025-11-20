@@ -130,3 +130,55 @@ function drawEndScreen() {
     frog.body.x = oldX;
     frog.body.y = oldY;
 ```
+
+# Yann Kruplewicz
+https://yannkruplewicz-afk.github.io/cart253/MOD%20JAM/
+
+## Streak gameplay
+<p>This is the first project I have seen to implement distinct stages or a streak mode, which effectively incentivizes player progression. In streak mode, gameplay changes significantly: fly speed increases, the background updates, a shaking effect is added, and harmful elements appear to threaten the frog. This design creates a dynamic challenge, intentionally preventing players from becoming too proficient and encouraging critical engagement aimed at sustainability.</p>
+<p>The game doesn’t want you to get too good!</p>
+
+## Fly Movement
+When a fly is categorized as escaping, it sometimes follows a leftward half-circle trajectory determined by the sine of π times the escape factor. This can cause the fly to exit the left side of the screen, making capture impossible. The behavior feels unpredictable when playing, and can occur repeatedly near the left edge of the screen, substantially increasing difficulty as multiple flies leave the screen before the player can attempt to catch them. The half-circle motion is visually interesting, but directing the trajectory rightward would prevent this unwanted effect.
+
+```javascript
+function moveFly() {// makes the fly move
+
+    // Adjust speed during streaks
+    if (score >= streakStartScore) {
+        fly.speed = baseFlySpeed + streakSpeedFactor; // increase speed gradually during streak
+    } else {
+        fly.speed = baseFlySpeed;
+    }
+    // Handle escape behavior
+    if (fly.escaping) {// if the fly is escaping, which happens 30 % of the time
+        // Move backward horizontally
+        fly.x -= fly.speed * 1.3; // faster retreat
+
+        // Move vertically in a sine wave for a curve
+        let t = fly.escapeTime / fly.escapeDuration; // 0 → 1
+        fly.y = fly.escapeStartY + fly.escapeAmplitude * sin(t * PI); // curved arc
+
+        fly.escapeTime++;// increment escape time
+
+        if (fly.escapeTime > fly.escapeDuration) {// end of escape
+            fly.escaping = false;// reset escaping state
+            fly.escapeTime = 0;
+        }
+    } else {
+        // Normal forward movement
+        fly.x += fly.speed;
+    }
+
+    // Reset fly if it goes off screen
+    if (fly.x > width || fly.x < -50) {
+        resetFly();
+    }
+
+
+}
+```
+
+## Score and Impact on Game Strategy
+In the current design, the score is tied directly to the remaining time, making it difficult to track how much each captured element contributes to points or damage. Because the time is constantly changing, developing a strategic approach to gameplay is challenging. Separating time and score as distinct elements and having both displayed prominently, would improve clarity. Alternatively, providing on-screen feedback such as a brief animation above the frog indicating +3 sec or -5 sec would clearly communicate the value of each action during gameplay.
+
