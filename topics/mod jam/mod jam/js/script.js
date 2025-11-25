@@ -40,7 +40,10 @@ const fly = {
     x: 0,
     y: 200, // Will be random
     size: 10,
-    speed: 3
+    speed: 3,
+    buzziness: {
+        y: 3,
+    }
 };
 
 /**
@@ -58,18 +61,17 @@ function draw() {
     background("#87ceeb");
     moveFly();
     drawFly();
+    //can keep buy under frog design layer
     moveFrog();
     moveTongue();
-    /*drawFrog();*/
+    drawFrog();
     checkTongueFlyOverlap();
 
     drawFrogSkin();
-    /*
-   drawFrogMuscle();
-   drawFrogBone();
-   drawFrogDead();
-*/
 
+    drawFrogMuscle();
+    drawFrogBone();
+    drawFrogDead();
 }
 
 function drawFrogSkin() {
@@ -305,6 +307,7 @@ function drawFrogOG() {
 function moveFly() {
     // Move the fly
     fly.x += fly.speed;
+    fly.y += random(-fly.buzziness.y, fly.buzziness.y);
     // Handle the fly going off the canvas
     if (fly.x > width) {
         resetFly();
