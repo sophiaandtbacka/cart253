@@ -23,7 +23,7 @@ let frogStage = 0;
 //1 muscle
 //2 bone
 //3 dead
-let screenStage = 0;
+let state = "title";
 //0 start screen
 //1 game screen
 //2 end screen
@@ -83,7 +83,16 @@ function setup() {
 }
 
 function draw() {
-    //gameScreen();
+
+    if (state === "title") {
+        titleScreen();
+    }
+    else if (state === "game") {
+        gameScreen();
+    }
+    else if (state === "ending") {
+        endScreen();
+    }
 
     /*background("#87ceeb");
     moveFly();
@@ -130,7 +139,7 @@ function draw() {
  */
 }
 
-function startScreen() {
+function titleScreen() {
     //background color gradient top black to bottom light blue
     let c1, c2;
     c1 = color(0, 0, 0);
@@ -143,66 +152,97 @@ function startScreen() {
         line(0, y, width, y);
     }
 
-
-    push();
-    //outer circle
-    strokeWeight(3);
-    fill("royalblue");
-    ellipse(width / 2, height / 2, 300);
-
-    //start button
-    noStroke();
-    fill(start.fill);
-    ellipse(start.x, start.y, start.size);
-
+    //draws most of the screen elements
+    sharedScreenElements();
     //start button text
-    textFont(myFont);
-    fill("white");
     textSize(25);
-    textAlign(CENTER, CENTER);
     text("Start", start.x, start.y - 5);
 
-    //game title
-    textSize(40);
-    textAlign(CENTER, CENTER);
-    text("Ukko's Punishment", width / 2, 50);
-    pop();
+    // Get distance from tongue to start button
+    const d = dist(frog.tongue.x, frog.tongue.y, start.x, start.y);
+    // Check if it's an overlap
+    const startGame = (d < frog.tongue.size / 2 + start.size / 2);
+    if (startGame) {
+        state == "game";
+    }
 
     drawFrog();
     drawFrogSkin();
     moveFrog();
     moveTongue();
-    checkTongueStartOverlap();
 }
-
-function checkTongueStartOverlap() {
-    // Get distance from tongue to fly
-    const d = dist(frog.tongue.x, frog.tongue.y, start.x, start.y);
-    // Check if it's an overlap
-    const startGame = (d < frog.tongue.size / 2 + start.size / 2);
-    if (startGame) {
-        screenStage == 1;
-        gameScreen();
-    }
-}
-
-
-
-function backgroundChange() {
-    background("#87ceeb");
-}
-
 
 function gameScreen() {
+    background(135, 206, 235);
     moveFly();
     drawFly();
     //can keep buy under frog design layer
     moveFrog();
     moveTongue();
     drawFrog();
+    drawFrogSkin();
     checkTongueFlyOverlap();
+    lightningTransition();
     drawScore();
     drawScore2();
+
+}
+
+function endScreen() {
+    background("black");
+
+    //calls on title and end screen shared element and formatting
+    sharedScreenElements();
+
+    //try again text
+    textSize(25);
+    text("Try", start.x, start.y - 20);
+    text("Again", start.x, start.y + 10);
+
+    //text box text
+    textSize(27);
+    text("You didn't survive", width / 2, height / 2);
+    text("Ukko's Wrath", width / 2, 280);
+
+    drawFrog();
+    drawFrogDead();
+    moveFrog();
+    moveTongue();
+    checkTongueStartOverlap();
+}
+
+
+function sharedScreenElements() {
+    //outer circle
+    strokeWeight(3);
+    fill("royalblue");
+    ellipse(width / 2, height / 2, 300);
+
+    //start and try again button
+    noStroke();
+    fill(start.fill);
+    ellipse(start.x, start.y, start.size);
+
+    //start and try again button text formating
+    textFont(myFont);
+    fill("white");
+    textSize(25);
+    textAlign(CENTER, CENTER);
+
+    //game title
+    textSize(40);
+    textAlign(CENTER, CENTER);
+    text("Ukko's Punishment", width / 2, 50);
+};
+
+function checkTongueStartOverlap() {
+
+}
+
+
+
+function backgroundChange() {
+    background("#87ceeb");
 }
 
 function lightningTransition() {
@@ -231,15 +271,6 @@ function lightningTransition() {
 }
 
 
-function drawFrogOG() {
-
-    // Draw the frog's body
-    push();
-    fill("#00ff00");
-    noStroke();
-    ellipse(frog.body.x, frog.body.y, frog.body.size);
-    pop();
-}
 
 
 function drawFrogSkin() {
@@ -285,7 +316,6 @@ function drawFrogSkin() {
 
     pop();
 }
-
 
 function drawFrogMuscle() {
     push();
@@ -344,7 +374,6 @@ function drawFrogMuscle() {
     pop();
 }
 
-
 function drawFrogBone() {
     push();
     translate(frog.body.x, frog.body.y); // move the whole frog to its current position
@@ -402,7 +431,6 @@ function drawFrogBone() {
     pop();
 }
 
-
 function drawFrogDead() {
     push();
     translate(frog.body.x, frog.body.y); // move the whole frog to its current position
@@ -453,15 +481,21 @@ function drawFrogDead() {
     pop();
 }
 
-function endScreen() {
-    background("ffffff");
+function drawScore() {
     fill("black");
-    textSize(30);
-    textStyle(BOLD);
-    textAlign(RIGHT, TOP);
-    text("You Died", width / 2, height / 2);
+    textFont(myFont);
+    textSize(20);
+    textAlign(CENTER, CENTER);
+    text("Ukko: " + thorScore, (width * 3) / 4, 20);
 }
 
+function drawScore2() {
+    fill("black");
+    textFont(myFont);
+    textSize(20);
+    textAlign(CENTER, CENTER);
+    text("Health: " + healthScore, width / 4, 20);
+}
 
 
 /**
@@ -490,7 +524,6 @@ function drawFly() {
     ellipse(fly.x, fly.y, fly.size);
     pop();
 }
-
 
 /**
  * Resets the fly to the left with a random y
@@ -578,7 +611,6 @@ function checkTongueFlyOverlap() {
     }
 }
 
-
 /**
  * Launch the tongue on click (if it's not launched yet)
  */
@@ -586,20 +618,4 @@ function mousePressed() {
     if (frog.tongue.state === "idle") {
         frog.tongue.state = "outbound";
     }
-}
-
-function drawScore() {
-    fill("black");
-    textSize(30);
-    textStyle(BOLD);
-    textAlign(LEFT, TOP);
-    text("Thor: " + thorScore, 10, 10);
-}
-
-function drawScore2() {
-    fill("black");
-    textSize(30);
-    textStyle(BOLD);
-    textAlign(RIGHT, TOP);
-    text("Health: " + healthScore, 10, 10);
 }
