@@ -14,6 +14,26 @@
  */
 
 "use strict";
+let myFont;
+let sineMovement = 0;
+let thorScore = 0;
+let healthScore = 0;
+let frogStage = 0;
+//0 skin
+//1 muscle
+//2 bone
+//3 dead
+let screenStage = 0;
+//0 start screen
+//1 game screen
+//2 end screen
+
+const start = {
+    x: 640 / 2,
+    y: 480 / 2 - 100,
+    size: 100,
+    fill: "darkblue",
+}
 
 // Our frog
 const frog = {
@@ -46,6 +66,10 @@ const fly = {
     }
 };
 
+function preload() {
+    myFont = loadFont("assets/UncialAntiqua-Regular.otf");
+};
+
 /**
  * Creates the canvas and initializes the fly
  */
@@ -55,10 +79,13 @@ function setup() {
     // Give the fly its first random position
     resetFly();
     angleMode(DEGREES);
+    //setTimeout(backgroundChange, 70000);
 }
 
 function draw() {
-    background("#87ceeb");
+    //gameScreen();
+
+    /*background("#87ceeb");
     moveFly();
     drawFly();
     //can keep buy under frog design layer
@@ -67,12 +94,153 @@ function draw() {
     drawFrog();
     checkTongueFlyOverlap();
 
-    drawFrogSkin();
 
-    drawFrogMuscle();
-    drawFrogBone();
-    drawFrogDead();
+    drawScore();
+    drawScore2();
+
+    lightningTransition()
+
+    sineMovement += 0.1;*/
+
+    /* if (screenStage == 0) {
+         startScreen();
+     }
+ 
+     else if (screenStage == 1) {
+         drawGameScreen();
+     }
+     /*
+ else if (screenStage == 2) {
+     drawEndScreen();
+ }
+     
+ 
+ /*if (frogStage == 0) {
+     drawFrogSkin();
+ }
+ else if (frogStage == 1) {
+     drawFrogMuscle();
+ }
+ else if (frogStage == 2) {
+     drawFrogBone();
+ }
+ else if (frogStage == 3) {
+     drawFrogDead();
+ };
+ */
 }
+
+function startScreen() {
+    //background color gradient top black to bottom light blue
+    let c1, c2;
+    c1 = color(0, 0, 0);
+    c2 = color(135, 206, 235);
+
+    for (let y = 0; y < height; y++) {
+        let n = map(y, 0, height, 0, 1);
+        let newc = lerpColor(c1, c2, n);
+        stroke(newc);
+        line(0, y, width, y);
+    }
+
+
+    push();
+    //outer circle
+    strokeWeight(3);
+    fill("royalblue");
+    ellipse(width / 2, height / 2, 300);
+
+    //start button
+    noStroke();
+    fill(start.fill);
+    ellipse(start.x, start.y, start.size);
+
+    //start button text
+    textFont(myFont);
+    fill("white");
+    textSize(25);
+    textAlign(CENTER, CENTER);
+    text("Start", start.x, start.y - 5);
+
+    //game title
+    textSize(40);
+    textAlign(CENTER, CENTER);
+    text("Ukko's Punishment", width / 2, 50);
+    pop();
+
+    drawFrog();
+    drawFrogSkin();
+    moveFrog();
+    moveTongue();
+    checkTongueStartOverlap();
+}
+
+function checkTongueStartOverlap() {
+    // Get distance from tongue to fly
+    const d = dist(frog.tongue.x, frog.tongue.y, start.x, start.y);
+    // Check if it's an overlap
+    const startGame = (d < frog.tongue.size / 2 + start.size / 2);
+    if (startGame) {
+        screenStage == 1;
+        gameScreen();
+    }
+}
+
+
+
+function backgroundChange() {
+    background("#87ceeb");
+}
+
+
+function gameScreen() {
+    moveFly();
+    drawFly();
+    //can keep buy under frog design layer
+    moveFrog();
+    moveTongue();
+    drawFrog();
+    checkTongueFlyOverlap();
+    drawScore();
+    drawScore2();
+}
+
+function lightningTransition() {
+    if (thorScore >= 5 && frogStage < 3) {
+        background("000000");
+        backgroundChange();
+        gameScreen();
+        frogStage++;
+        thorScore = 0;
+
+        if (frogStage == 0) {
+            drawFrogSkin();
+        }
+        else if (frogStage == 1) {
+            drawFrogMuscle();
+        }
+        else if (frogStage == 2) {
+            drawFrogBone();
+        }
+        else if (frogStage == 3) {
+            drawFrogDead();
+            endScreen();
+        }
+
+    }
+}
+
+
+function drawFrogOG() {
+
+    // Draw the frog's body
+    push();
+    fill("#00ff00");
+    noStroke();
+    ellipse(frog.body.x, frog.body.y, frog.body.size);
+    pop();
+}
+
 
 function drawFrogSkin() {
     push();
@@ -121,7 +289,7 @@ function drawFrogSkin() {
 
 function drawFrogMuscle() {
     push();
-    translate(frog.body.x + 150, frog.body.y); // move the whole frog to its current position
+    translate(frog.body.x, frog.body.y); // move the whole frog to its current position
 
     //Green Outer Skin
     fill("#00ff00");
@@ -177,10 +345,9 @@ function drawFrogMuscle() {
 }
 
 
-
 function drawFrogBone() {
     push();
-    translate(frog.body.x - 120, frog.body.y); // move the whole frog to its current position
+    translate(frog.body.x, frog.body.y); // move the whole frog to its current position
 
     //Green Outer Skin
     fill("#00ff00");
@@ -238,7 +405,7 @@ function drawFrogBone() {
 
 function drawFrogDead() {
     push();
-    translate(frog.body.x - 250, frog.body.y); // move the whole frog to its current position
+    translate(frog.body.x, frog.body.y); // move the whole frog to its current position
 
     //Green Outer Skin
     fill("#00ff00");
@@ -286,16 +453,13 @@ function drawFrogDead() {
     pop();
 }
 
-
-
-function drawFrogOG() {
-
-    // Draw the frog's body
-    push();
-    fill("#00ff00");
-    noStroke();
-    ellipse(frog.body.x, frog.body.y, frog.body.size);
-    pop();
+function endScreen() {
+    background("ffffff");
+    fill("black");
+    textSize(30);
+    textStyle(BOLD);
+    textAlign(RIGHT, TOP);
+    text("You Died", width / 2, height / 2);
 }
 
 
@@ -308,9 +472,11 @@ function moveFly() {
     // Move the fly
     fly.x += fly.speed;
     fly.y += random(-fly.buzziness.y, fly.buzziness.y);
+    //fly.y += sin(sineMovement) * 0.5;// not working
     // Handle the fly going off the canvas
     if (fly.x > width) {
         resetFly();
+        thorScore++;
     }
 }
 
@@ -408,8 +574,10 @@ function checkTongueFlyOverlap() {
         resetFly();
         // Bring back the tongue
         frog.tongue.state = "inbound";
+        healthScore++;
     }
 }
+
 
 /**
  * Launch the tongue on click (if it's not launched yet)
@@ -418,4 +586,20 @@ function mousePressed() {
     if (frog.tongue.state === "idle") {
         frog.tongue.state = "outbound";
     }
+}
+
+function drawScore() {
+    fill("black");
+    textSize(30);
+    textStyle(BOLD);
+    textAlign(LEFT, TOP);
+    text("Thor: " + thorScore, 10, 10);
+}
+
+function drawScore2() {
+    fill("black");
+    textSize(30);
+    textStyle(BOLD);
+    textAlign(RIGHT, TOP);
+    text("Health: " + healthScore, 10, 10);
 }
