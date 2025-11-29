@@ -16,21 +16,21 @@
 "use strict";
 let myFont;
 let sineMovement = 0;
-let thorScore = 0;
+let ukkoScore = 0;
 let healthScore = 0;
-let frogStage = 0;
-//0 skin
-//1 muscle
-//2 bone
-//3 dead
+let frogStage = "skin";
+// skin
+// muscle
+// bone
+// dead
 let state = "title";
-//0 start screen
-//1 game screen
-//2 end screen
+// title screen
+// game screen
+// end screen
 
 const start = {
     x: 640 / 2,
-    y: 480 / 2 - 100,
+    y: 480 / 2 - 105,
     size: 100,
     fill: "darkblue",
 }
@@ -66,6 +66,45 @@ const fly = {
     }
 };
 
+
+//patience bar
+let patienceBar = {
+    stroke: {
+        color: "#000000",
+        weight: 2,
+    },
+
+    fills: {
+        full: "#ac6820",
+        text: "#000000"
+    },
+    x: 250,
+    y: 20,
+    h: 8,
+    w: 60,
+    ww: 150,
+    text: "Ukko's Patience:",
+}
+
+//health bar
+let healthBar = {
+    stroke: {
+        color: "#000000",
+        weight: 1,
+    },
+
+    fills: {
+        full: "#ac6820",
+        text: "#000000"
+    },
+    x: 200,
+    y: 470,
+    h: 5,
+    w: 40,
+    ww: 100,
+}
+
+
 function preload() {
     myFont = loadFont("assets/UncialAntiqua-Regular.otf");
 };
@@ -94,49 +133,30 @@ function draw() {
         endScreen();
     }
 
-    /*background("#87ceeb");
-    moveFly();
-    drawFly();
-    //can keep buy under frog design layer
-    moveFrog();
-    moveTongue();
-    drawFrog();
-    checkTongueFlyOverlap();
-
-
-    drawScore();
-    drawScore2();
-
-    lightningTransition()
-
-    sineMovement += 0.1;*/
-
-    /* if (screenStage == 0) {
-         startScreen();
-     }
+    /*
  
-     else if (screenStage == 1) {
-         drawGameScreen();
-     }
-     /*
- else if (screenStage == 2) {
-     drawEndScreen();
- }
-     
+     drawScore();
+     drawScore2();
  
- /*if (frogStage == 0) {
-     drawFrogSkin();
- }
- else if (frogStage == 1) {
-     drawFrogMuscle();
- }
- else if (frogStage == 2) {
-     drawFrogBone();
- }
- else if (frogStage == 3) {
-     drawFrogDead();
- };
- */
+     lightningTransition()
+ 
+     sineMovement += 0.1;*/
+
+
+
+    /*if (frogStage == 0) {
+        drawFrogSkin();
+    }
+    else if (frogStage == 1) {
+        drawFrogMuscle();
+    }
+    else if (frogStage == 2) {
+        drawFrogBone();
+    }
+    else if (frogStage == 3) {
+        drawFrogDead();
+    };
+    */
 }
 
 function titleScreen() {
@@ -163,7 +183,7 @@ function titleScreen() {
     // Check if it's an overlap
     const startGame = (d < frog.tongue.size / 2 + start.size / 2);
     if (startGame) {
-        state == "game";
+        state = "game";
     }
 
     drawFrog();
@@ -182,9 +202,11 @@ function gameScreen() {
     drawFrog();
     drawFrogSkin();
     checkTongueFlyOverlap();
-    lightningTransition();
+    //lightningTransition();
     drawScore();
     drawScore2();
+    drawHealthBar();
+    drawPatienceBar();
 
 }
 
@@ -246,12 +268,12 @@ function backgroundChange() {
 }
 
 function lightningTransition() {
-    if (thorScore >= 5 && frogStage < 3) {
+    if (ukkoScore >= 5 && frogStage < 3) {
         background("000000");
         backgroundChange();
         gameScreen();
         frogStage++;
-        thorScore = 0;
+        ukkoScore = 0;
 
         if (frogStage == 0) {
             drawFrogSkin();
@@ -481,12 +503,59 @@ function drawFrogDead() {
     pop();
 }
 
+function drawPatienceBar() {
+    //health text
+    push();
+    noStroke();
+    fill(patienceBar.fills.text);
+    textFont(myFont);
+    textSize(14)
+    text(patienceBar.text, patienceBar.x - 80, patienceBar.y);
+    pop();
+
+    //slider fill
+    push();
+    noStroke();
+    fill(patienceBar.fills.full);
+    rect(patienceBar.x, patienceBar.y, patienceBar.w, patienceBar.h,);
+    pop();
+
+    //bar box frame
+    push();
+    stroke(patienceBar.stroke.color);
+    strokeWeight(patienceBar.stroke.weight);
+    noFill();
+    rect(patienceBar.x, patienceBar.y, patienceBar.ww, patienceBar.h,);
+    pop();
+}
+
+function drawHealthBar() {
+    //slider fill
+    push();
+    noStroke();
+    fill(healthBar.fills.full);
+    rect(mouseX - 50, healthBar.y, healthBar.w, healthBar.h,);
+    pop();
+
+    //bar box frame
+    push();
+    stroke(healthBar.stroke.color);
+    strokeWeight(healthBar.stroke.weight);
+    noFill();
+    rect(mouseX - 50, healthBar.y, healthBar.ww, healthBar.h,);
+    pop();
+
+}
+
+//healthBar.w -= 10;
+
 function drawScore() {
     fill("black");
     textFont(myFont);
     textSize(20);
     textAlign(CENTER, CENTER);
-    text("Ukko: " + thorScore, (width * 3) / 4, 20);
+    text("Ukko: " + ukkoScore, (width * 4) / 5, 20);
+
 }
 
 function drawScore2() {
@@ -494,7 +563,7 @@ function drawScore2() {
     textFont(myFont);
     textSize(20);
     textAlign(CENTER, CENTER);
-    text("Health: " + healthScore, width / 4, 20);
+    text("Health: " + healthScore, width / 4, 420);
 }
 
 
@@ -510,7 +579,7 @@ function moveFly() {
     // Handle the fly going off the canvas
     if (fly.x > width) {
         resetFly();
-        thorScore++;
+        ukkoScore++;
     }
 }
 
@@ -530,7 +599,7 @@ function drawFly() {
  */
 function resetFly() {
     fly.x = 0;
-    fly.y = random(0, 300);
+    fly.y = random(50, 300);
 }
 
 /**
