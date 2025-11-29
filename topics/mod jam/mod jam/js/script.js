@@ -18,7 +18,7 @@ let myFont;
 let sineMovement = 0;
 let ukkoScore = 0;
 let healthScore = 0;
-let frogStage = "skin";
+let frogStage = 0;
 // skin
 // muscle
 // bone
@@ -75,7 +75,7 @@ let patienceBar = {
     },
 
     fills: {
-        full: "#ac6820",
+        full: "#faf8f5ff",
         text: "#000000"
     },
     x: 250,
@@ -94,7 +94,7 @@ let healthBar = {
     },
 
     fills: {
-        full: "#ac6820",
+        full: "#f1f0efff",
         text: "#000000"
     },
     x: 200,
@@ -142,21 +142,6 @@ function draw() {
  
      sineMovement += 0.1;*/
 
-
-
-    /*if (frogStage == 0) {
-        drawFrogSkin();
-    }
-    else if (frogStage == 1) {
-        drawFrogMuscle();
-    }
-    else if (frogStage == 2) {
-        drawFrogBone();
-    }
-    else if (frogStage == 3) {
-        drawFrogDead();
-    };
-    */
 }
 
 function titleScreen() {
@@ -194,19 +179,41 @@ function titleScreen() {
 
 function gameScreen() {
     background(135, 206, 235);
+
+
     moveFly();
     drawFly();
     //can keep buy under frog design layer
     moveFrog();
     moveTongue();
     drawFrog();
-    drawFrogSkin();
     checkTongueFlyOverlap();
-    //lightningTransition();
+    lifeTransition();
     drawScore();
     drawScore2();
     drawHealthBar();
     drawPatienceBar();
+
+
+    if (frogStage === 0) {
+        drawFrogSkin()
+    };
+    if (frogStage === 1) {
+        drawFrogMuscle();
+        fly.speed++
+    };
+    if (frogStage === 2) {
+        drawFrogBone();
+        fly.speed++
+    };
+    if (frogStage === 3) {
+        drawFrogDead();
+        state = "ending";
+        fly.speed++
+    };
+
+
+
 
 }
 
@@ -267,29 +274,18 @@ function backgroundChange() {
     background("#87ceeb");
 }
 
-function lightningTransition() {
-    if (ukkoScore >= 5 && frogStage < 3) {
+function lifeTransition() {
+
+    //lightning
+    if (patienceBar.w === 0 && frogStage < 3 || healthBar.w === 0 && frogStage < 3) {
         background("000000");
-        backgroundChange();
-        gameScreen();
         frogStage++;
         ukkoScore = 0;
-
-        if (frogStage == 0) {
-            drawFrogSkin();
-        }
-        else if (frogStage == 1) {
-            drawFrogMuscle();
-        }
-        else if (frogStage == 2) {
-            drawFrogBone();
-        }
-        else if (frogStage == 3) {
-            drawFrogDead();
-            endScreen();
-        }
-
+        patienceBar.w = 150;
     }
+
+
+
 }
 
 
@@ -503,6 +499,8 @@ function drawFrogDead() {
     pop();
 }
 
+
+
 function drawPatienceBar() {
     //health text
     push();
@@ -547,8 +545,6 @@ function drawHealthBar() {
 
 }
 
-//healthBar.w -= 10;
-
 function drawScore() {
     fill("black");
     textFont(myFont);
@@ -580,6 +576,10 @@ function moveFly() {
     if (fly.x > width) {
         resetFly();
         ukkoScore++;
+        healthBar.w -= 10;
+        if (patienceBar.w < 150) {
+            patienceBar.w += 15;
+        }
     }
 }
 
@@ -677,6 +677,10 @@ function checkTongueFlyOverlap() {
         // Bring back the tongue
         frog.tongue.state = "inbound";
         healthScore++;
+        patienceBar.w -= 15;
+        if (healthBar.w < 100) {
+            healthBar.w += 10;
+        }
     }
 }
 
