@@ -29,6 +29,9 @@ let state = "title";
 let blackoutActive = false;
 let blackoutStart = -1;
 
+let backgroundMusic;
+let lightningSound;
+
 //values used for start and restart button
 const start = {
     x: 640 / 2,
@@ -109,7 +112,8 @@ let healthBar = {
 
 function preload() {
     myFont = loadFont("assets/UncialAntiqua-Regular.otf");
-    lightningSound = loadSound("assets/lightning.mp3");
+    backgroundMusic = loadSound("assets/sounds/ukkoBackground.mp3")
+    lightningSound = loadSound("assets/sounds/lightning.mp3");
 };
 
 /**
@@ -310,7 +314,7 @@ function lifeTransition() {
     if (!blackoutActive && patienceBar.w === 0 && frogStage < 3) {
         blackoutActive = true;
         blackoutStart = millis();
-        lightningSound;
+        lightningSound.play();
     }
 
     if (!blackoutActive && healthBar.w === 0 && frogStage < 3) {
@@ -752,5 +756,14 @@ function checkTongueFlyOverlap() {
 function mousePressed() {
     if (frog.tongue.state === "idle") {
         frog.tongue.state = "outbound";
+    }
+
+    if (!backgroundMusic.isPlaying()) {
+        backgroundMusic.setVolume(0.1);
+        backgroundMusic.loop();
+    }
+
+    if (blackoutActive) {
+        lightningSound.play();
     }
 }
