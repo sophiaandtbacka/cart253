@@ -15,9 +15,8 @@
 
 "use strict";
 let myFont;
-let sineMovement = 0;
-let ukkoScore = 0;
-let healthScore = 0;
+let sacrificeScore = 0;
+let eatenScore = 0;
 let frogStage = 0;
 // skin
 // muscle
@@ -27,7 +26,10 @@ let state = "title";
 // title screen
 // game screen
 // end screen
+let blackoutActive = false;
+let blackoutStart = -1;
 
+//values used for start and restart button
 const start = {
     x: 640 / 2,
     y: 480 / 2 - 105,
@@ -67,7 +69,7 @@ const fly = {
 };
 
 
-//patience bar
+//patience score bar
 let patienceBar = {
     stroke: {
         color: "#000000",
@@ -75,7 +77,7 @@ let patienceBar = {
     },
 
     fills: {
-        full: "#faf8f5ff",
+        full: "red",
         text: "#000000"
     },
     x: 250,
@@ -86,7 +88,7 @@ let patienceBar = {
     text: "Ukko's Patience:",
 }
 
-//health bar
+//health score bar
 let healthBar = {
     stroke: {
         color: "#000000",
@@ -94,7 +96,7 @@ let healthBar = {
     },
 
     fills: {
-        full: "#f1f0efff",
+        full: "#000000",
         text: "#000000"
     },
     x: 200,
@@ -107,6 +109,7 @@ let healthBar = {
 
 function preload() {
     myFont = loadFont("assets/UncialAntiqua-Regular.otf");
+    lightningSound = loadSound("assets/lightning.mp3");
 };
 
 /**
@@ -118,11 +121,10 @@ function setup() {
     // Give the fly its first random position
     resetFly();
     angleMode(DEGREES);
-    //setTimeout(backgroundChange, 70000);
 }
 
 function draw() {
-
+    //rest of the game
     if (state === "title") {
         titleScreen();
     }
@@ -132,15 +134,6 @@ function draw() {
     else if (state === "ending") {
         endScreen();
     }
-
-    /*
- 
-     drawScore();
-     drawScore2();
- 
-     lightningTransition()
- 
-     sineMovement += 0.1;*/
 
 }
 
@@ -178,43 +171,45 @@ function titleScreen() {
 }
 
 function gameScreen() {
+    if (blackoutActive) {
+        visualTransition();
+        return; // stops everything being draw if there is the black out transition
+    }
+
     background(135, 206, 235);
 
 
     moveFly();
     drawFly();
-    //can keep buy under frog design layer
-    moveFrog();
-    moveTongue();
-    drawFrog();
-    checkTongueFlyOverlap();
-    lifeTransition();
-    drawScore();
-    drawScore2();
-    drawHealthBar();
-    drawPatienceBar();
 
+    moveFrog();
+    drawFrog();
+
+    moveTongue();
+    checkTongueFlyOverlap();
+
+    lifeTransition();
 
     if (frogStage === 0) {
         drawFrogSkin()
     };
     if (frogStage === 1) {
         drawFrogMuscle();
-        fly.speed++
+        fly.speed = 4
     };
     if (frogStage === 2) {
         drawFrogBone();
-        fly.speed++
+        fly.speed = 5
     };
     if (frogStage === 3) {
-        drawFrogDead();
         state = "ending";
-        fly.speed++
     };
 
 
+    drawSacrificeScore();
 
-
+    drawPatienceBar();
+    drawHealthBar();
 }
 
 function endScreen() {
@@ -230,17 +225,31 @@ function endScreen() {
 
     //text box text
     textSize(27);
-    text("You didn't survive", width / 2, height / 2);
-    text("Ukko's Wrath", width / 2, 280);
+    fill("black");
+    text("): You Died :(", width / 2, 210)
+
+    textSize(21);
+    text("Flies Eaten: " + eatenScore, width / 2, 280);
+    text("Sacrifices: " + sacrificeScore, width / 2, 310)
+
+    // Get distance from tongue to start button
+    const d = dist(frog.tongue.x, frog.tongue.y, start.x, start.y);
+    // Check if it's an overlap
+    const startGame = (d < frog.tongue.size / 2 + start.size / 2);
+    if (startGame) {
+        resetGame();
+        state = "game";
+    }
 
     drawFrog();
     drawFrogDead();
     moveFrog();
     moveTongue();
-    checkTongueStartOverlap();
 }
 
-
+/**
+ * has all of the shared visuals of the title and end screen
+ */
 function sharedScreenElements() {
     //outer circle
     strokeWeight(3);
@@ -262,35 +271,217 @@ function sharedScreenElements() {
     textSize(40);
     textAlign(CENTER, CENTER);
     text("Ukko's Punishment", width / 2, 50);
-};
-
-function checkTongueStartOverlap() {
-
 }
 
+/**
+ * checks if the tongue overlaps with either the start or try again button
+ */
+function checkTongueButtonOverlap() {
+    // Get distance from tongue to start button
+    const d = dist(frog.tongue.x, frog.tongue.y, start.x, start.y);
+    // Check if it's an overlap
+    const startGame = (d < frog.tongue.size / 2 + start.size / 2);
+    if (startGame) {
+        state = "game";
+    }
+}
 
+/**
+ * restarts all of the game elements for when the user clicks the try again button
+ */
+function resetGame() {
+    frogStage = 0;
+    sacrificeScore = 0;
+    eatenScore = 0;
 
-function backgroundChange() {
-    background("#87ceeb");
+    patienceBar.w = 40;
+    healthBar.w = 40;
+
+    frog.tongue.y = 480;
+    frog.tongue.state = "idle";
+
+    fly.speed = 3;
+
+    resetFly();
 }
 
 function lifeTransition() {
-
-    //lightning
-    if (patienceBar.w === 0 && frogStage < 3 || healthBar.w === 0 && frogStage < 3) {
-        background("000000");
-        frogStage++;
-        ukkoScore = 0;
-        patienceBar.w = 150;
+    //checks to see if the conditions are met for the blackout transition to start
+    if (!blackoutActive && patienceBar.w === 0 && frogStage < 3) {
+        blackoutActive = true;
+        blackoutStart = millis();
+        lightningSound;
     }
 
+    if (!blackoutActive && healthBar.w === 0 && frogStage < 3) {
+        blackoutActive = true;
+        blackoutStart = millis();
+    }
 
+    //all the effects of the black out transition
+    if (blackoutActive) {
+        visualTransition();
+
+        // Apply the frog stage change
+        frogStage++;
+
+        // Reset bars
+        patienceBar.w = 150;
+        healthBar.w = 40;
+
+        // Reset tongue position if needed
+        frog.tongue.y = height;
+        frog.tongue.state = "idle";
+
+
+    }
+}
+
+function visualTransition() {
+
+    let elapsed = millis() - blackoutStart;
+
+    // DRAW BLACKOUT SCREEN
+    fill(0);
+    rect(0, 0, width, height);
+
+    // RANDOM LIGHTNING FLASHES
+    if (random() < 0.2) {
+        fill(255);
+        rect(0, 0, width, height);
+    }
+
+    // End blackout after 2 seconds
+    if (elapsed > 5000) {
+        blackoutActive = false;
+    }
 
 }
 
 
 
+function drawSacrificeScore() {
+    fill("black");
+    textFont(myFont);
+    textSize(20);
+    textAlign(CENTER, CENTER);
+    text("Sacrifices: " + sacrificeScore, (width * 4) / 5, 20);
 
+}
+
+function drawPatienceBar() {
+    //health text
+    push();
+    noStroke();
+    fill(patienceBar.fills.text);
+    textFont(myFont);
+    textSize(14)
+    text(patienceBar.text, patienceBar.x - 80, patienceBar.y);
+    pop();
+
+    //slider fill
+    push();
+    noStroke();
+    fill(patienceBar.fills.full);
+    rect(patienceBar.x, patienceBar.y, patienceBar.w, patienceBar.h,);
+    pop();
+
+    //bar box frame
+    push();
+    stroke(patienceBar.stroke.color);
+    strokeWeight(patienceBar.stroke.weight);
+    noFill();
+    rect(patienceBar.x, patienceBar.y, patienceBar.ww, patienceBar.h,);
+    pop();
+}
+
+function drawHealthBar() {
+    //slider fill
+    push();
+    noStroke();
+    fill(healthBar.fills.full);
+    rect(mouseX - 50, healthBar.y, healthBar.w, healthBar.h,);
+    pop();
+
+    //bar box frame
+    push();
+    stroke(healthBar.stroke.color);
+    strokeWeight(healthBar.stroke.weight);
+    noFill();
+    rect(mouseX - 50, healthBar.y, healthBar.ww, healthBar.h,);
+    pop();
+
+}
+
+
+/**
+ * Draws the fly as a black circle
+ */
+function drawFly() {
+    push();
+    noStroke();
+    fill("#000000");
+    ellipse(fly.x, fly.y, fly.size);
+    pop();
+}
+
+/**
+ * Moves the fly according to its speed
+ * Resets the fly if it gets all the way to the right
+ */
+function moveFly() {
+    // Move the fly
+    fly.x += fly.speed;
+    fly.y += random(-fly.buzziness.y, fly.buzziness.y);
+    //fly.y += sin(sineMovement) * 0.5;// not working
+    // Handle the fly going off the canvas
+    if (fly.x > width) {
+        resetFly();
+        sacrificeScore++;
+        healthBar.w -= 10;
+        if (patienceBar.w < 150) {
+            patienceBar.w += 15;
+        }
+    }
+}
+
+/**
+ * Resets the fly to the left with a random y
+ */
+function resetFly() {
+    fly.x = 0;
+    fly.y = random(50, 300);
+}
+
+/**
+ * Displays the tongue (tip and line connection) and the original frog (body)
+ */
+function drawFrog() {
+    // Draw the tongue tip
+    push();
+    fill("#ff0000");
+    noStroke();
+    ellipse(frog.tongue.x, frog.tongue.y, frog.tongue.size);
+    pop();
+
+    // Draw the rest of the tongue
+    push();
+    stroke("#ff0000");
+    strokeWeight(frog.tongue.size);
+    line(frog.tongue.x, frog.tongue.y, frog.body.x, frog.body.y);
+    pop();
+
+    // Draw the frog's body
+    push();
+    fill("#00ff00");
+    noStroke();
+    ellipse(frog.body.x, frog.body.y, frog.body.size);
+    pop();
+}
+
+/**
+ * All the different versions of the frogs outside of the original
+ */
 function drawFrogSkin() {
     push();
     translate(frog.body.x, frog.body.y); // move the whole frog to its current position
@@ -499,109 +690,6 @@ function drawFrogDead() {
     pop();
 }
 
-
-
-function drawPatienceBar() {
-    //health text
-    push();
-    noStroke();
-    fill(patienceBar.fills.text);
-    textFont(myFont);
-    textSize(14)
-    text(patienceBar.text, patienceBar.x - 80, patienceBar.y);
-    pop();
-
-    //slider fill
-    push();
-    noStroke();
-    fill(patienceBar.fills.full);
-    rect(patienceBar.x, patienceBar.y, patienceBar.w, patienceBar.h,);
-    pop();
-
-    //bar box frame
-    push();
-    stroke(patienceBar.stroke.color);
-    strokeWeight(patienceBar.stroke.weight);
-    noFill();
-    rect(patienceBar.x, patienceBar.y, patienceBar.ww, patienceBar.h,);
-    pop();
-}
-
-function drawHealthBar() {
-    //slider fill
-    push();
-    noStroke();
-    fill(healthBar.fills.full);
-    rect(mouseX - 50, healthBar.y, healthBar.w, healthBar.h,);
-    pop();
-
-    //bar box frame
-    push();
-    stroke(healthBar.stroke.color);
-    strokeWeight(healthBar.stroke.weight);
-    noFill();
-    rect(mouseX - 50, healthBar.y, healthBar.ww, healthBar.h,);
-    pop();
-
-}
-
-function drawScore() {
-    fill("black");
-    textFont(myFont);
-    textSize(20);
-    textAlign(CENTER, CENTER);
-    text("Ukko: " + ukkoScore, (width * 4) / 5, 20);
-
-}
-
-function drawScore2() {
-    fill("black");
-    textFont(myFont);
-    textSize(20);
-    textAlign(CENTER, CENTER);
-    text("Health: " + healthScore, width / 4, 420);
-}
-
-
-/**
- * Moves the fly according to its speed
- * Resets the fly if it gets all the way to the right
- */
-function moveFly() {
-    // Move the fly
-    fly.x += fly.speed;
-    fly.y += random(-fly.buzziness.y, fly.buzziness.y);
-    //fly.y += sin(sineMovement) * 0.5;// not working
-    // Handle the fly going off the canvas
-    if (fly.x > width) {
-        resetFly();
-        ukkoScore++;
-        healthBar.w -= 10;
-        if (patienceBar.w < 150) {
-            patienceBar.w += 15;
-        }
-    }
-}
-
-/**
- * Draws the fly as a black circle
- */
-function drawFly() {
-    push();
-    noStroke();
-    fill("#000000");
-    ellipse(fly.x, fly.y, fly.size);
-    pop();
-}
-
-/**
- * Resets the fly to the left with a random y
- */
-function resetFly() {
-    fly.x = 0;
-    fly.y = random(50, 300);
-}
-
 /**
  * Moves the frog to the mouse position on x
  */
@@ -638,32 +726,6 @@ function moveTongue() {
 }
 
 /**
- * Displays the tongue (tip and line connection) and the frog (body)
- */
-function drawFrog() {
-    // Draw the tongue tip
-    push();
-    fill("#ff0000");
-    noStroke();
-    ellipse(frog.tongue.x, frog.tongue.y, frog.tongue.size);
-    pop();
-
-    // Draw the rest of the tongue
-    push();
-    stroke("#ff0000");
-    strokeWeight(frog.tongue.size);
-    line(frog.tongue.x, frog.tongue.y, frog.body.x, frog.body.y);
-    pop();
-
-    // Draw the frog's body
-    push();
-    fill("#00ff00");
-    noStroke();
-    ellipse(frog.body.x, frog.body.y, frog.body.size);
-    pop();
-}
-
-/**
  * Handles the tongue overlapping the fly
  */
 function checkTongueFlyOverlap() {
@@ -676,7 +738,7 @@ function checkTongueFlyOverlap() {
         resetFly();
         // Bring back the tongue
         frog.tongue.state = "inbound";
-        healthScore++;
+        eatenScore++;
         patienceBar.w -= 15;
         if (healthBar.w < 100) {
             healthBar.w += 10;
