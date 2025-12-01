@@ -1,5 +1,5 @@
 /**
- * Frogfrogfrog
+ * Ukko's Punishment
  * Sophia Andtbacka
  * 
  * A game of catching flies with your frog-tongue
@@ -32,7 +32,22 @@ let blackoutStart = -1;
 let backgroundMusic;
 let lightningSound;
 
-//values used for start and restart button
+const titleScreenText = [
+    "Hej!",
+    "Welcome to Ukko's World",
+    "The Finnish God of Lightning and Sky",
+    "Ukko is Impatient",
+    "He needs Sacrifices to be Appeased",
+    "But make sure You Eat aswell otherwise",
+    "You'll Die!"
+];
+let textIndex = 0;
+let textStart = 0;
+let textTime;
+let titleScreenTextLength
+
+
+//values used for start and try again button
 const start = {
     x: 640 / 2,
     y: 480 / 2 - 105,
@@ -125,6 +140,12 @@ function setup() {
     // Give the fly its first random position
     resetFly();
     angleMode(DEGREES);
+
+    textStart = millis();
+
+    //setTimeout(changeSpeech, fairyScreen.text.delay);
+    //setTimeout(changeSpeech2, fairyScreen.text.strs.delay);
+    //setTimeout(changeSpeech3, fairyScreen.text.strs.delay + 6000);
 }
 
 function draw() {
@@ -160,6 +181,17 @@ function titleScreen() {
     textSize(25);
     text("Start", start.x, start.y - 5);
 
+    //
+    titleScreenTextLength = 7
+
+    textTime = millis() - textStart;
+    if (textTime > 3500) {
+        if (textIndex < titleScreenText.length - 1) {
+            textIndex++;
+        }
+        textStart = millis();
+    }
+
     // Get distance from tongue to start button
     const d = dist(frog.tongue.x, frog.tongue.y, start.x, start.y);
     // Check if it's an overlap
@@ -167,6 +199,17 @@ function titleScreen() {
     if (startGame) {
         state = "game";
     }
+
+    //Instruction text
+    push();
+    translate(width / 2, height / 2)
+    noStroke();
+    fill("black");
+    textFont(myFont);
+    textSize(20);
+    textAlign(CENTER, CENTER)
+    text(titleScreenText[textIndex], -125, 0, 250);
+    pop();
 
     drawFrog();
     drawFrogSkin();
@@ -290,6 +333,26 @@ function checkTongueButtonOverlap() {
     }
 }
 
+/** 
+function changeSpeech() {
+    titleScreenText.strs.t1 = titleScreenText.strs.t2;
+    titleScreenText.strs.size = 30;
+    titleScreenText.strs.x = titleScreenText.strs.x;
+    titleScreenText.strs.y = titleScreenText.strs.y;
+}   
+function changeSpeech2() {
+    if (titleScreenText.strs.t1 = titleScreenText.strs.t2) {
+        titleScreenText.strs.t1 = titleScreenText.strs.t3;
+        fairyScreen.text.strs.size = 20;
+    }
+}
+function changeSpeech3() {
+    if (titleScreenText.strs.t1 = titleScreenText.strs.t3) {
+        titleScreenText.strs.t1 = titleScreenText.strs.t4;
+    }
+}
+*/
+
 /**
  * restarts all of the game elements for when the user clicks the try again button
  */
@@ -311,20 +374,9 @@ function resetGame() {
 
 function lifeTransition() {
     //checks to see if the conditions are met for the blackout transition to start
-    if (!blackoutActive && patienceBar.w === 0 && frogStage < 3) {
+    if (!blackoutActive && patienceBar.w <= 0 && frogStage < 3) {
         blackoutActive = true;
         blackoutStart = millis();
-        lightningSound.play();
-    }
-
-    if (!blackoutActive && healthBar.w === 0 && frogStage < 3) {
-        blackoutActive = true;
-        blackoutStart = millis();
-    }
-
-    //all the effects of the black out transition
-    if (blackoutActive) {
-        visualTransition();
 
         // Apply the frog stage change
         frogStage++;
@@ -333,29 +385,51 @@ function lifeTransition() {
         patienceBar.w = 150;
         healthBar.w = 40;
 
-        // Reset tongue position if needed
+        // Reset tongue position
         frog.tongue.y = height;
         frog.tongue.state = "idle";
 
+        lightningSound.play();
+    }
 
+    if (!blackoutActive && healthBar.w <= 0 && frogStage < 3) {
+        blackoutActive = true;
+        blackoutStart = millis();
+
+        // Apply the frog stage change
+        frogStage++;
+
+        // Reset bars
+        patienceBar.w = 150;
+        healthBar.w = 40;
+
+        // Reset tongue position
+        frog.tongue.y = height;
+        frog.tongue.state = "idle";
+    }
+
+    //all the effects of the black out transition
+    if (blackoutActive) {
+        visualTransition();
     }
 }
 
 function visualTransition() {
 
+    //calculates how much time has passed since the transition started
     let elapsed = millis() - blackoutStart;
 
-    // DRAW BLACKOUT SCREEN
+    //draws the black screen
     fill(0);
     rect(0, 0, width, height);
 
-    // RANDOM LIGHTNING FLASHES
+    //creates lightning flash effect
     if (random() < 0.2) {
         fill(255);
         rect(0, 0, width, height);
     }
 
-    // End blackout after 2 seconds
+    // End the blackout transition screen after 5 seconds
     if (elapsed > 5000) {
         blackoutActive = false;
     }
