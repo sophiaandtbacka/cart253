@@ -6,9 +6,9 @@ Sophia Andtbacka
 
 ## Description
 
-Ukko's Punishment is all about regulating gluttuny and staying humble. You are a simple frog make sure you eat enough to stay alive but don't become gluttonous and forget to offer sacrifices to Ukko the god of sky and lightning. If this happens you will face his wrath and get electrocuted. 
+Ukko's Punishment is all about regulating gluttony and staying humble. You are a simple frog make sure you eat enough to stay alive but don't become gluttonous and forget to offer sacrifices to Ukko the god of sky and lightning. If this happens you will face his wrath and get electrocuted. 
 
-To eat launch your tongue at the flies that are moving accross the screen if you touch the fly it wiil be eaten. To offer a sacrifice let the fly fly off the screen. 
+To eat launch your tongue at the flies that are moving across the screen if you touch the fly it will be eaten. To offer a sacrifice let the fly fly off the screen. 
 
 ## Controls
 - Mouse Move: move your mouse around the screen to change the frog's X position

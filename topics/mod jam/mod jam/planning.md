@@ -37,7 +37,7 @@ Basic thing to do in end screen:
     - What levels of health and patience should the player start with?
     - Will the scoring change over time?
     - Will the game have special items that drastically affect the scoring?
-- How does the muscle and bone structure of a frog look like?
+- What does the muscle and bone structure of a frog look like?
 - How does the user transition from title screen to game screen and end screen to game screen?
 - What is the aesthetic or visual language and what is the layout?
 

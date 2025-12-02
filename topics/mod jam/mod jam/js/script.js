@@ -2,14 +2,19 @@
  * Ukko's Punishment
  * Sophia Andtbacka
  * 
- * A game of punishment
+ * Ukko's Punishment is all about regulating gluttony and staying humble. 
+ * You are a simple frog make sure you eat enough to stay alive but don't become gluttonous 
+ * and forget to offer sacrifices to Ukko the god of sky and lightning. 
+ * If this happens you will face his wrath and get electrocuted. 
  * 
  * Instructions:
  * - Move the frog with your mouse
  * - Click to launch the tongue
- * - Catch flies
- * - Let the flies fly off screen to become sacrifes
+ * - Catch flies and eat them to increase your health
+ * - Let the flies fly off screen to become sacrifices
  *   and increase Ukko's patience
+ * - Make sure to keep the balance between surviving
+ *   and appeasing Ukko
  * 
  * Made with p5
  * https://p5js.org/
@@ -17,7 +22,7 @@
 
 "use strict";
 
-/**game screens and transitions*/
+/**game screens and transitions definitions*/
 let state = "title";
 // title screen
 // game screen
@@ -25,7 +30,7 @@ let state = "title";
 let blackoutActive = false;//lightning transition
 let blackoutStart = -1;//timing of lightning transition
 
-/**scoring*/
+/**scoring definition and score bars*/
 let sacrificeScore = 0;
 let eatenScore = 0;
 //patience score bar
@@ -64,7 +69,7 @@ let healthBar = {
     ww: 100,
 }
 
-/**all text*/
+/**all text and text formating*/
 let myFont;//Google Font in my assets
 const titleScreenText = [
     "Hej!",
@@ -161,7 +166,7 @@ function draw() {
 }
 
 
-
+/**draws titleScreen, visuals and strart button transitions to game screen*/
 function titleScreen() {
     //background color gradient top black to bottom light blue
     let c1, c2;
@@ -217,7 +222,7 @@ function titleScreen() {
     moveFrog();
     moveTongue();
 }
-
+/**draws gameScreen, visuals and electrocutes changes frog stage when it loosed all it's health or Ukko's patience*/
 function gameScreen() {
     //checks if the black out lightning transition is active
     if (blackoutActive) {
@@ -260,7 +265,7 @@ function gameScreen() {
     drawPatienceBar();
     drawHealthBar();
 }
-
+/**draws endScreen, visuals and try again button resets andtransitions to resets game screen*/
 function endScreen() {
     background("black");
 
@@ -321,7 +326,7 @@ function sharedScreenElements() {
     text("Ukko's Punishment", width / 2, 50);
 }
 
-/** checks if the tongue overlaps with either the start or try again button*/
+/**checks if the tongue overlaps with either the start or try again button*/
 function checkTongueButtonOverlap() {
     // Get distance from tongue to start button
     const d = dist(frog.tongue.x, frog.tongue.y, start.x, start.y);
@@ -332,7 +337,7 @@ function checkTongueButtonOverlap() {
     }
 }
 
-/**lightning/frog life transitions*/
+/**transition, calls visual change and resets scores and changes frog life stage*/
 function lifeTransition() {
     //checks to see if the conditions are met for the lightning blackout transition to start
     //patience bar
@@ -427,7 +432,7 @@ function drawSacrificeScore() {
 
 }
 
-/**draws the the patience score bar which is based on the sacrifice score and whether you've recently has a life transition*/
+/**draws the the patience score bar which is based on the sacrifice score and whether you've recently changed frog stage*/
 function drawPatienceBar() {
     //health text
     push();
