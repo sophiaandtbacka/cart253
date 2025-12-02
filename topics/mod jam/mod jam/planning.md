@@ -12,9 +12,9 @@ The user controls a frog with their mouse position and clicks to launch the tong
 
 ## Breaking it Down
 Basic things to do in title screen:
-- rolling narration text/instruction text
-- visuals
-- start button
+- Rolling narration text/instruction text
+- Visuals
+- Start button
 
 Basic things to do in game screen:
 - Draw the different frog appearances
@@ -23,21 +23,21 @@ Basic things to do in game screen:
 - Change the fly's movement to increase difficulty when lives are lost
 
 Basic thing to do in end screen:
-- end of game stats
-- visuals
-- try again button
+- End of game stats
+- Visuals
+- Try again button
 
 ### Questions:
-- How am I going to do the lightning effect?
-        - Falling Lightning Bolts to Avoid?
-        - Sound Effect?
-        - Black Out Screen?
-        - Literal or Abstract Expression?
+- How am I going to do the lightning effect
+    - Falling Lightning Bolts to Avoid?
+    - Sound Effect?
+    - Black Out Screen?
+    - Literal or Abstract Expression?
 - How will the scoring system work?
-        - How should I balance both scoring systems to make it difficult but not redundant?
-        - What levels of health and patience should the player start with?
-        - Will the scoring change over time?
-        - Will the game have special items that drastically affect the scoring?
+    - How should I balance both scoring systems to make it difficult but not redundant?
+    - What levels of health and patience should the player start with?
+    - Will the scoring change over time?
+    - Will the game have special items that drastically affect the scoring?
 - How does the muscle and bone structure of a frog look like?
 - How does the user transition from title screen to game screen and end screen to game screen?
 - What is the aesthetic or visual language and what is the layout?
