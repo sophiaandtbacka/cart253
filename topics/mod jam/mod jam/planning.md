@@ -1,18 +1,17 @@
 # Planning
-I want to create a game that a frog eats flies but if he eats too little or too few he gets electrocuted by Ukko's lightning and looses a layer of anatomy
+I want to create a game where a frog eats flies but if he eats too many or too few he gets electrocuted by Ukko's lightning and looses a layer of anatomy
 
 ## Starting Point
-Frog eats flies
-Frog gets electrocuted
-Frog has different visual appearances
+- Frog eats flies
+- Frog gets electrocuted
+- Frog has different visual appearances
 
 ## Experience
-The experience:
-The user controls a frog with their mouse position and clicks to launch the tongue to catch flies. If the fly gets eaten the frog's health increases but Ukko's patience decreases. If the fly flies off screen it is counted as a sacrifice and the frog's health decreases but Ukko's patience increases. If either health or patience bars get to 0 the frog looses a life. 3 shots/electrocutions (skin, muscle, and bone) and you're out. 
+The experience: the user controls a frog with their mouse position and clicks to launch the tongue to catch flies. If the fly gets eaten the frog's health increases but Ukko's patience decreases. If the fly flies off screen it is counted as a sacrifice and the frog's health decreases but Ukko's patience increases. If either health or patience bars get to 0 the frog looses a life. 3 shots/electrocutions (skin, muscle, and bone) and you're out. 
 
 ## Breaking it Down
 Basic things to do in title screen:
-- Rolling narration text/instruction text
+- Rolling narrative text/instruction text
 - Visuals
 - Start button
 
@@ -25,7 +24,7 @@ Basic things to do in game screen:
 Basic thing to do in end screen:
 - End of game stats
 - Visuals
-- Try again button
+- Try Again button
 
 ### Questions:
 - How am I going to do the lightning effect
@@ -90,4 +89,4 @@ What is there?
             - If it does overlap reset the game and return to game screen
     - Events
         - If user clicks the mouse then play background music
-            - Browsers block automatic sound playing
+            - Browsers block sounds from automatically playing
