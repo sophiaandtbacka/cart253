@@ -10,9 +10,9 @@ Ukko's Punishment is all about regulating gluttuny and staying humble. You are a
 
 To eat launch your tongue at the flies that are moving accross the screen if you touch the fly it wiil be eaten. To offer a sacrifice let the fly fly off the screen. 
 
-# Controls
--Mouse Move: move your mouse around the screen to change the frog's X position
--Mouse Click: click your mouse to launch your tongue and attempt to eat a fly
+## Controls
+- Mouse Move: move your mouse around the screen to change the frog's X position
+- Mouse Click: click your mouse to launch your tongue and attempt to eat a fly
 
 
 ## Screenshot(s)
@@ -24,7 +24,7 @@ Title Screen
 > ![Image of a game screen.](./assets/images/game1.png)
 Game Screen with Version 1 of the Frog, Skin Frog.
 > ![Image of a transition screen.](./assets/images/transition.png)
-Black out Lightning Screen. Transitions from Black to White Screens in Quick Transition. 
+Black out Lightning Screen. Transitions from Black to White Screens in Quick Succession. 
 > ![Image of a game screen.](./assets/images/game2.png)
 Game Screen with Version 2 of the Frog, Muscle Frog.
 > ![Image of a game screen.](./assets/images/game3.png)
