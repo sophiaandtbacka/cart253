@@ -1,6 +1,6 @@
-# Pseudo code
+# Pseudocode
 
-Frogfrogfrog Pseudo code
+Frogfrogfrog Pseudocode
 
 ```
 frog
