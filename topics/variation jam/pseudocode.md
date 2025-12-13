@@ -64,31 +64,32 @@ function mousePressed() {
 2. Random Color Picker
 Start: Generate circle in the center of canvas with random fill
 Color Change: If x or y changes fill changes
-Event: 
+
 
 Start Screen
-const{
+const circle = {
     x: mouseX,
-    y: mouseY + displacement,
+    y: mouseY + diplacement,
     colorStart: {
-        r: random (n,n),
-        g: random (n,n),
-        b: random (n,n),
-    }
-    colorChange: {
-        r: 0
-        g: 0
-        b: 0
-        o: 0
-    }
-    size: n,
+        r: random(n, n),
+        g: random(n, n),
+        b: random(n, n),
+    },
+size: n,
+};
+
+function drawCircle() {
+    fill(colorStart.r, colorStart.g, colorStart.b);
+    ellipse(x, y, size);
 }
 
-drawCircle {
-    fill (colorStart.r, colorStart.g, colorStart.b);
-    ellipse (x,y,size);
+Color Change
+function colorChange() {
+    if (mouseX != pmouseX) {
+        fill(random(n, n), random(n, n), random(n, n))
+    }
 }
-
-C
 
 3. Pattern
+Based on distance from center circle pattern appears, idea stemming from metal pattern torus thing
+want to use exponential
