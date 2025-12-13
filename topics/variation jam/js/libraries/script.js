@@ -98,6 +98,7 @@ function moveCircle(c) {
     };
 }
 
+//not working properly
 function redInput() {
     redMin = createInput();
     redMin.position(0, 100);
