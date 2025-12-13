@@ -1,0 +1,107 @@
+Revisit your programming knowledge at the start of the course and compare it to what you know now. What are the most significant changes?
+
+Discuss the relationship between your new programming knowledge and your creative practice. This can include elements that you are comfortable with, but also things you’re challenged by but want to work on incorporating into your creative coding practice. What can you do now as an artist who codes?
+
+Look to the future of your role as a creative coder. How much closer are you to owning that role? How has your understanding of creative code changed? What are you looking forward to being able to do in the future?
+
+Significant Changes
+Thinking in JavaScript 
+	how to think, really like learning language akin to learning grammar of a language 
+	understanding rules and way JavaScript processes information and limitations and how to circumvent those limitations or connect other languages like html and css
+
+Confidence and Demystification
+	Before had minor experience with Java but none with JavaScript or p5 and at a base level	
+	Before only had two coding projects ever
+	Now much more confident
+	Understand and comfortable with GitHub
+	Lot less mystery around coding and all that, feels much more approachable
+	Big confidence thing
+
+!Debugging!
+	Before had no idea how to debug, this was one of my biggest chokeholds in terms of advancing
+	Now confident with debugging and process of understanding why my code isn't working
+	Understand my common problems
+		i.e. mismatched naming, wrong syntax, using p5 functions outside of setup or draw, p5 needs to be initialized in order to use p5 functions, not assigning values to variables (defined variable it but maybe left  x as 			undefined and then never assigned value), = vs == vs === 
+	Confidence with accessing console and interpreting console messages 
+	Know how to use console.log to track when function being called 
+
+New Concepts that Not yet fully confident in but have used
+	New is arrays,
+		Still not completely confident but used of text strings 
+	New concepts gamification
+		Scoring
+		Acceleration
+		Speed
+		Determining Overlap with dist
+		Timing elements 
+
+Creative practice 
+Interactive art
+	Never really made any interactive art, before just focused on creating visuals through photography illustration that create certain experience based on leveraging visual/design elements to create a certain vibe and meaning
+		Now audience experience based on audience engagement
+		Art that changes on your actions with it
+		So cool
+		Completely different thinking
+	Architecture Background 
+		functions as a bridge between pure visual art and interactive art
+		in architecture think about how building and space moves you and what pulls your attention, all about creating moments 
+		architecture is interactive in the space that you are moving and many times unexpected uses, building shell through time molds to its use, ex. railing on outside used as skating rails, edges used as sitting spaces
+		cool taking concept of interaction and pushing it way further with computation and event functions
+
+Chance/Experimentation/Unexpected 
+	Less hands on now and less attached to my vision of exactly what the final project has to be
+	Computation great from iterative design
+		can change one variable and have a completely different result in 5 sec
+		also can allow space for more chance and experimentation because quick iterative aspect of computation
+		introduced more chance in art, allow for unexpected results
+		this the unexpected many times much better than planned 
+	My Context
+		Previously in jewelry very preplanned and precise have to have extremely SOPs that's based on materials used and limitations of design, ex. you cannot set an opal in white gold
+		Also jewelry is very expensive so it can be very consequential if you have a failed experiment
+
+Introduction to Computer Environment
+	Coming from a very limited practice heavily bound by physics and materiality
+	Can have huge amount of complexity, often unachievable in physical world
+	Can create environments and effects that follows different set of rules not bound to gravity or the foundational rules of our environment 
+
+
+Future
+Giving Thanks/Accrediting openness in mentality and understanding wide range of possibilities with coding
+I love that I learned with Pippin, didn't have a strict definition of this is what coding is and this is what you're going to do with it
+Open ended projects was awesome 
+I was not limited to how to code a traditional gaming structure 
+Instead pushed to engage with true creativity and out of box thinking
+Take one small idea and push it all the way
+
+Take Away
+	Traditional games: games with specific goals and rules
+	Not super interested in traditional games which is common path but really like creating interactive visuals
+	Interested in creating unexpected visuals and patterns 
+	I want to push iterative design and interactive design
+
+Interdisciplinary Future
+!Coffee Book!
+I would love to create a coffee book of prints/visuals created by p5 with code next to it
+	In this project also would love to integrate poetry into commenting in p5 code
+	Accrediting Tasha
+		Introduced me to the possibility of artistry in commenting in coding
+
+Interactive Video Installation
+	Layer interactive code on top of video/film
+	Disney Wand logo vibe
+
+!Narrative Video Project!
+Layer code and video
+Use eye tracking when looking at a video and eye movement, visualize this movement works like a paintbrush on top of video
+I would also love to do this with watching old videos, nostalgia moments, I believe layering this code would give first person narrative insight
+	Camera capture framing representation of past perspective 
+	Eye tracking framing representation of current perspective
+		ex. image video of group of friends taken when your first love was just an acquaintance, in capture this person will be a side character but eye tracking every time they are on screen 
+		immediately look at them and stare at them until they're out of frame
+		could layer synth type music to show current emotive perspective 
+
+Sound Jewelry 
+	Create rings that track something from exterior, movement/direction/heartbeat and create sounds based on that 
+
+Color Glass
+	Color changing lens glasses based on some sort of event
