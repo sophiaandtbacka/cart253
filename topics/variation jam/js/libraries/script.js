@@ -45,7 +45,7 @@ let game = false;
 
 function setup() {
     createCanvas(500, 500);
-    background(255);
+
 
     redInput();
 
@@ -56,6 +56,7 @@ function draw() {
     background(255);
 
     if (game === false) {
+        background(0);
         enterButton();
         checkOverlap();
     }
@@ -65,7 +66,7 @@ function draw() {
 
     for (let c of circles) {
         noStroke();
-        fill(c.color.r, c.color.g, c.color.b);
+        fill(c.color.r, c.color.g, c.color.b, c.color.a);
         ellipse(c.x, c.y, c.size);
     }
 
@@ -94,7 +95,7 @@ function moveCircle(c) {
         r: random(100, 200),
         g: random(100, 100),
         b: random(100, 200),
-        //a: random(0.9, 1),
+        a: random(200, 255),
     };
 }
 
@@ -109,11 +110,13 @@ function redInput() {
 };
 
 function enterButton() {
+    noStroke();
     ellipse(button.x, button.y, button.width);
     push();
     fill(button.textFill);
     textAlign(CENTER, CENTER);
     textSize(button.textSize);
+    textFont('Consolas');
     text('Enter', button.x, button.y);
     pop();
 }
@@ -132,10 +135,10 @@ function initialCircles() {
             y: random(height),
             size: 40,
             color: {
-                r: random(colorRmin, 200),
-                g: random(100, 100),
+                r: random(colorRmin, 255),
+                g: random(0, 100),
                 b: random(100, 200),
-                //a: random(0.9, 1),
+                a: random(200, 255),
             }
         });
     }
