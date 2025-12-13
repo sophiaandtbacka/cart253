@@ -8,24 +8,7 @@
 
 "use strict";
 
-//I don't think I'll use this in my pseudocode you can see I had a different approach plan
-const circle = {
-    /*x: random(1, 400),
-    y: random(1, 400),
-    colorNoOverlap: {
-        r: random(0, 255),
-        g: random(0, 255),
-        b: random(0, 255),
-    },
-    colorOverlap: {
-        r: random(0, 255),
-        g: random(0, 255),
-        b: random(0, 255),
-    },
-    */
-    size: 40
-};
-
+//input box variables
 let redMin;
 let redMax;
 let greenMin;
@@ -36,6 +19,7 @@ let alphaMin;
 let alphaMax;
 let cNumber;
 
+//input box string data variables
 let colorRmin = 0;
 let colorRmax = 0;
 let colorGmin = 0;
@@ -46,7 +30,6 @@ let colorAmin = 0;
 let colorAmax = 0;
 let circleNumber = 0;
 
-
 const button = {
     x: 250,
     y: 450,
@@ -56,12 +39,17 @@ const button = {
     textFill: 255,
     textSize: 25,
 }
-let enter = false;
 
+let title = true;
+let data = false;
 let game = false;
+let circle = 0;
 let circles = [];
 
-
+function preload() {
+    myFont = loadFont("assets/font/8-font.otf");
+}
+let myFont;
 
 function setup() {
     createCanvas(500, 500);
@@ -74,9 +62,15 @@ function setup() {
 function draw() {
     background(255);
 
-    if (game === false) {
+    if (title === true) {
+        background(0)
+        enterButton();
+        checkOverlap();
+    }
+
+    else if (data === true) {
         background(0);
-        titleText();
+        dataScreenText();
         enterButton();
         checkOverlap();
     }
@@ -89,13 +83,14 @@ function draw() {
             ellipse(c.x, c.y, c.size);
         }
     }
-
-
 }
 
 //event that triggers game screen from title screen and moves circle on game screen
 function mouseClicked() {
-    if (enter === true && game === false) {
+    if (title === true) {
+        data = true;
+    }
+    else if (data === true && game === false) {
         grabData();
         initialCircles();
         game = true;
@@ -113,10 +108,10 @@ function mouseClicked() {
 }
 
 //all text on circle data page
-function titleText() {
+function dataScreenText() {
     fill(255);
     textAlign(CENTER);
-    textFont('Consolas');
+    textFont(myFont);
 
     push();
     textSize(30);
@@ -288,7 +283,7 @@ function enterButton() {
     fill(button.textFill);
     textAlign(CENTER, CENTER);
     textSize(button.textSize);
-    textFont('Consolas');
+    textFont(myFont);
     text('ENTER', button.x, button.y);
     pop();
 }
@@ -300,8 +295,6 @@ function checkOverlap() {
         enter = true;
     }
 }
-
-
 
 
 
@@ -336,14 +329,3 @@ function moveCircle(c) {
         a: random(colorAmin, colorAmax),
     };
 }
-
-
-
-//not using right now
-function centerCanvas() {
-    const x = (windowWidth - width) / 2;
-    const y = (windowHeight - height) / 2;
-    center.position((windowWidth - width) / 2, (windowHeight - height) / 2);
-};
-
-
