@@ -52,6 +52,7 @@ function setup() {
 function draw() {
     if (title === true) {
         background(0);
+        titleScreenText();
         enterButton();
         checkOverlap();
     }
@@ -70,6 +71,14 @@ function mouseClicked() {
         title = false;
         game = true;
     }
+}
+
+function titleScreenText() {
+    fill(255);
+    textAlign(CENTER, CENTER);
+    textFont(myFont);
+    textSize(30);
+    text('Color Circle', width / 2, 100);
 }
 
 //draws the enter button on the title screen
