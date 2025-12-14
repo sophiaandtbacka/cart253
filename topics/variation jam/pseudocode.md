@@ -127,21 +127,22 @@ b. determine circles in each row
 circles = [];
 
 //make spacing same width as circle size
-  let spacing = Number(size.value());
+let spacing = Number(size.value());
 //number input is total circles
-  let totalCircles = Number(number.value());
+let totalCircles = Number(number.value());
 
-  let xCenter = width/2;
-  let y = width/4;
+let xCenter = width/2;
+let y = width/4;
 
-  let row = 1;
-  let count = 0;
-  
-  //continue as long as count is less than number of circle input
-  while (count < totalCircles) {
+let row = 1;
+let count = 0;
+
+//continue as long as count is less than number of circle input
+while (count < totalCircles) {
 
     for (let i = 0; i < row; i++) {
-      if (count >= totalCircles) return;
+        
+      if (count >= totalCircles) return; //stops loop
 
       let x = xCenter + i * spacing - (row - 1) * spacing / 2;
 
@@ -156,7 +157,7 @@ circles = [];
 
     y += spacing;
     row++;
-  }
+}
 
 
 
