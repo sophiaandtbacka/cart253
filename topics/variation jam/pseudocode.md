@@ -123,9 +123,12 @@ Generate circles with two loops:
 a. determine number of rows 
 b. determine circles in each row
 
+//create array with all circles 
 circles = [];
 
+//make spacing same width as circle size
   let spacing = Number(size.value());
+//number input is total circles
   let totalCircles = Number(number.value());
 
   let xCenter = width/2;
@@ -133,7 +136,8 @@ circles = [];
 
   let row = 1;
   let count = 0;
-
+  
+  //continue as long as count is less than number of circle input
   while (count < totalCircles) {
 
     for (let i = 0; i < row; i++) {

@@ -29,6 +29,18 @@ function preload() {
 }
 let myFont;
 
+//create array with all circles 
+circles = [];
+
+
+let row = 1;
+let count = 0;
+
+
+
+
+
+
 /**
  * OH LOOK I DIDN'T DESCRIBE SETUP!!
 */
@@ -41,6 +53,15 @@ function setup() {
  * OOPS I DIDN'T DESCRIBE WHAT MY DRAW DOES!
 */
 function draw() {
+    //make spacing same width as circle size
+    let spacing = Number(size.value());
+    //number input is total circles
+    let totalCircles = Number(number.value());
+
+    let xCenter = width / 2;
+    let y = width / 4;
+
+
     if (title === true) {
         background(0);
         titleScreenText();
@@ -49,6 +70,27 @@ function draw() {
     }
     else if (game === true) {
         background(255);
+        //continue as long as count is less than number of circle input
+        while (count < totalCircles) {
+
+            for (let i = 0; i < row; i++) {
+
+                if (count >= totalCircles) return; //stops loop
+
+                let x = xCenter + i * spacing - (row - 1) * spacing / 2;
+
+                circles.push({
+                    x: x,
+                    y: y,
+                    size: Number(size.value())
+                });
+
+                count++;
+            }
+
+            y += spacing;
+            row++;
+        }
     }
 
 }
