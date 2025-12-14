@@ -12,6 +12,10 @@
 
 let circle;//creates global variable of circle
 
+function preload() {
+    myFont = loadFont("assets/font/8-font.otf");
+}
+let myFont;
 
 function setup() {
     createCanvas(500, 500);
@@ -24,16 +28,18 @@ function setup() {
             r: random(0, 255),
             g: random(0, 255),
             b: random(0, 255),
-            a: random(0.8, 1)
+            a: random(200, 255),
         },
-        size: 25
+        size: 100
     };
 }
 
 function draw() {
-    drawCircle();
+    background(255);
     moveCircle();
-    //colorChange();
+    colorChange();
+    drawCircle();
+    showText();
 }
 
 function drawCircle() {
@@ -48,12 +54,19 @@ function moveCircle() {
 }
 
 function colorChange() {
-    if (mouseX !== pmouseX) {
-        circle.colorStart = {
-            r: random(0, 255),
-            g: random(0, 255),
-            b: random(0, 255),
-            a: random(0.8, 1)
-        };
+    if (mouseX !== pmouseX || mouseY !== pmouseY) {
+        circle.colorStart.r = random(0, 255);
+        circle.colorStart.g = random(0, 255);
+        circle.colorStart.b = random(0, 255);
+        circle.colorStart.a = random(200, 255);
     }
+}
+
+function showText() {
+    fill(0);
+    textAlign(CENTER, CENTER);
+    textFont(myFont);
+    textSize(30);
+    text('RED', width / 4, 450);
+    //text('circle.colorStart.r', width / 3, 450)
 }
