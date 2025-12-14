@@ -10,7 +10,22 @@
 
 "use strict";
 
-let circle;//creates global variable of circle
+//variable for enter button
+const button = {
+    x: 250,
+    y: 450,
+    width: 100,
+    height: 50,
+    text: "Enter",
+    textFill: 255,
+    textSize: 25,
+}
+
+//creates global variable of circle
+let circle;
+let title = true;
+let game = false;
+let enter = false;
 
 function preload() {
     myFont = loadFont("assets/font/8-font.otf");
@@ -35,12 +50,46 @@ function setup() {
 }
 
 function draw() {
-    cursor(CROSS);
-    background(255);
-    moveCircle();
-    colorChange();
-    drawCircle();
-    showText();
+    if (title === true) {
+        background(0);
+        enterButton();
+        checkOverlap();
+    }
+    else if (game === true) {
+        cursor(CROSS);
+        background(255);
+        moveCircle();
+        colorChange();
+        drawCircle();
+        showText();
+    }
+};
+
+function mouseClicked() {
+    if (enter === true && title === true) {
+        title = false;
+        game = true;
+    }
+}
+
+//draws the enter button on the title screen
+function enterButton() {
+    fill(0);
+    noStroke();
+    ellipse(button.x, button.y, button.width, button.width - 50);
+    push();
+    fill(button.textFill);
+    textAlign(CENTER, CENTER);
+    textSize(button.textSize);
+    textFont(myFont);
+    text('ENTER', button.x, button.y);
+    pop();
+}
+
+//checks overlap for enter button
+function checkOverlap() {
+    const d = dist(mouseX, mouseY, button.x, button.y);
+    enter = d < button.width / 2
 }
 
 function drawCircle() {
@@ -50,6 +99,7 @@ function drawCircle() {
 }
 
 function moveCircle() {
+
     circle.x = mouseX
     circle.y = mouseY
 }
