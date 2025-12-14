@@ -30,6 +30,7 @@ let colorAmin = 0;
 let colorAmax = 0;
 let circleNumber = 0;
 
+//variable for enter button
 const button = {
     x: 250,
     y: 450,
@@ -43,6 +44,7 @@ const button = {
 let title = true;
 let data = false;
 let game = false;
+let enter = false;
 let circle = 0;
 let circles = [];
 
@@ -54,7 +56,6 @@ let myFont;
 function setup() {
     createCanvas(500, 500);
 
-
     //all inputs from data page
     dataInputs();
 }
@@ -63,13 +64,16 @@ function draw() {
     background(255);
 
     if (title === true) {
-        background(0)
+        background(0);
+        hideInputs();
+        titleScreenText();
         enterButton();
         checkOverlap();
     }
 
     else if (data === true) {
         background(0);
+        showInputs();
         dataScreenText();
         enterButton();
         checkOverlap();
@@ -87,13 +91,18 @@ function draw() {
 
 //event that triggers game screen from title screen and moves circle on game screen
 function mouseClicked() {
-    if (title === true) {
+    if (enter === true && title === true) {
         data = true;
+        title = false;
+        enter = false;
     }
-    else if (data === true && game === false) {
+    else if (enter === true && data === true) {
+        data = false;
         grabData();
+        hideInputs();
         initialCircles();
         game = true;
+
     }
 
     else if (game === true) {
@@ -105,6 +114,46 @@ function mouseClicked() {
             }
         }
     }
+}
+
+function titleScreenText() {
+    fill(255);
+    textAlign(CENTER, CENTER);
+    textFont(myFont);
+    textSize(30);
+    text('Bubble Buster', width / 2, 100);
+}
+
+function hideInputs() {
+    redMin.hide();
+    redMax.hide();
+
+    greenMin.hide();
+    greenMax.hide();
+
+    blueMin.hide();
+    blueMax.hide();
+
+    alphaMin.hide();
+    alphaMax.hide();
+
+    cNumber.hide();
+}
+
+function showInputs() {
+    redMin.show();
+    redMax.show();
+
+    greenMin.show();
+    greenMax.show();
+
+    blueMin.show();
+    blueMax.show();
+
+    alphaMin.show();
+    alphaMax.show();
+
+    cNumber.show();
 }
 
 //all text on circle data page
@@ -246,31 +295,18 @@ function cNumberInput() {
 //grabs all the data from the input boxes
 function grabData() {
     colorRmin = Number(redMin.value()); //number converts text string into actual numbers 
-    redMin.hide();
-
     colorRmax = Number(redMax.value()); //number converts text string into actual numbers 
-    redMax.hide();
 
     colorGmin = Number(greenMin.value()); //number converts text string into actual numbers 
-    greenMin.hide();
-
     colorGmax = Number(greenMax.value()); //number converts text string into actual numbers 
-    greenMax.hide();
 
     colorBmin = Number(blueMin.value()); //number converts text string into actual numbers 
-    blueMin.hide();
-
     colorBmax = Number(blueMax.value()); //number converts text string into actual numbers 
-    blueMax.hide();
 
     colorAmin = Number(alphaMin.value()); //number converts text string into actual numbers 
-    alphaMin.hide();
-
     colorAmax = Number(alphaMax.value()); //number converts text string into actual numbers 
-    alphaMax.hide();
 
     circleNumber = Number(cNumber.value()); //number converts text string into actual numbers 
-    cNumber.hide();
 }
 
 
@@ -291,9 +327,7 @@ function enterButton() {
 //checks overlap for enter button
 function checkOverlap() {
     const d = dist(mouseX, mouseY, button.x, button.y);
-    if (d < button.width / 2) {
-        enter = true;
-    }
+    enter = d < button.width / 2
 }
 
 
