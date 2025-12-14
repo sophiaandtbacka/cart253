@@ -28,13 +28,14 @@ function setup() {
             r: random(0, 255),
             g: random(0, 255),
             b: random(0, 255),
-            a: random(200, 255),
+            a: random(10, 255),
         },
         size: 100
     };
 }
 
 function draw() {
+    cursor(CROSS);
     background(255);
     moveCircle();
     colorChange();
@@ -58,15 +59,16 @@ function colorChange() {
         circle.colorStart.r = random(0, 255);
         circle.colorStart.g = random(0, 255);
         circle.colorStart.b = random(0, 255);
-        circle.colorStart.a = random(200, 255);
+        circle.colorStart.a = random(10, 255);
     }
 }
 
 function showText() {
     fill(0);
-    textAlign(CENTER, CENTER);
     textFont(myFont);
-    textSize(30);
-    text('RED', width / 4, 450);
-    //text('circle.colorStart.r', width / 3, 450)
+    textSize(20);
+    text('R: ' + int(circle.colorStart.r), width / 5 - 33, 450);//int converts into integer
+    text('G: ' + int(circle.colorStart.g), width / 2 - 84, 450);
+    text('B: ' + int(circle.colorStart.b), width / 2 + 14, 450);
+    text('A: ' + int(circle.colorStart.a), width / 2 + 115, 450);
 }
