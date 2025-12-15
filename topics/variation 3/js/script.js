@@ -8,6 +8,9 @@
 
 "use strict";
 
+//input box variables
+let sizeC;
+let numberC;
 
 //variable for enter button
 const button = {
@@ -46,6 +49,9 @@ let count = 0;
 */
 function setup() {
     createCanvas(500, 500);
+
+    sizeInput();
+    numberInput();
 }
 
 
@@ -54,9 +60,9 @@ function setup() {
 */
 function draw() {
     //make spacing same width as circle size
-    let spacing = Number(size.value());
+    //let spacing = Number(sizeC.value());
     //number input is total circles
-    let totalCircles = Number(number.value());
+    //let totalCircles = Number(number.value());
 
     let xCenter = width / 2;
     let y = width / 4;
@@ -70,6 +76,7 @@ function draw() {
     }
     else if (game === true) {
         background(255);
+
         //continue as long as count is less than number of circle input
         while (count < totalCircles) {
 
@@ -82,7 +89,7 @@ function draw() {
                 circles.push({
                     x: x,
                     y: y,
-                    size: Number(size.value())
+                    size: Number(sizeC.value())
                 });
 
                 count++;
@@ -91,6 +98,8 @@ function draw() {
             y += spacing;
             row++;
         }
+
+        hideInput();
     }
 
 }
@@ -103,11 +112,56 @@ function mouseClicked() {
 }
 
 function titleScreenText() {
+    //universal qualities
     fill(255);
     textAlign(CENTER, CENTER);
     textFont(myFont);
+
+    //title
+    push();
     textSize(30);
-    text('Circle Cyclone', width / 2, 100);
+    text('Swallow Circles', width / 2, 100);
+    pop();
+
+    //explanation
+    push();
+    textSize(20);
+    text('XXX', width / 2, 150);
+    pop();
+
+
+    //input box text
+    push();
+    textSize(20);
+    text('NUMBER: ', width / 4, 390);
+    text('SIZE: ', 3 * width / 5 + 20, 390);
+    pop();
+
+}
+
+function sizeInput() {
+    sizeC = createInput();
+    sizeC.size(60);
+
+    sizeC.position(
+        (windowWidth / 2 + 100),
+        (windowHeight / 2 + 130));
+
+};
+
+function numberInput() {
+    numberC = createInput();
+    numberC.size(60);
+
+    numberC.position(
+        (windowWidth / 2 - 85),
+        (windowHeight / 2 + 130));
+
+};
+
+function hideInput() {
+    sizeC.hide;
+    numberC.hide;
 }
 
 //draws the enter button on the title screen
