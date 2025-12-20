@@ -23,21 +23,27 @@ const button = {
     textSize: 25,
 }
 
+//variable for game stage
 let title = true;
 let game = false;
 let enter = false;
 
+//font
 function preload() {
     myFont = loadFont("assets/font/8-font.otf");
 }
 let myFont;
 
 //create array with all circles 
-circles = [];
+let circles = [console.log]; //idk if this is right
 
-
+//circle mapping/organization variable
 let row = 1;
 let count = 0;
+
+//circle variables 
+let spacing = 1;
+let totalCircles = 1;
 
 
 
@@ -59,11 +65,8 @@ function setup() {
  * OOPS I DIDN'T DESCRIBE WHAT MY DRAW DOES!
 */
 function draw() {
-    //make spacing same width as circle size
-    //let spacing = Number(sizeC.value());
-    //number input is total circles
-    //let totalCircles = Number(number.value());
 
+    //variables for circle organization
     let xCenter = width / 2;
     let y = width / 4;
 
@@ -74,36 +77,61 @@ function draw() {
         enterButton();
         checkOverlap();
     }
+
     else if (game === true) {
         background(255);
+
+        //hides input boxes from title screen, hide doesn't erase input values just hides visuals 
+        hideInput();
+
+
+        //grabs data for loop
+        spacing = Number(sizeC.value()); //make spacing same width as circle size
+        totalCircles = Number(numberC.value()); //number input is total circles
+
+
 
         //continue as long as count is less than number of circle input
         while (count < totalCircles) {
 
             for (let i = 0; i < row; i++) {
 
-                if (count >= totalCircles) return; //stops loop
+                if (count >= totalCircles) { return; } //stops loop
 
-                let x = xCenter + i * spacing - (row - 1) * spacing / 2;
+                else {
+                    let x = xCenter + i * spacing - (row - 1) * spacing / 2;
 
-                circles.push({
-                    x: x,
-                    y: y,
-                    size: Number(sizeC.value())
-                });
+                    circles.push({
+                        x: x,
+                        y: y,
+                        size: spacing,
+                    });
 
-                count++;
+                    count++;
+
+                    //I added
+                    fill(0);
+                    ellipse(circles.x, circles.y, circles.size);
+                }
+
+
             }
 
             y += spacing;
             row++;
+
+
         }
 
-        hideInput();
+
+
+
     }
 
 }
 
+
+//event for enter button, connects title and game screen
 function mouseClicked() {
     if (enter === true && title === true) {
         title = false;
@@ -111,6 +139,7 @@ function mouseClicked() {
     }
 }
 
+//draws all text for title screen except enter text on button
 function titleScreenText() {
     //universal qualities
     fill(255);
@@ -139,6 +168,7 @@ function titleScreenText() {
 
 }
 
+//draws two input value boxes
 function sizeInput() {
     sizeC = createInput();
     sizeC.size(60);
@@ -148,7 +178,6 @@ function sizeInput() {
         (windowHeight / 2 + 130));
 
 };
-
 function numberInput() {
     numberC = createInput();
     numberC.size(60);
@@ -159,9 +188,10 @@ function numberInput() {
 
 };
 
+//hides input value boxes
 function hideInput() {
-    sizeC.hide;
-    numberC.hide;
+    sizeC.hide();
+    numberC.hide();
 }
 
 //draws the enter button on the title screen
