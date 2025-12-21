@@ -90,7 +90,6 @@ function draw() {
         totalCircles = Number(numberC.value()); //number input is total circles
 
 
-
         //continue as long as count is less than number of circle input
         while (count < totalCircles) {
 
@@ -99,7 +98,7 @@ function draw() {
                 if (count >= totalCircles) { return; } //stops loop
 
                 else {
-                    let x = xCenter + i * spacing - (row - 1) * spacing / 2;
+                    let x = xCenter + i * 2 * spacing - (row - 1) * spacing;
 
                     circles.push({
                         x: x,
@@ -108,24 +107,22 @@ function draw() {
                     });
 
                     count++;
-
-                    //I added
-                    fill(0);
-                    ellipse(circles.x, circles.y, circles.size);
                 }
 
 
             }
 
-            y += spacing;
+            y += (2 * spacing);//I added the 2* i think this will be better, or can make spacing and circle size diff vari
             row++;
 
 
         }
 
-
-
-
+        for (let c of circles) {
+            noStroke();
+            fill(0);
+            ellipse(c.x, c.y, c.size);
+        }
     }
 
 }
