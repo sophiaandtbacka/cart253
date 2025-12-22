@@ -147,17 +147,13 @@ function createCircles() {
                     homeY: y,
                     size: spacing,
                     //acceleration
-                    ax: 0,
-                    ay: 0,
-                    acceleration: 0.4,
+                    acceleration: 0.7,
                     //friction
                     vx: 0,
                     vy: 0,
-                    friction: 0.97,
+                    friction: 0.92,
                     //fastest it can go
-                    maxSpeed: 8,
-                    row: row,
-                    indexInRow: i,
+                    maxSpeed: 20,
                 });
 
                 count++;
@@ -172,13 +168,6 @@ function createCircles() {
     }
 
 
-};
-
-function accelerationCircle() {
-    if (mouseX !== pmouseX || mouseY !== pmouseY) {
-        circle.ax = circle.acceleration;
-        circle.ay = circle.acceleration
-    }
 };
 
 /**
