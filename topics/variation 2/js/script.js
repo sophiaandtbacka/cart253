@@ -109,8 +109,11 @@ function drawCircle() {
 
 function moveCircle() {
 
-    circle.x = mouseX
-    circle.y = mouseY
+    circle.x = mouseX;
+    circle.y = mouseY;
+
+    circle.x = constrain(circle.x, 0 + circle.size / 2 + 30, width - circle.size / 2 - 30);
+    circle.y = constrain(circle.y, 0 + circle.size / 2 + 30, height - 120);
 }
 
 function colorChange() {
@@ -126,8 +129,11 @@ function showText() {
     fill(0);
     textFont(myFont);
     textSize(20);
-    text('R: ' + int(circle.colorStart.r), width / 5 - 33, 450);//int converts into integer
-    text('G: ' + int(circle.colorStart.g), width / 2 - 84, 450);
-    text('B: ' + int(circle.colorStart.b), width / 2 + 14, 450);
-    text('A: ' + int(circle.colorStart.a), width / 2 + 115, 450);
+    textAlign(LEFT, CENTER);
+    text('R: ' + int(circle.colorStart.r), width / 5 - 35, 450);//int converts into integer
+    text('G: ' + int(circle.colorStart.g), width / 2 - 86, 450);
+    text('B: ' + int(circle.colorStart.b), width / 2 + 16, 450);
+    text('A: ' + int(circle.colorStart.a), width / 2 + 117, 450);
 }
+
+
