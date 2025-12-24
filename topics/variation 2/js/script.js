@@ -244,5 +244,9 @@ function alphaMinInput() {
 
 };
 
-
-
+//return to data screen when enter key is pressed
+function returnData() {
+    if (keyIsDown(13)) {//13 is Enter key code
+        data = true;
+    }
+}
