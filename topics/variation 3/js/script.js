@@ -9,11 +9,6 @@
 "use strict";
 
 //input box variables
-let sizeC;
-let numberC;
-
-
-//input box variables
 let redMin;
 let redMax;
 let greenMin;
@@ -22,7 +17,9 @@ let blueMin;
 let blueMax;
 let alphaMin;
 let alphaMax;
-let cNumber;
+let numberC;
+let sizeC;
+
 
 //variable for enter button
 const button = {
@@ -35,18 +32,19 @@ const button = {
     textSize: 25,
 }
 
-//variable for game stage
+
+//variables for game stage
 let title = true;
 let data = false;
 let game = false;
 let enter = false;
+
 
 //font
 function preload() {
     myFont = loadFont("assets/font/8-font.otf");
 }
 let myFont;
-
 
 
 //circle variables 
@@ -63,8 +61,6 @@ let circles;
 
 
 
-
-
 /**
  * OH LOOK I DIDN'T DESCRIBE SETUP!!
 */
@@ -75,6 +71,7 @@ function setup() {
 }
 
 
+
 /**
  * OOPS I DIDN'T DESCRIBE WHAT MY DRAW DOES!
 */
@@ -82,28 +79,26 @@ function draw() {
 
     if (title === true) {
         background(0);
-        titleScreenText();
         hideInputs();
+        titleScreenText();
         enterButton();
         checkOverlap();
     }
 
     else if (data === true) {
         background(0);
-        dataScreenText();
         showInputs();
+        dataScreenText();
         enterButton();
         checkOverlap();
     }
 
     else if (game === true) {
         background(255);
-
-        //hides input boxes from title screen, hide doesn't erase input values just hides visuals 
-        hideInputs();
-
-
+        hideInputs(); //hides input boxes from title screen, hide doesn't erase input values just hides visuals 
         moveCircles();
+        stopCircles();
+        returnData();
 
         for (let c of circles) {
             noStroke();
@@ -113,6 +108,7 @@ function draw() {
 
     }
 };
+
 
 
 //event for enter button, connects title and data and game screen
@@ -130,77 +126,49 @@ function mouseClicked() {
     }
 };
 
-/*
-//all text on circle data page
-function dataScreenText() {
-    fill(255);
-    textAlign(CENTER);
-    textFont(myFont);
 
+//draws all text for title screen except enter text on button
+function titleScreenText() {
+    //universal qualities
+    fill(255);
+    textAlign(CENTER, CENTER);
+    textFont(myFont || 'Courier');
+
+    //title
     push();
     textSize(30);
-    text('CIRCLE DATA', width / 2, 60);
+    text('Swallow Circles', width / 2, 100);
     pop();
 
+    //explanation
     push();
-    textAlign(LEFT, CENTER);
     textSize(20);
-    text('RED', 100 - 50, 120);
-    text('GREEN', 100 - 50, 190);
-    text('BLUE', 100 - 50, 260);
-    text('ALPHA', 100 - 50, 330);
-    text('NUMBER', 100 - 50, 400);
-    text('SIZE', 330 - 50, 400);
+    text('XXX', width / 2, 150);
     pop();
 
+};
+
+//draws the enter button on the title screen
+function enterButton() {
+    fill(0);
+    noStroke();
+    ellipse(button.x, button.y, button.width, button.width - 50);
     push();
-    textAlign(RIGHT, CENTER);
-    textSize(14);
-    text('min', 175 + 0, 120);
-    text('max', 325 + 0, 120);
-    text('min', 175 + 0, 190);
-    text('max', 325 + 0, 190);
-    text('min', 175 + 0, 260);
-    text('max', 325 + 0, 260);
-    text('min', 175 + 0, 330);
-    text('max', 325 + 0, 330);
+    fill(button.textFill);
+    textAlign(CENTER, CENTER);
+    textSize(button.textSize);
+    textFont(myFont);
+    text('ENTER', button.x, button.y);
     pop();
-}*/
+};
 
-function hideInputs() {
-    redMin.hide();
-    redMax.hide();
-
-    greenMin.hide();
-    greenMax.hide();
-
-    blueMin.hide();
-    blueMax.hide();
-
-    alphaMin.hide();
-    alphaMax.hide();
-
-    cNumber.hide();
-    sizeC.hide();
-}
+//checks overlap for enter button
+function checkOverlap() {
+    const d = dist(mouseX, mouseY, button.x, button.y);
+    enter = d < button.width / 2
+};
 
 
-function showInputs() {
-    redMin.show();
-    redMax.show();
-
-    greenMin.show();
-    greenMax.show();
-
-    blueMin.show();
-    blueMax.show();
-
-    alphaMin.show();
-    alphaMax.show();
-
-    cNumber.show();
-    sizeC.show();
-}
 
 //all text on circle data page
 function dataScreenText() {
@@ -235,6 +203,40 @@ function dataScreenText() {
     text('min', 175, 330);
     text('max', 325, 330);
     pop();
+}
+
+function hideInputs() {
+    redMin.hide();
+    redMax.hide();
+
+    greenMin.hide();
+    greenMax.hide();
+
+    blueMin.hide();
+    blueMax.hide();
+
+    alphaMin.hide();
+    alphaMax.hide();
+
+    numberC.hide();
+    sizeC.hide();
+}
+
+function showInputs() {
+    redMin.show();
+    redMax.show();
+
+    greenMin.show();
+    greenMax.show();
+
+    blueMin.show();
+    blueMax.show();
+
+    alphaMin.show();
+    alphaMax.show();
+
+    numberC.show();
+    sizeC.show();
 }
 
 //all data input boxes
@@ -332,10 +334,10 @@ function alphaMaxInput() {
 };
 //number input box
 function numberInput() {
-    cNumber = createInput();
-    cNumber.size(90);
+    numberC = createInput();
+    numberC.size(90);
 
-    cNumber.position(
+    numberC.position(
         (windowWidth / 2 - 85),
         (windowHeight / 2 + 133));
 
@@ -403,10 +405,10 @@ function createCircles() {
                 maxSpeed: 8, //fastest it can go, fixed
 
                 //color
-                r: random(1, 255),
-                g: random(250, 255),
-                b: random(100, 255),
-                a: random(200, 255),
+                r: random(Number(redMin.value()), Number(redMax.value())),
+                g: random(Number(greenMin.value()), Number(greenMax.value())),
+                b: random(Number(blueMin.value()), Number(blueMax.value())),
+                a: random(Number(alphaMin.value()), Number(alphaMax.value())),
             });
 
             count++;//count goes up to run the loop again and the next circle is created
@@ -451,52 +453,25 @@ function moveCircles() {
 }
 
 function stopCircles() {
-    for (let c of circles) {
-        c.vx = 0;
-        c.vy = 0;
+    if (keyIsDown(UP_ARROW)) {
+        for (let c of circles) {
+            c.vx = 0;
+            c.vy = 0;
+            c.acceleration = 0;
+        }
+    }
+    else if (keyIsDown(DOWN_ARROW)) {
+        for (let c of circles) {
+            c.acceleration = 0.4;
+        }
+    }
+}
+
+function returnData() {
+    if (keyIsDown(13)) {//13 is Enter key code
+        data = true;
     }
 }
 
 
 
-
-//draws all text for title screen except enter text on button
-function titleScreenText() {
-    //universal qualities
-    fill(255);
-    textAlign(CENTER, CENTER);
-    textFont(myFont);
-
-    //title
-    push();
-    textSize(30);
-    text('Swallow Circles', width / 2, 100);
-    pop();
-
-    //explanation
-    push();
-    textSize(20);
-    text('XXX', width / 2, 150);
-    pop();
-
-};
-
-//draws the enter button on the title screen
-function enterButton() {
-    fill(0);
-    noStroke();
-    ellipse(button.x, button.y, button.width, button.width - 50);
-    push();
-    fill(button.textFill);
-    textAlign(CENTER, CENTER);
-    textSize(button.textSize);
-    textFont(myFont);
-    text('ENTER', button.x, button.y);
-    pop();
-};
-
-//checks overlap for enter button
-function checkOverlap() {
-    const d = dist(mouseX, mouseY, button.x, button.y);
-    enter = d < button.width / 2
-};
