@@ -11,10 +11,9 @@
 "use strict";
 
 //input box variables
-let redMin;
-let greenMin;
-let blueMin;
-let alphaMin;
+let red;
+let green;
+let blue;
 
 //variable for enter button
 const button = {
@@ -74,12 +73,18 @@ function draw() {
         checkOverlap();
     }
     else if (game === true) {
-        background(255);
+        background(Number(red.value()), Number(green.value()), Number(blue.value()));
         cursor(CROSS);
+        returnData();
         hideInputs();
         moveCircle();
         colorChange();
         drawCircle();
+
+        push();
+        fill(255);
+        rect(0, 425, width, height);
+        pop();
         showText();
     }
 };
@@ -134,8 +139,8 @@ function moveCircle() {
     circle.x = mouseX;
     circle.y = mouseY;
 
-    circle.x = constrain(circle.x, 0 + circle.size / 2 + 30, width - circle.size / 2 - 30);
-    circle.y = constrain(circle.y, 0 + circle.size / 2 + 30, height - 120);
+    circle.x = constrain(circle.x, circle.size / 2 + 30, width - circle.size / 2 - 30);
+    circle.y = constrain(circle.y, circle.size / 2 + 30, height - circle.size / 2 - 105);
 }
 
 function colorChange() {
@@ -160,17 +165,15 @@ function showText() {
 
 
 function hideInputs() {
-    redMin.hide();
-    greenMin.hide();
-    blueMin.hide();
-    alphaMin.hide();
+    red.hide();
+    green.hide();
+    blue.hide();
 }
 
 function showInputs() {
-    redMin.show();
-    greenMin.show();
-    blueMin.show();
-    alphaMin.show();
+    red.show();
+    green.show();
+    blue.show();
 }
 
 //all text on circle data page
@@ -189,60 +192,49 @@ function dataScreenText() {
     text('RED', 100, 120);
     text('GREEN', 100, 190);
     text('BLUE', 100, 260);
-    text('ALPHA', 100, 330);
     pop();
 }
 
 //all data input boxes
 function dataInputs() {
-    redMinInput();
-    greenMinInput();
-    blueMinInput();
-    alphaMinInput();
+    redInput();
+    greenInput();
+    blueInput();
+
 }
 //red min input box
-function redMinInput() {
-    redMin = createInput();
-    redMin.size(60);
+function redInput() {
+    red = createInput();
+    red.size(60);
 
-    redMin.position(
+    red.position(
         (windowWidth / 2 - 55),
         (windowHeight / 2 - 150));
 
 };
 
 //green min input box
-function greenMinInput() {
-    greenMin = createInput();
-    greenMin.size(60);
+function greenInput() {
+    green = createInput();
+    green.size(60);
 
-    greenMin.position(
+    green.position(
         (windowWidth / 2 - 55),
         (windowHeight / 2 - 80));
 
 };
 
 //blue min input box
-function blueMinInput() {
-    blueMin = createInput();
-    blueMin.size(60);
+function blueInput() {
+    blue = createInput();
+    blue.size(60);
 
-    blueMin.position(
+    blue.position(
         (windowWidth / 2 - 55),
         (windowHeight / 2 - 10));
 
 };
 
-//alpha min input box
-function alphaMinInput() {
-    alphaMin = createInput();
-    alphaMin.size(60);
-
-    alphaMin.position(
-        (windowWidth / 2 - 55),
-        (windowHeight / 2 + 60));
-
-};
 
 //return to data screen when enter key is pressed
 function returnData() {
