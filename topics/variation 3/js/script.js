@@ -111,7 +111,7 @@ function draw() {
 
 
 
-//event for enter button, connects title and data and game screen
+//event for enter button, connects title and data and game screens
 function mouseClicked() {
     if (enter === true && title === true) {
         title = false;
@@ -169,7 +169,6 @@ function checkOverlap() {
 };
 
 
-
 //all text on circle data page
 function dataScreenText() {
     fill(255);
@@ -202,9 +201,11 @@ function dataScreenText() {
     text('max', 325, 260);
     text('min', 175, 330);
     text('max', 325, 330);
+    text('tot', 175, 400);
     pop();
 }
 
+//hides all data inputs, use this on title and game screen
 function hideInputs() {
     redMin.hide();
     redMax.hide();
@@ -221,7 +222,7 @@ function hideInputs() {
     numberC.hide();
     sizeC.hide();
 }
-
+//shows all data inputs, use this on data screen
 function showInputs() {
     redMin.show();
     redMax.show();
@@ -238,7 +239,6 @@ function showInputs() {
     numberC.show();
     sizeC.show();
 }
-
 //all data input boxes
 function dataInputs() {
     redMinInput();
@@ -335,10 +335,10 @@ function alphaMaxInput() {
 //number input box
 function numberInput() {
     numberC = createInput();
-    numberC.size(90);
+    numberC.size(60);
 
     numberC.position(
-        (windowWidth / 2 - 85),
+        (windowWidth / 2 - 55),
         (windowHeight / 2 + 133));
 
 };
@@ -472,6 +472,3 @@ function returnData() {
         data = true;
     }
 }
-
-
-
