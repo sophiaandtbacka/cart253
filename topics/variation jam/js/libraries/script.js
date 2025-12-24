@@ -80,6 +80,7 @@ function draw() {
     }
 
     else if (game === true) {
+        returnData();
         //draws all of the circles
         for (let c of circles) {
             noStroke();
@@ -106,7 +107,6 @@ function mouseClicked() {
     }
 
     else if (game === true) {
-        //
         for (let c of circles) {
             const d = dist(mouseX, mouseY, c.x, c.y);
             if (d < c.size / 2) {
@@ -362,4 +362,11 @@ function moveCircle(c) {
         b: random(colorBmin, colorBmax),
         a: random(colorAmin, colorAmax),
     };
+}
+
+//return to data screen when enter key is pressed
+function returnData() {
+    if (keyIsDown(13)) {//13 is Enter key code
+        data = true;
+    }
 }
