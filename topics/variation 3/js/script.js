@@ -12,6 +12,18 @@
 let sizeC;
 let numberC;
 
+
+//input box variables
+let redMin;
+let redMax;
+let greenMin;
+let greenMax;
+let blueMin;
+let blueMax;
+let alphaMin;
+let alphaMax;
+let cNumber;
+
 //variable for enter button
 const button = {
     x: 250,
@@ -25,6 +37,7 @@ const button = {
 
 //variable for game stage
 let title = true;
+let data = false;
 let game = false;
 let enter = false;
 
@@ -37,7 +50,7 @@ let myFont;
 
 
 //circle variables 
-let spacing;
+let xSpacing;
 let totalCircles;
 
 let xCenter;
@@ -58,8 +71,7 @@ let circles;
 function setup() {
     createCanvas(500, 500);
 
-    sizeInput();
-    numberInput();
+    dataInputs();
 }
 
 
@@ -68,11 +80,18 @@ function setup() {
 */
 function draw() {
 
-
-
     if (title === true) {
         background(0);
         titleScreenText();
+        hideInputs();
+        enterButton();
+        checkOverlap();
+    }
+
+    else if (data === true) {
+        background(0);
+        dataScreenText();
+        showInputs();
         enterButton();
         checkOverlap();
     }
@@ -81,127 +100,360 @@ function draw() {
         background(255);
 
         //hides input boxes from title screen, hide doesn't erase input values just hides visuals 
-        hideInput();
+        hideInputs();
 
 
         moveCircles();
 
         for (let c of circles) {
             noStroke();
-            fill(0);
+            fill(c.r, c.g, c.b, c.a);
             ellipse(c.x, c.y, c.size);
         }
-
-
 
     }
 };
 
 
-//event for enter button, connects title and game screen
+//event for enter button, connects title and data and game screen
 function mouseClicked() {
     if (enter === true && title === true) {
         title = false;
+        data = true;
+    }
+    else if (enter === true && data === true) {
+        data = false;
         game = true;
 
         //generates initial circles and circle postions
         createCircles();
-
-
     }
 };
 
+/*
+//all text on circle data page
+function dataScreenText() {
+    fill(255);
+    textAlign(CENTER);
+    textFont(myFont);
+
+    push();
+    textSize(30);
+    text('CIRCLE DATA', width / 2, 60);
+    pop();
+
+    push();
+    textAlign(LEFT, CENTER);
+    textSize(20);
+    text('RED', 100 - 50, 120);
+    text('GREEN', 100 - 50, 190);
+    text('BLUE', 100 - 50, 260);
+    text('ALPHA', 100 - 50, 330);
+    text('NUMBER', 100 - 50, 400);
+    text('SIZE', 330 - 50, 400);
+    pop();
+
+    push();
+    textAlign(RIGHT, CENTER);
+    textSize(14);
+    text('min', 175 + 0, 120);
+    text('max', 325 + 0, 120);
+    text('min', 175 + 0, 190);
+    text('max', 325 + 0, 190);
+    text('min', 175 + 0, 260);
+    text('max', 325 + 0, 260);
+    text('min', 175 + 0, 330);
+    text('max', 325 + 0, 330);
+    pop();
+}*/
+
+function hideInputs() {
+    redMin.hide();
+    redMax.hide();
+
+    greenMin.hide();
+    greenMax.hide();
+
+    blueMin.hide();
+    blueMax.hide();
+
+    alphaMin.hide();
+    alphaMax.hide();
+
+    cNumber.hide();
+    sizeC.hide();
+}
+
+
+function showInputs() {
+    redMin.show();
+    redMax.show();
+
+    greenMin.show();
+    greenMax.show();
+
+    blueMin.show();
+    blueMax.show();
+
+    alphaMin.show();
+    alphaMax.show();
+
+    cNumber.show();
+    sizeC.show();
+}
+
+//all text on circle data page
+function dataScreenText() {
+    fill(255);
+    textAlign(CENTER);
+    textFont(myFont);
+
+    push();
+    textSize(30);
+    text('CIRCLE DATA', width / 2, 60);
+    pop();
+
+    push();
+    textSize(20);
+    text('RED', 100, 120);
+    text('GREEN', 100, 190);
+    text('BLUE', 100, 260);
+    text('ALPHA', 100, 330);
+    text('NUMBER', 100, 400);
+    text('SIZE', 315, 400);
+
+    pop();
+
+    push();
+    textSize(14);
+    text('min', 175, 120);
+    text('max', 325, 120);
+    text('min', 175, 190);
+    text('max', 325, 190);
+    text('min', 175, 260);
+    text('max', 325, 260);
+    text('min', 175, 330);
+    text('max', 325, 330);
+    pop();
+}
+
+//all data input boxes
+function dataInputs() {
+    redMinInput();
+    redMaxInput();
+    greenMinInput();
+    greenMaxInput();
+    blueMinInput();
+    blueMaxInput();
+    alphaMinInput();
+    alphaMaxInput();
+    numberInput();
+    sizeInput();
+}
+//red min input box
+function redMinInput() {
+    redMin = createInput();
+    redMin.size(60);
+
+    redMin.position(
+        (windowWidth / 2 - 55),
+        (windowHeight / 2 - 150));
+
+};
+//red max input box
+function redMaxInput() {
+    redMax = createInput();
+    redMax.size(60);
+
+    redMax.position(
+        (windowWidth / 2 + 95),
+        (windowHeight / 2 - 150));
+
+};
+//green min input box
+function greenMinInput() {
+    greenMin = createInput();
+    greenMin.size(60);
+
+    greenMin.position(
+        (windowWidth / 2 - 55),
+        (windowHeight / 2 - 80));
+
+};
+//green max input box
+function greenMaxInput() {
+    greenMax = createInput();
+    greenMax.size(60);
+
+    greenMax.position(
+        (windowWidth / 2 + 95),
+        (windowHeight / 2 - 80));
+
+};
+//blue min input box
+function blueMinInput() {
+    blueMin = createInput();
+    blueMin.size(60);
+
+    blueMin.position(
+        (windowWidth / 2 - 55),
+        (windowHeight / 2 - 10));
+
+};
+//blue max input box
+function blueMaxInput() {
+    blueMax = createInput();
+    blueMax.size(60);
+
+    blueMax.position(
+        (windowWidth / 2 + 95),
+        (windowHeight / 2 - 10));
+
+};
+//alpha min input box
+function alphaMinInput() {
+    alphaMin = createInput();
+    alphaMin.size(60);
+
+    alphaMin.position(
+        (windowWidth / 2 - 55),
+        (windowHeight / 2 + 60));
+
+};
+//alpha max input box
+function alphaMaxInput() {
+    alphaMax = createInput();
+    alphaMax.size(60);
+
+    alphaMax.position(
+        (windowWidth / 2 + 95),
+        (windowHeight / 2 + 60));
+
+};
+//number input box
+function numberInput() {
+    cNumber = createInput();
+    cNumber.size(90);
+
+    cNumber.position(
+        (windowWidth / 2 - 85),
+        (windowHeight / 2 + 133));
+
+};
+function sizeInput() {
+    sizeC = createInput();
+    sizeC.size(60);
+
+    sizeC.position(
+        (windowWidth / 2 + 95),
+        (windowHeight / 2 + 133));
+
+};
+
+
+//creates all circles and initial positions
 function createCircles() {
-    //create array with all circles 
+    //creates array with all circles 
     circles = [];
 
-    //circle mapping/organization variable
+    //circle organization variables, rows in pyramid shape and number of circles that have been created so far
     row = 1;
     count = 0;
 
-    //variables for circle organization
+    //variables for circle position organization, x and y start point for pyramid shape
     xCenter = width / 2;
     y = width / 4;
 
     //grabs data for loop
-    spacing = Number(sizeC.value()); //make spacing same width as circle size
-    totalCircles = Number(numberC.value()); //number input is total circles
+    xSpacing = Number(sizeC.value()); //circle size input value on data page is circle size and x spacing 
+    totalCircles = Number(numberC.value()); //number input value on data page is total circles
 
-    //should add a rounding element so number rounded to nearest base 10 or what ever thing that is 
+    //didn't add a rounding element but could add in the future so that you're always creating perfect pyramids
 
-
-    //continue as long as count is less than number of circle input
+    //continues creating circles as long as count is less than input number value on data page, use < instead of <= because we start count at 0
     while (count < totalCircles) {
 
+        //creates circles until one less than row value, start with count=0 and row=1 so first row (row 1) will have one circle with index 0
         for (let i = 0; i < row; i++) {
 
-            if (count >= totalCircles) { return; } //stops loop
+            let x = xCenter + i * 2 * xSpacing - (row - 1) * xSpacing; //creates spacing for the intial pyramind organization, xCenter is start point, i*2*xSpacing offsets each circle horizontally, -(row-1)*xSpacing centers the row so it is symetrical to row above
 
-            else {
-                let x = xCenter + i * 2 * spacing - (row - 1) * spacing;
+            //puts c data into circles array
+            circles.push({
+                //position
+                x: x,
+                y: y,
 
-                circles.push({
-                    x: x,
-                    y: y,
-                    homeX: x,
-                    homeY: y,
-                    size: spacing,
-                    //acceleration
-                    acceleration: 0.7,
-                    //friction
-                    vx: 0,
-                    vy: 0,
-                    friction: 0.92,
-                    //fastest it can go
-                    maxSpeed: 20,
-                });
+                //not using right now but might be helpful for future interations
+                row: row,
+                indexInRow: i,
 
-                count++;
-            }
+                //size: is same as size input on data page and x spacing
+                size: xSpacing,
 
+                // movement
+                //direction
+                dir: 0,
+                //acceleration
+                acceleration: 0.4,//how fast circles move towards mouse, fixed
+                //friction and constraints
+                vx: 0,
+                vy: 0,
+                friction: 0.99, //how much slows down the circle ea frame, must be less than 1, fixed
+                maxSpeed: 8, //fastest it can go, fixed
 
+                //color
+                r: random(1, 255),
+                g: random(250, 255),
+                b: random(100, 255),
+                a: random(200, 255),
+            });
+
+            count++;//count goes up to run the loop again and the next circle is created
         }
 
-        y += (2 * spacing);//I added the 2* i think this will be better, or can make spacing and circle size diff vari
-        row++;
+        y += (2 * xSpacing);//2* creates better visual spacing verticly between circle rows
+        row++; //creates next row when finished creating right amout of circles in previous row 
 
     }
-
 
 };
 
 /**
-Apply acceleration, friction, and velocity to the shape
-Constrain its velocity and keep it on the canvas
+Apply acceleration, friction, and velocity to circles,constrains its velocity
+Adapted from Pippin's Acceleration and Friction example, 
+I don't fully understand the math and physics will need to read up on
 */
 function moveCircles() {
+    //applies changed movement data to all circles in circles array
     for (let c of circles) {
 
-        // direction to mouse
-        let dx = mouseX - c.x;
-        let dy = mouseY - c.y;
+        c.dir = createVector(mouseX - c.x, mouseY - c.y); // sets up a direction vector connecting mouse position and circle position
 
-        let dist = sqrt(dx * dx + dy * dy);
-        if (dist !== 0) {
-            dx /= dist;
-            dy /= dist;
-        }
+        c.dir.normalize();//make vector magnitude 1 so doesn't change acceleration
 
         // apply acceleration
-        c.vx += dx * c.acceleration;
-        c.vy += dy * c.acceleration;
+        c.vx += c.dir.x * c.acceleration;
+        c.vy += c.dir.y * c.acceleration;
 
         // friction
         c.vx *= c.friction;
         c.vy *= c.friction;
 
-        // limit speed
+        // limits speed
         c.vx = constrain(c.vx, -c.maxSpeed, c.maxSpeed);
         c.vy = constrain(c.vy, -c.maxSpeed, c.maxSpeed);
 
-        // move
+        // move circles with new velocity
         c.x += c.vx;
         c.y += c.vy;
+    }
+}
+
+function stopCircles() {
+    for (let c of circles) {
+        c.vx = 0;
+        c.vy = 0;
     }
 }
 
@@ -227,40 +479,6 @@ function titleScreenText() {
     text('XXX', width / 2, 150);
     pop();
 
-
-    //input box text
-    push();
-    textSize(20);
-    text('NUMBER: ', width / 4, 390);
-    text('SIZE: ', 3 * width / 5 + 20, 390);
-    pop();
-
-};
-
-//draws two input value boxes
-function sizeInput() {
-    sizeC = createInput();
-    sizeC.size(60);
-
-    sizeC.position(
-        (windowWidth / 2 + 100),
-        (windowHeight / 2 + 130));
-
-};
-function numberInput() {
-    numberC = createInput();
-    numberC.size(60);
-
-    numberC.position(
-        (windowWidth / 2 - 85),
-        (windowHeight / 2 + 130));
-
-};
-
-//hides input value boxes
-function hideInput() {
-    sizeC.hide();
-    numberC.hide();
 };
 
 //draws the enter button on the title screen
