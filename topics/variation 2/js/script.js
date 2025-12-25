@@ -67,6 +67,7 @@ function draw() {
     }
     else if (data === true) {
         background(0);
+        cursor(ARROW);
         showInputs();
         dataScreenText()
         enterButton();
@@ -105,7 +106,7 @@ function titleScreenText() {
     textAlign(CENTER, CENTER);
     textFont(myFont);
     textSize(30);
-    text('Color Circle', width / 2, 100);
+    text('COLOR CIRCLE', width / 2, 100);
 }
 
 //draws the enter button on the title screen
@@ -184,14 +185,15 @@ function dataScreenText() {
 
     push();
     textSize(30);
-    text('CIRCLE DATA', width / 2, 60);
+    textAlign(CENTER);
+    text('CIRCLE DATA', width / 2, 100);
     pop();
 
     push();
     textSize(20);
-    text('RED', 100, 120);
-    text('GREEN', 100, 190);
-    text('BLUE', 100, 260);
+    text('RED', 125, 180);
+    text('GREEN', 125, 280);
+    text('BLUE', 125, 380);
     pop();
 }
 
@@ -205,33 +207,33 @@ function dataInputs() {
 //red min input box
 function redInput() {
     red = createInput();
-    red.size(60);
+    red.size(200);
 
     red.position(
-        (windowWidth / 2 - 55),
-        (windowHeight / 2 - 150));
+        (windowWidth / 2 - 95 + 40),
+        (windowHeight / 2 - 85));
 
 };
 
 //green min input box
 function greenInput() {
     green = createInput();
-    green.size(60);
+    green.size(200);
 
     green.position(
-        (windowWidth / 2 - 55),
-        (windowHeight / 2 - 80));
+        (windowWidth / 2 - 95 + 40),
+        (windowHeight / 2 + 15));
 
 };
 
 //blue min input box
 function blueInput() {
     blue = createInput();
-    blue.size(60);
+    blue.size(200);
 
     blue.position(
-        (windowWidth / 2 - 55),
-        (windowHeight / 2 - 10));
+        (windowWidth / 2 - 95 + 40),
+        (windowHeight / 2 + 115));
 
 };
 

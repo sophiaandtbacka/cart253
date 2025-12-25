@@ -121,7 +121,7 @@ function titleScreenText() {
     textAlign(CENTER, CENTER);
     textFont(myFont);
     textSize(30);
-    text('Bubble Buster', width / 2, 100);
+    text('BUBBLE BUSTER', width / 2, 100);
 }
 
 function hideInputs() {
@@ -208,7 +208,7 @@ function redMinInput() {
 
     redMin.position(
         (windowWidth / 2 - 55),
-        (windowHeight / 2 - 150));
+        (windowHeight / 2 - 146));
 
 };
 //red max input box
@@ -218,7 +218,7 @@ function redMaxInput() {
 
     redMax.position(
         (windowWidth / 2 + 95),
-        (windowHeight / 2 - 150));
+        (windowHeight / 2 - 146));
 
 };
 //green min input box
@@ -228,7 +228,7 @@ function greenMinInput() {
 
     greenMin.position(
         (windowWidth / 2 - 55),
-        (windowHeight / 2 - 80));
+        (windowHeight / 2 - 76));
 
 };
 //green max input box
@@ -238,7 +238,7 @@ function greenMaxInput() {
 
     greenMax.position(
         (windowWidth / 2 + 95),
-        (windowHeight / 2 - 80));
+        (windowHeight / 2 - 76));
 
 };
 //blue min input box
@@ -248,7 +248,7 @@ function blueMinInput() {
 
     blueMin.position(
         (windowWidth / 2 - 55),
-        (windowHeight / 2 - 10));
+        (windowHeight / 2 - 6));
 
 };
 //blue max input box
@@ -258,7 +258,7 @@ function blueMaxInput() {
 
     blueMax.position(
         (windowWidth / 2 + 95),
-        (windowHeight / 2 - 10));
+        (windowHeight / 2 - 6));
 
 };
 //alpha min input box
@@ -268,7 +268,7 @@ function alphaMinInput() {
 
     alphaMin.position(
         (windowWidth / 2 - 55),
-        (windowHeight / 2 + 60));
+        (windowHeight / 2 + 64));
 
 };
 //alpha max input box
@@ -278,7 +278,7 @@ function alphaMaxInput() {
 
     alphaMax.position(
         (windowWidth / 2 + 95),
-        (windowHeight / 2 + 60));
+        (windowHeight / 2 + 64));
 
 };
 //number input box
@@ -288,7 +288,7 @@ function cNumberInput() {
 
     cNumber.position(
         (windowWidth / 2 - 85),
-        (windowHeight / 2 + 130));
+        (windowHeight / 2 + 134));
 
 };
 

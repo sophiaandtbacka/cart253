@@ -137,7 +137,7 @@ function titleScreenText() {
     //title
     push();
     textSize(30);
-    text('Swallow Circles', width / 2, 100);
+    text('SWALLOW CIRCLES', width / 2, 100);
     pop();
 
     //explanation
@@ -188,7 +188,6 @@ function dataScreenText() {
     text('ALPHA', 100, 330);
     text('NUMBER', 100, 400);
     text('SIZE', 315, 400);
-
     pop();
 
     push();
@@ -259,7 +258,7 @@ function redMinInput() {
 
     redMin.position(
         (windowWidth / 2 - 55),
-        (windowHeight / 2 - 150));
+        (windowHeight / 2 - 146));
 
 };
 //red max input box
@@ -269,7 +268,7 @@ function redMaxInput() {
 
     redMax.position(
         (windowWidth / 2 + 95),
-        (windowHeight / 2 - 150));
+        (windowHeight / 2 - 146));
 
 };
 //green min input box
@@ -279,7 +278,7 @@ function greenMinInput() {
 
     greenMin.position(
         (windowWidth / 2 - 55),
-        (windowHeight / 2 - 80));
+        (windowHeight / 2 - 76));
 
 };
 //green max input box
@@ -289,7 +288,7 @@ function greenMaxInput() {
 
     greenMax.position(
         (windowWidth / 2 + 95),
-        (windowHeight / 2 - 80));
+        (windowHeight / 2 - 76));
 
 };
 //blue min input box
@@ -299,7 +298,7 @@ function blueMinInput() {
 
     blueMin.position(
         (windowWidth / 2 - 55),
-        (windowHeight / 2 - 10));
+        (windowHeight / 2 - 6));
 
 };
 //blue max input box
@@ -309,7 +308,7 @@ function blueMaxInput() {
 
     blueMax.position(
         (windowWidth / 2 + 95),
-        (windowHeight / 2 - 10));
+        (windowHeight / 2 - 6));
 
 };
 //alpha min input box
@@ -319,7 +318,7 @@ function alphaMinInput() {
 
     alphaMin.position(
         (windowWidth / 2 - 55),
-        (windowHeight / 2 + 60));
+        (windowHeight / 2 + 64));
 
 };
 //alpha max input box
@@ -329,7 +328,7 @@ function alphaMaxInput() {
 
     alphaMax.position(
         (windowWidth / 2 + 95),
-        (windowHeight / 2 + 60));
+        (windowHeight / 2 + 64));
 
 };
 //number input box
@@ -339,7 +338,7 @@ function numberInput() {
 
     numberC.position(
         (windowWidth / 2 - 55),
-        (windowHeight / 2 + 133));
+        (windowHeight / 2 + 134));
 
 };
 function sizeInput() {
@@ -348,7 +347,7 @@ function sizeInput() {
 
     sizeC.position(
         (windowWidth / 2 + 95),
-        (windowHeight / 2 + 133));
+        (windowHeight / 2 + 134));
 
 };
 
