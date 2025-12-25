@@ -107,6 +107,12 @@ function titleScreenText() {
     textFont(myFont);
     textSize(30);
     text('COLOR CIRCLE', width / 2, 100);
+
+    //explanation
+    push();
+    textSize(20);
+    text('XXX', width / 2, 150);
+    pop();
 }
 
 //draws the enter button on the title screen

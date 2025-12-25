@@ -122,6 +122,12 @@ function titleScreenText() {
     textFont(myFont);
     textSize(30);
     text('BUBBLE BUSTER', width / 2, 100);
+
+    //explanation
+    push();
+    textSize(20);
+    text('XXX', width / 2, 150);
+    pop();
 }
 
 function hideInputs() {
