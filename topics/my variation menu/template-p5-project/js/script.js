@@ -42,7 +42,29 @@ let currentY;
 
 
 /**Game 1 Variables */
+//input box variables
+let redMin;
+let redMax;
+let greenMin;
+let greenMax;
+let blueMin;
+let blueMax;
+let alphaMin;
+let alphaMax;
+let numberC;
+let sizeC;
 
+//circle variables 
+let xSpacing;//x spacing between circles
+let totalCircles;//total number of circles generated
+
+let xCenter;//x initial positon for first circle
+let y;//y initial positon for first circle
+
+let row;//rows for circle organization
+let count;//number of circles which have been created
+
+let circles1;//array with all circles
 
 /**Game 2 Variables */
 
@@ -57,14 +79,6 @@ let circle;
 /**Game 3 Variables */
 
 //input box variables
-let redMin;
-let redMax;
-let greenMin;
-let greenMax;
-let blueMin;
-let blueMax;
-let alphaMin;
-let alphaMax;
 let cNumber;
 let allInputs = [];
 
@@ -128,21 +142,7 @@ let myFont;
 function setup() {
     createCanvas(500, 500);
     textFont(myFont); //font for whole game
-
-    switch (state) {
-        case "menu":
-            menuSetup();
-            break;
-        case "swallow circle variation":
-            game1Setup();
-            break;
-        case "color cache variation":
-            game2Setup();
-            break;
-        case "bubble buster variation":
-            game3Setup();
-            break;
-    }
+    menuSetup();
 }
 
 /**
@@ -193,20 +193,28 @@ function menuToGame() {
     if (keyIsDown(13) && game1 === true) {//13 is Enter key code, game 1 is true when you roll the ball and the Swallow Circle game title is red
         //go to game1 title screen
         state = "swallow circle variation"
+        resetScreens();
+        game1Setup();
     }
     else if (keyIsDown(13) && game2 === true) {//13 is Enter key code, game 2 is true when you roll the ball and the Color Cache game title is red
         //go to game2 title screen
-        state = "color cache variation"
+        state = "color cache variation";
+        resetScreens();
+        game2Setup();
     }
     else if (keyIsDown(13) && game3 === true) {//13 is Enter key code, game 3 is true when you roll the ball and the Bubble Buster game title is red
         //go to game3 title screen
         state = "bubble buster variation";
-        title = true;
-        data = false;
-        game = false;
-        enter = false;
+        resetScreens();
         game3Setup();
     }
+}
+
+function resetScreens() {
+    title = true;
+    data = false;
+    game = false;
+    enter = false;
 }
 
 /**
@@ -319,6 +327,19 @@ function menuText() {
 
 //event that triggers game screen from title screen and moves circle on game screen
 function mouseClicked() {
+    if (state === "swallow circle variation") {
+        if (enter === true && title === true) {
+            title = false;
+            data = true;
+        }
+        else if (enter === true && data === true) {
+            data = false;
+            game = true;
+
+            //generates initial circles and circle postions
+            createCircles1();
+        }
+    }
     if (state === "color cache variation") {
         if (enter === true && title === true) {
             title = false;
@@ -347,7 +368,7 @@ function mouseClicked() {
             for (let c of circles) {
                 const d = dist(mouseX, mouseY, c.x, c.y);
                 if (d < c.size / 2) {
-                    moveCircle(c);
+                    moveCircles(c);
                 }
             }
         }
@@ -375,6 +396,404 @@ function checkOverlap() {
     const d = dist(mouseX, mouseY, button.x, button.y);
     enter = d < button.width / 2
 }
+
+//return to data screen when enter key is pressed
+function returnData() {
+    if (
+        (state === "swallow circle variation" ||
+            state === "color cache variation" ||
+            state === "bubble buster variation")
+        && game === true
+        && keyIsDown(13)
+    ) {
+        data = true;
+        game = false;
+        title = false;
+    }
+}
+
+//click m key to return to menu anytime
+function returnMenu() {
+    if (keyIsDown(77)) {//77 code for M key
+        if (state === "swallow circle variation") {
+            hideInputs1();
+        }
+        else if (state === "color cache variation") {
+            hideInputs2();
+        }
+        else if (state === "bubble buster variation") {
+            hideInputs3();
+        }
+
+        state = "menu";
+        resetScreens();
+    }
+
+}
+
+
+
+/**Game 1 functions */
+
+function game1Setup() {
+    dataInputs1();
+    hideInputs1();
+}
+
+function game1Draw() {
+
+    if (title === true) {
+        background(0);
+        hideInputs1();
+        titleScreenText1();
+        enterButton();
+        checkOverlap();
+    }
+
+    else if (data === true) {
+        background(0);
+        showInputs1();
+        dataScreenText1();
+        enterButton();
+        checkOverlap();
+    }
+
+    else if (game === true) {
+        background(255);
+        hideInputs1(); //hides input boxes from title screen, hide doesn't erase input values just hides visuals 
+        moveCircles1();
+        stopCircles();
+        returnData();
+
+        for (let c of circles1) {
+            noStroke();
+            fill(c.r, c.g, c.b, c.a);
+            ellipse(c.x, c.y, c.size);
+        }
+    }
+
+    returnMenu();
+}
+
+//all title screen text
+function titleScreenText1() {
+    //universal qualities
+    fill(255);
+    textAlign(CENTER, CENTER);
+    textFont(myFont || 'Courier');
+
+    //title
+    push();
+    textSize(30);
+    text('SWALLOW CIRCLES', width / 2, 100);
+    pop();
+
+    //explanation
+    push();
+    textSize(20);
+    text('XXX', width / 2, 150);
+    pop();
+
+};
+
+//all data screen text
+function dataScreenText1() {
+    fill(255);
+    textAlign(CENTER);
+    textFont(myFont);
+
+    push();
+    textSize(30);
+    text('CIRCLE DATA', width / 2, 60);
+    pop();
+
+    push();
+    textSize(20);
+    text('RED', 100, 120);
+    text('GREEN', 100, 190);
+    text('BLUE', 100, 260);
+    text('ALPHA', 100, 330);
+    text('NUMBER', 100, 400);
+    text('SIZE', 315, 400);
+    pop();
+
+    push();
+    textSize(14);
+    text('min', 175, 120);
+    text('max', 325, 120);
+    text('min', 175, 190);
+    text('max', 325, 190);
+    text('min', 175, 260);
+    text('max', 325, 260);
+    text('min', 175, 330);
+    text('max', 325, 330);
+    text('tot', 175, 400);
+    pop();
+}
+
+//all data input boxes
+function dataInputs1() {
+    redMinInput1();
+    redMaxInput1();
+    greenMinInput1();
+    greenMaxInput1();
+    blueMinInput1();
+    blueMaxInput1();
+    alphaMinInput1();
+    alphaMaxInput1();
+    numberInput1();
+    sizeInput1();
+}
+//red min input box
+function redMinInput1() {
+    redMin = createInput(1);
+    redMin.size(60);
+
+    redMin.position(
+        (windowWidth / 2 - 55),
+        (windowHeight / 2 - 146));
+
+};
+//red max input box
+function redMaxInput1() {
+    redMax = createInput(255);
+    redMax.size(60);
+
+    redMax.position(
+        (windowWidth / 2 + 95),
+        (windowHeight / 2 - 146));
+
+};
+//green min input box
+function greenMinInput1() {
+    greenMin = createInput(1);
+    greenMin.size(60);
+
+    greenMin.position(
+        (windowWidth / 2 - 55),
+        (windowHeight / 2 - 76));
+
+};
+//green max input box
+function greenMaxInput1() {
+    greenMax = createInput(255);
+    greenMax.size(60);
+
+    greenMax.position(
+        (windowWidth / 2 + 95),
+        (windowHeight / 2 - 76));
+
+};
+//blue min input box
+function blueMinInput1() {
+    blueMin = createInput(1);
+    blueMin.size(60);
+
+    blueMin.position(
+        (windowWidth / 2 - 55),
+        (windowHeight / 2 - 6));
+
+};
+//blue max input box
+function blueMaxInput1() {
+    blueMax = createInput(255);
+    blueMax.size(60);
+
+    blueMax.position(
+        (windowWidth / 2 + 95),
+        (windowHeight / 2 - 6));
+
+};
+//alpha min input box
+function alphaMinInput1() {
+    alphaMin = createInput(1);
+    alphaMin.size(60);
+
+    alphaMin.position(
+        (windowWidth / 2 - 55),
+        (windowHeight / 2 + 64));
+
+};
+//alpha max input box
+function alphaMaxInput1() {
+    alphaMax = createInput(255);
+    alphaMax.size(60);
+
+    alphaMax.position(
+        (windowWidth / 2 + 95),
+        (windowHeight / 2 + 64));
+
+};
+//number input box
+function numberInput1() {
+    numberC = createInput(1000);
+    numberC.size(60);
+
+    numberC.position(
+        (windowWidth / 2 - 55),
+        (windowHeight / 2 + 134));
+
+};
+function sizeInput1() {
+    sizeC = createInput(10);
+    sizeC.size(60);
+
+    sizeC.position(
+        (windowWidth / 2 + 95),
+        (windowHeight / 2 + 134));
+
+};
+//hides all data inputs, use this on title and game screen
+function hideInputs1() {
+    redMin.hide();
+    redMax.hide();
+
+    greenMin.hide();
+    greenMax.hide();
+
+    blueMin.hide();
+    blueMax.hide();
+
+    alphaMin.hide();
+    alphaMax.hide();
+
+    numberC.hide();
+    sizeC.hide();
+}
+//shows all data inputs, use this on data screen
+function showInputs1() {
+    redMin.show();
+    redMax.show();
+
+    greenMin.show();
+    greenMax.show();
+
+    blueMin.show();
+    blueMax.show();
+
+    alphaMin.show();
+    alphaMax.show();
+
+    numberC.show();
+    sizeC.show();
+}
+
+//creates all circles and initial positions
+function createCircles1() {
+    //creates array with all circles 
+    circles1 = [];
+
+    //circle organization variables, rows in pyramid shape and number of circles that have been created so far
+    row = 1;
+    count = 0;
+
+    //variables for circle position organization, x and y start point for pyramid shape
+    xCenter = width / 2;
+    y = width / 4;
+
+    //grabs data for loop
+    xSpacing = Number(sizeC.value()); //circle size input value on data page is circle size and x spacing 
+    totalCircles = Number(numberC.value()); //number input value on data page is total circles
+
+    //didn't add a rounding element but could add in the future so that you're always creating perfect pyramids
+
+    //continues creating circles as long as count is less than input number value on data page, use < instead of <= because we start count at 0
+    while (count < totalCircles) {
+
+        //creates circles until one less than row value, start with count=0 and row=1 so first row (row 1) will have one circle with index 0
+        for (let i = 0; i < row; i++) {
+
+            let x = xCenter + i * 2 * xSpacing - (row - 1) * xSpacing; //creates spacing for the intial pyramind organization, xCenter is start point, i*2*xSpacing offsets each circle horizontally, -(row-1)*xSpacing centers the row so it is symetrical to row above
+
+            //puts c data into circles array
+            circles1.push({
+                //position
+                x: x,
+                y: y,
+
+                //not using right now but might be helpful for future interations
+                row: row,
+                indexInRow: i,
+
+                //size: is same as size input on data page and x spacing
+                size: xSpacing,
+
+                // movement
+                //direction
+                dir: 0,
+                //acceleration
+                acceleration: 0.4,//how fast circles move towards mouse, fixed
+                //friction and constraints
+                vx: 0,
+                vy: 0,
+                friction: 0.99, //how much slows down the circle ea frame, must be less than 1, fixed
+                maxSpeed: 8, //fastest it can go, fixed
+
+                //color
+                r: random(Number(redMin.value()), Number(redMax.value())),
+                g: random(Number(greenMin.value()), Number(greenMax.value())),
+                b: random(Number(blueMin.value()), Number(blueMax.value())),
+                a: random(Number(alphaMin.value()), Number(alphaMax.value())),
+            });
+
+            count++;//count goes up to run the loop again and the next circle is created
+        }
+
+        y += (2 * xSpacing);//2* creates better visual spacing verticly between circle rows
+        row++; //creates next row when finished creating right amout of circles in previous row 
+
+    }
+
+};
+
+/**
+Apply acceleration, friction, and velocity to circles,constrains its velocity
+Adapted from Pippin's Acceleration and Friction example, 
+I don't fully understand the math and physics will need to read up on
+*/
+function moveCircles1() {
+    //applies changed movement data to all circles in circles array
+    for (let c of circles1) {
+
+        c.dir = createVector(mouseX - c.x, mouseY - c.y); // sets up a direction vector connecting mouse position and circle position
+
+        c.dir.normalize();//make vector magnitude 1 so doesn't change acceleration
+
+        // apply acceleration
+        c.vx += c.dir.x * c.acceleration;
+        c.vy += c.dir.y * c.acceleration;
+
+        // friction
+        c.vx *= c.friction;
+        c.vy *= c.friction;
+
+        // limits speed
+        c.vx = constrain(c.vx, -c.maxSpeed, c.maxSpeed);
+        c.vy = constrain(c.vy, -c.maxSpeed, c.maxSpeed);
+
+        // move circles with new velocity
+        c.x += c.vx;
+        c.y += c.vy;
+    }
+}
+
+//stops and restarts circle movement based on up down and w and s keys
+function stopCircles() {
+    if (keyIsDown(UP_ARROW) || keyIsDown(87)) {
+        for (let c of circles1) {
+            c.vx = 0;
+            c.vy = 0;
+            c.acceleration = 0;
+        }
+    }
+    else if (keyIsDown(DOWN_ARROW) || keyIsDown(83)) {
+        for (let c of circles1) {
+            c.acceleration = 0.4;
+        }
+    }
+}
+
+
 
 
 /**Game 2 functions */
@@ -407,7 +826,7 @@ function game2Draw() {
     else if (data === true) {
         background(0);
         cursor(ARROW);//include this so if go back to data the cursor will change to default
-        dataScreenText()
+        dataScreenText2()
         showInputs2();
         enterButton();
         checkOverlap();
@@ -432,7 +851,10 @@ function game2Draw() {
 
         returnData();//when push enter button on game screen return to data page
     }
+
+    returnMenu();
 }
+
 
 //all title screen text
 function titleScreenText2() {
@@ -447,10 +869,8 @@ function titleScreenText2() {
     text('XXX', width / 2, 150);
     pop();
 }
-
 //all data screen text
-
-function dataScreenText() {
+function dataScreenText2() {
     fill(255);
     textAlign(CENTER);
 
@@ -558,7 +978,7 @@ function showText() {
 
 function game3Setup() {
     dataInputs3();  //all inputs from data page
-    hideInputs();  //hides all the inputs
+    hideInputs3();  //hides all the inputs
 }
 
 function game3Draw() {
@@ -566,7 +986,7 @@ function game3Draw() {
 
     if (title === true) {
         background(0);
-        hideInputs();
+        hideInputs3();
         titleScreenText3();
         enterButton();
         checkOverlap();
@@ -575,7 +995,7 @@ function game3Draw() {
     else if (data === true) {
         background(0);
         showInputs3();
-        dataScreenText();
+        dataScreenText3();
         enterButton();
         checkOverlap();
     }
@@ -591,6 +1011,8 @@ function game3Draw() {
             ellipse(c.x, c.y, c.size);
         }
     }
+
+    returnMenu();
 }
 
 
@@ -609,11 +1031,8 @@ function titleScreenText3() {
     pop();
 }
 
-
-
-
 //all text on circle data page
-function dataScreenText() {
+function dataScreenText3() {
     fill(255);
     textAlign(CENTER);
     textFont(myFont);
@@ -781,7 +1200,7 @@ function initialCircles() {
     }
 }
 //in game screen, moves the circle randomly and changes color randomly
-function moveCircle(c) {
+function moveCircles(c) {
     c.x = random(width);
     c.y = random(height);
     c.color = {
@@ -792,17 +1211,3 @@ function moveCircle(c) {
     };
 }
 
-//return to data screen when enter key is pressed
-function returnData() {
-    if (
-        (state === "swallow circle variation" ||
-            state === "color cache variation" ||
-            state === "bubble buster variation")
-        && game === true
-        && keyIsDown(13)
-    ) {
-        data = true;
-        game = false;
-        title = false;
-    }
-}
