@@ -144,6 +144,9 @@ function setup() {
 */
 function draw() {
     switch (state) {
+        case "title":
+            titleDraw();
+            break;
         case "menu":
             menuDraw();
             break;
@@ -158,6 +161,33 @@ function draw() {
             break;
     }
 
+}
+
+
+
+/**
+ * All Title Functions
+ */
+//don't need a different setup 
+function titleDraw() {
+    background(0);
+    titleText();
+}
+
+
+function titleText() {
+    //resets all game states, for when you go back to title page
+    game1 = false;
+    game2 = false;
+    game3 = false;
+
+    fill(255);//white text
+
+    push();
+    textAlign(CENTER, TOP);
+    textSize(30);
+    text('CIRCLE TITLE', width / 2, 50);
+    pop();
 }
 
 
@@ -425,6 +455,25 @@ function returnMenu() {
         }
 
         state = "menu";
+        resetScreens();
+    }
+
+}
+
+//click t key to return to entire project title screen
+function returnTitle() {
+    if (keyIsDown(84)) {//84 code for M key
+        if (state === "swallow circle variation") {
+            hideInputs1();
+        }
+        else if (state === "color cache variation") {
+            hideInputs2();
+        }
+        else if (state === "bubble buster variation") {
+            hideInputs3();
+        }
+
+        state = "title";
         resetScreens();
     }
 
