@@ -48,6 +48,8 @@ function draw() {
 };
 
 function game2Setup() {
+    textFont(myFont);
+
     dataInputs(); //input boxes for rgb background value
     hideInputs(); //hides all input boxes
 
@@ -68,7 +70,6 @@ function game2Setup() {
 function game2Draw() {
     if (title === true) {
         background(0);
-        hideInputs();
         titleScreenText();
         enterButton();
         checkOverlap();
@@ -112,7 +113,6 @@ function mouseClicked() {
 function titleScreenText() {
     fill(255);
     textAlign(CENTER, CENTER);
-    textFont(myFont);
     textSize(30);
     text('COLOR CIRCLE', width / 2, 100);
 
@@ -132,7 +132,6 @@ function enterButton() {
     fill(button.textFill);
     textAlign(CENTER, CENTER);
     textSize(button.textSize);
-    textFont(myFont);
     text('ENTER', button.x, button.y);
     pop();
 }
@@ -169,7 +168,6 @@ function colorChange() {
 
 function showText() {
     fill(0);
-    textFont(myFont);
     textSize(20);
     textAlign(LEFT, CENTER);
     text('R: ' + int(circle.colorStart.r), width / 5 - 35, 450);//int converts into integer
@@ -195,11 +193,9 @@ function showInputs() {
 function dataScreenText() {
     fill(255);
     textAlign(CENTER);
-    textFont(myFont);
 
     push();
     textSize(30);
-    textAlign(CENTER);
     text('CIRCLE DATA', width / 2, 100);
     pop();
 
@@ -220,7 +216,7 @@ function dataInputs() {
 }
 //red min input box
 function redInput() {
-    red = createInput();
+    red = createInput(255);
     red.size(200);
 
     red.position(
@@ -231,7 +227,7 @@ function redInput() {
 
 //green min input box
 function greenInput() {
-    green = createInput();
+    green = createInput(255);
     green.size(200);
 
     green.position(
@@ -242,7 +238,7 @@ function greenInput() {
 
 //blue min input box
 function blueInput() {
-    blue = createInput();
+    blue = createInput(255);
     blue.size(200);
 
     blue.position(
