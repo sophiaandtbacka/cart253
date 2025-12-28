@@ -40,8 +40,16 @@ let myFont;
 
 function setup() {
     createCanvas(500, 500);
+    game2Setup();
+}
 
-    dataInputs();
+function draw() {
+    game2Draw();
+};
+
+function game2Setup() {
+    dataInputs(); //input boxes for rgb background value
+    hideInputs(); //hides all input boxes
 
     //assigns values to global variable, great solution if your variable is using p5 functions, otherwise doesn't work because p5 initializes in setup
     circle = {
@@ -57,7 +65,7 @@ function setup() {
     };
 }
 
-function draw() {
+function game2Draw() {
     if (title === true) {
         background(0);
         hideInputs();
@@ -88,7 +96,7 @@ function draw() {
         pop();
         showText();
     }
-};
+}
 
 function mouseClicked() {
     if (enter === true && title === true) {
