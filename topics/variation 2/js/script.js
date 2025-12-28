@@ -30,12 +30,9 @@ const button = {
 let circle;
 
 //game stages
-let title;
-let data;
-let game;
-title = true;
-data = false;
-game = false;
+let title = true;
+let data = false;
+let game = false;
 
 let enter = false;
 
