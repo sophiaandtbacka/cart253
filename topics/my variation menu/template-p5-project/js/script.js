@@ -35,7 +35,7 @@ let rotator = {
     maxRotationSpeed: 0.02,
 }
 
-//varible of current position
+//varible of current position, lets us calculate text fill change
 let currentX;
 let currentY;
 
@@ -72,22 +72,15 @@ let colorAmin = 1;
 let colorAmax = 255;
 let circleNumber = 1000;
 
-//variable for enter button
-const button = {
-    x: 250,
-    y: 450,
-    width: 100,
-    height: 50,
-    text: "Enter",
-    textFill: 255,
-    textSize: 25,
-}
 
+//initial game1 state
 let title = true;
 let data = false;
 let game = false;
+//initial enter button state
 let enter = false;
-let circle = 0;
+
+//array with all circles
 let circles = [];
 
 /**All Variations */
@@ -103,6 +96,16 @@ game3 = false;
 //initially you will be on menu screen
 let state = "menu";
 
+//variable for enter button
+const button = {
+    x: 250,
+    y: 450,
+    width: 100,
+    height: 50,
+    text: "Enter",
+    textFill: 255,
+    textSize: 25,
+}
 
 function preload() {
     myFont = loadFont("assets/font/8-font.otf");
@@ -308,6 +311,7 @@ function menuText() {
 
 function game3Setup() {
     dataInputs();  //all inputs from data page
+    hideInputs();  //hides all the inputs
 }
 
 function game3Draw() {
