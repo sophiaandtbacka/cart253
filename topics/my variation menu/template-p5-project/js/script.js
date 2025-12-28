@@ -9,14 +9,8 @@
 "use strict";
 
 /**Menu Variables */
-
-
-
-/**
-Rotating around a circle
-LEFT to accelerate anticlockwise
-RIGHT to accelerate clockwise
-*/
+//Rotating around a circle
+//LEFT to accelerate anticlockwise, RIGHT to accelerate clockwise
 let rotator = {
     // The centre
     x: 250,
@@ -35,7 +29,7 @@ let rotator = {
     maxRotationSpeed: 0.02,
 }
 
-//varible of current position, lets us calculate text fill change
+//varible of current position of rotating circle, lets us calculate text fill change
 let currentX;
 let currentY;
 
@@ -53,6 +47,7 @@ let alphaMin;
 let alphaMax;
 let numberC;
 let sizeC;
+let allInputs1 = [];//array with all input variables
 
 //circle variables 
 let xSpacing;//x spacing between circles
@@ -66,8 +61,9 @@ let count;//number of circles which have been created
 
 let circles1;//array with all circles
 
-/**Game 2 Variables */
 
+
+/**Game 2 Variables */
 //input box variables
 let red;
 let green;
@@ -76,13 +72,14 @@ let blue;
 //creates global variable of circle
 let circle;
 
+
+
 /**Game 3 Variables */
+//input box variables, use game 1 input variables
+let cNumber;//have different number input variable because of different input width and default value
+let allInputs3 = [];//array with all input variables
 
-//input box variables
-let cNumber;
-let allInputs = [];
-
-//default input values
+//default input values, different approach for default value input than game 1, this is easier to edit
 let colorRmin = 1;
 let colorRmax = 255;
 let colorGmin = 1;
@@ -93,22 +90,19 @@ let colorAmin = 1;
 let colorAmax = 255;
 let circleNumber = 1000;
 
-
 //array with all circles
 let circles = [];
 
+
+
 /**All Variations */
-
-//controls if you are on menu or dfferent games
-let game1;
-let game2;
-let game3;
-game1 = false;
-game2 = false;
-game3 = false;
-
 //initially you will be on menu screen
 let state = "menu";
+
+//controls if you are on menu or dfferent games
+let game1 = false;
+let game2 = false;
+let game3 = false;
 
 //initial individual game states
 let title = true;
@@ -129,6 +123,7 @@ const button = {
     textSize: 25,
 }
 
+//font for all text
 function preload() {
     myFont = loadFont("assets/font/8-font.otf");
 }
@@ -137,16 +132,15 @@ let myFont;
 
 
 /**
- * Setup for menu and different variations
+ * Setup for menu and variations
 */
 function setup() {
     createCanvas(500, 500);
-    textFont(myFont); //font for whole game
-    menuSetup();
+    textFont(myFont);
 }
 
 /**
- * Display the menu or the current variation
+ * Display the menu or the current variation craws
 */
 function draw() {
     switch (state) {
@@ -167,120 +161,44 @@ function draw() {
 }
 
 
+
 /**
  * All Menu Functions
  */
-function menuSetup() {
-    background(0);
-}
+//don't need a different setup 
+
+//draws all of menu screen
+//rotating circle on circle track, game variation titles, menu title, instruction text
 function menuDraw() {
     background(0);
-    menuText();
-    handleInput();
-    drawTrack();
-    drawRotator();
+    menuText();//text and color change in text
+    drawTrack(); //track circle moves on
+    drawRotator(); //moving circle
+    handleInput();//movement with left and right arrow keys
     // Rotate according to the current speed
     rotator.rotation += rotator.rotationSpeed;
 
-    menuToGame();//makes it so checks to go to other games
+    menuToGame();//makes it so you can go to go to other games
 }
 
-/**
- * Menu and Game Connection Function
- */
-//connects menu action to all game variations
-function menuToGame() {
-    if (keyIsDown(13) && game1 === true) {//13 is Enter key code, game 1 is true when you roll the ball and the Swallow Circle game title is red
-        //go to game1 title screen
-        state = "swallow circle variation"
-        resetScreens();
-        game1Setup();
-    }
-    else if (keyIsDown(13) && game2 === true) {//13 is Enter key code, game 2 is true when you roll the ball and the Color Cache game title is red
-        //go to game2 title screen
-        state = "color cache variation";
-        resetScreens();
-        game2Setup();
-    }
-    else if (keyIsDown(13) && game3 === true) {//13 is Enter key code, game 3 is true when you roll the ball and the Bubble Buster game title is red
-        //go to game3 title screen
-        state = "bubble buster variation";
-        resetScreens();
-        game3Setup();
-    }
-}
 
-function resetScreens() {
-    title = true;
-    data = false;
-    game = false;
-    enter = false;
-}
-
-/**
- * Menu Visuals Functions
- */
-//Draws the track our rotator moves on
-function drawTrack() {
-    push();
-    stroke(255);
-    noFill();
-    translate(rotator.x, rotator.y);
-    ellipse(0, 0, rotator.radius * 2);
-    pop();
-}
-
-//Draws our rotating object
-function drawRotator() {
-    push();
-    noStroke();
-    fill(255, 0, 0);
-    // Translate to the centre of rotation
-    translate(rotator.x, rotator.y);
-    // Rotate our object by its current rotation
-    rotate(rotator.rotation);
-    // Now translate by the radius so we can draw it on the edge
-    // of the circle
-    translate(rotator.radius, 0);
-    // Finally draw the rotator (at 0,0 because we translated the origin)
-    ellipse(0, 0, rotator.size);
-    pop();
-
-}
-
-//Change the rotation speed based on arrow keys
-function handleInput() {
-    if (keyIsDown(LEFT_ARROW)) {
-        // Left means accelerate in the negative
-        rotator.rotationSpeed -= rotator.rotationAcceleration;
-    }
-    else if (keyIsDown(RIGHT_ARROW)) {
-        // Right means accelerate in the positive
-        rotator.rotationSpeed += rotator.rotationAcceleration;
-    }
-
-    // Constrain the rotation speed to its within the maximum
-    rotator.rotationSpeed = constrain(rotator.rotationSpeed, -  rotator.maxRotationSpeed, rotator.maxRotationSpeed);
-}
-
-//All menu text
+//All menu text and color change
 function menuText() {
-    // Reset all game states for it you go back to menu page
+    //resets all game states, for when you go back to menu page
     game1 = false;
     game2 = false;
     game3 = false;
 
-    fill(255);
-    textFont(myFont);
-
+    //calculates current rotator position
     currentX = rotator.x + cos(rotator.rotation) * rotator.radius;
     currentY = rotator.y + sin(rotator.rotation) * rotator.radius;
 
+    fill(255);//white text
 
     push();
     textAlign(CENTER, TOP);
     textSize(30);
-    text('CIRCLE DATA', width / 2, 50);
+    text('CIRCLE MENU', width / 2, 50);
     pop();
 
     push();
@@ -316,15 +234,88 @@ function menuText() {
     push();
     textSize(15);
     textAlign(CENTER, BOTTOM);
-    text('rOll the circle <left <  and  > right > \n Press ENTER cOmense your creative journey', 250, 450);
+    text('rOll the circle <left <  and  > right > \n Press ENTER to cOmense your creative journey', 250, 450);
     pop();
 
 }
 
+//Draws the track our rotator moves on
+function drawTrack() {
+    push();
+    stroke(255);
+    noFill();
+    translate(rotator.x, rotator.y);
+    ellipse(0, 0, rotator.radius * 2);
+    pop();
+}
+//Draws our rotating object
+function drawRotator() {
+    push();
+    noStroke();
+    fill(255, 0, 0);
+    // Translate to the centre of rotation
+    translate(rotator.x, rotator.y);
+    // Rotate our object by its current rotation
+    rotate(rotator.rotation);
+    // Now translate by the radius so we can draw it on the edge
+    // of the circle
+    translate(rotator.radius, 0);
+    // Finally draw the rotator (at 0,0 because we translated the origin)
+    ellipse(0, 0, rotator.size);
+    pop();
 
-/**Universal Game functions */
+}
+
+//Change the rotation speed based on arrow keys
+function handleInput() {
+    if (keyIsDown(LEFT_ARROW)) {
+        // Left means accelerate in the negative
+        rotator.rotationSpeed -= rotator.rotationAcceleration;
+    }
+    else if (keyIsDown(RIGHT_ARROW)) {
+        // Right means accelerate in the positive
+        rotator.rotationSpeed += rotator.rotationAcceleration;
+    }
+
+    // Constrain the rotation speed to its within the maximum
+    rotator.rotationSpeed = constrain(rotator.rotationSpeed, -  rotator.maxRotationSpeed, rotator.maxRotationSpeed);
+}
+
+//Menu and Game Connection Function, connects menu action to all game variations
+function menuToGame() {
+    if (keyIsDown(13) && game1 === true) {//13 is Enter key code, game 1 is true when you roll the ball and the Swallow Circle game title is red (done with menuText function)
+        //go to game1 title screen
+        state = "swallow circle variation"
+        resetScreens();
+        game1Setup();
+    }
+    else if (keyIsDown(13) && game2 === true) {//13 is Enter key code, game 2 is true when you roll the ball and the Color Cache game title is red (done with menuText function)
+        //go to game2 title screen
+        state = "color cache variation";
+        resetScreens();
+        game2Setup();
+    }
+    else if (keyIsDown(13) && game3 === true) {//13 is Enter key code, game 3 is true when you roll the ball and the Bubble Buster game title is red (done with menuText function)
+        //go to game3 title screen
+        state = "bubble buster variation";
+        resetScreens();
+        game3Setup();
+    }
+}
+
+//Sets games to title screen, used in menu and in all variations
+function resetScreens() {
+    title = true;
+    data = false;
+    game = false;
+    enter = false;
+}
 
 
+
+/**
+ * Universal Variation functions 
+ */
 //event that triggers game screen from title screen and moves circle on game screen
 function mouseClicked() {
     if (state === "swallow circle variation") {
@@ -397,6 +388,14 @@ function checkOverlap() {
     enter = d < button.width / 2
 }
 
+//Sets games to title screen
+function resetScreens() {
+    title = true;
+    data = false;
+    game = false;
+    enter = false;
+}
+
 //return to data screen when enter key is pressed
 function returnData() {
     if (
@@ -433,13 +432,13 @@ function returnMenu() {
 
 
 
-/**Game 1 functions */
-
+/**
+ * Game 1 functions
+ *  */
 function game1Setup() {
     dataInputs1();
     hideInputs1();
 }
-
 function game1Draw() {
 
     if (title === true) {
@@ -474,6 +473,7 @@ function game1Draw() {
 
     returnMenu();
 }
+
 
 //all title screen text
 function titleScreenText1() {
