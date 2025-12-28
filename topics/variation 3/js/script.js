@@ -57,7 +57,7 @@ let y;
 let row;
 let count;
 
-let circles;
+let circles1;
 
 
 
@@ -107,7 +107,7 @@ function game1Draw() {
         stopCircles();
         returnData();
 
-        for (let c of circles) {
+        for (let c of circles1) {
             noStroke();
             fill(c.r, c.g, c.b, c.a);
             ellipse(c.x, c.y, c.size);
@@ -361,7 +361,7 @@ function sizeInput1() {
 //creates all circles and initial positions
 function createCircles1() {
     //creates array with all circles 
-    circles = [];
+    circles1 = [];
 
     //circle organization variables, rows in pyramid shape and number of circles that have been created so far
     row = 1;
@@ -386,7 +386,7 @@ function createCircles1() {
             let x = xCenter + i * 2 * xSpacing - (row - 1) * xSpacing; //creates spacing for the intial pyramind organization, xCenter is start point, i*2*xSpacing offsets each circle horizontally, -(row-1)*xSpacing centers the row so it is symetrical to row above
 
             //puts c data into circles array
-            circles.push({
+            circles1.push({
                 //position
                 x: x,
                 y: y,
@@ -433,7 +433,7 @@ I don't fully understand the math and physics will need to read up on
 */
 function moveCircles1() {
     //applies changed movement data to all circles in circles array
-    for (let c of circles) {
+    for (let c of circles1) {
 
         c.dir = createVector(mouseX - c.x, mouseY - c.y); // sets up a direction vector connecting mouse position and circle position
 
@@ -458,15 +458,15 @@ function moveCircles1() {
 }
 
 function stopCircles() {
-    if (keyIsDown(UP_ARROW)) {
-        for (let c of circles) {
+    if (keyIsDown(UP_ARROW) || keyIsDown(87)) {
+        for (let c of circles1) {
             c.vx = 0;
             c.vy = 0;
             c.acceleration = 0;
         }
     }
-    else if (keyIsDown(DOWN_ARROW)) {
-        for (let c of circles) {
+    else if (keyIsDown(DOWN_ARROW) || keyIsDown(83)) {
+        for (let c of circles1) {
             c.acceleration = 0.4;
         }
     }
