@@ -160,7 +160,6 @@ function draw() {
             game3Draw();
             break;
     }
-
 }
 
 
@@ -209,6 +208,7 @@ function menuDraw() {
     rotator.rotation += rotator.rotationSpeed;
 
     menuToGame();//makes it so you can go to go to other games
+    returnTitle();//click t key and return to title screen
 }
 
 
@@ -266,7 +266,6 @@ function menuText() {
     textAlign(CENTER, BOTTOM);
     text('rOll the circle <left <  and  > right > \n Press ENTER to cOmense your creative journey', 250, 450);
     pop();
-
 }
 
 //Draws the track our rotator moves on
@@ -462,7 +461,7 @@ function returnMenu() {
 
 //click t key to return to entire project title screen
 function returnTitle() {
-    if (keyIsDown(84)) {//84 code for M key
+    if (keyIsDown(84)) {//84 code for T key
         if (state === "swallow circle variation") {
             hideInputs1();
         }
@@ -488,6 +487,7 @@ function game1Setup() {
     dataInputs1();
     hideInputs1();
 }
+
 function game1Draw() {
 
     if (title === true) {
@@ -521,6 +521,7 @@ function game1Draw() {
     }
 
     returnMenu();
+    returnTitle();//click t key and return to title screen
 }
 
 
@@ -845,8 +846,9 @@ function stopCircles() {
 
 
 
-/**Game 2 functions */
-
+/**
+ * Game 2 functions 
+ */
 function game2Setup() {
     dataInputs2(); //input boxes for rgb background value
     hideInputs2(); //hides all input boxes
@@ -902,6 +904,7 @@ function game2Draw() {
     }
 
     returnMenu();
+    returnTitle();//click t key and return to title screen
 }
 
 
@@ -1023,8 +1026,9 @@ function showText() {
 
 
 
-/**Game 3 functions */
-
+/**
+ * Game 3 functions
+*/
 function game3Setup() {
     dataInputs3();  //all inputs from data page
     hideInputs3();  //hides all the inputs
@@ -1062,6 +1066,7 @@ function game3Draw() {
     }
 
     returnMenu();
+    returnTitle();//click t key and return to title screen
 }
 
 
@@ -1125,7 +1130,7 @@ function dataInputs3() {
     alphaMaxInput();
     cNumberInput();
 
-    allInputs = [redMin, redMax, greenMin, greenMax, blueMin, blueMax, alphaMin, alphaMax, cNumber];
+    allInputs3 = [redMin, redMax, greenMin, greenMax, blueMin, blueMax, alphaMin, alphaMax, cNumber];
 
 }
 //red min input box
@@ -1220,11 +1225,11 @@ function cNumberInput() {
 };
 //hides all data inputs
 function hideInputs3() {
-    for (let i of allInputs) i.hide();
+    for (let i of allInputs3) i.hide();
 }
 //shows all data inputs
 function showInputs3() {
-    for (let i of allInputs) i.show();
+    for (let i of allInputs3) i.show();
 }
 
 
