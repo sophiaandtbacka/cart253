@@ -345,25 +345,30 @@ function resetScreens() {
 /**
  * Universal Variation functions 
  */
-//event that triggers game screen from title screen and moves circle on game screen
+//event that triggers change from title data and game screens in variations
+// on game 1 creates all circles on game screen, on game 3 calculates distance from mouse and circle and moves circle 
 function mouseClicked() {
+    //variation 1
     if (state === "swallow circle variation") {
         if (enter === true && title === true) {
             title = false;
             data = true;
+            enter = false;//resets enter button
         }
         else if (enter === true && data === true) {
             data = false;
             game = true;
 
-            //generates initial circles and circle postions
-            createCircles1();
+            createCircles1();//generates initial circles and circle postions
         }
     }
+
+    //variation 2
     if (state === "color cache variation") {
         if (enter === true && title === true) {
             title = false;
             data = true;
+            enter = false;//resets enter button
         }
         else if (enter === true && data === true) {
             data = false;
@@ -371,20 +376,20 @@ function mouseClicked() {
         }
     }
 
+    //variation 3
     if (state === "bubble buster variation") {
         if (enter === true && title === true) {
             data = true;
             title = false;
-            enter = false;
+            enter = false;//resets enter button
         }
         else if (enter === true && data === true) {
             data = false;
-            initialCircles();
             game = true;
-
+            initialCircles();//generates initial circles in game screen
         }
-
         else if (game === true) {
+            //if mouse and circle(s) overlaps circle(s) moves
             for (let c of circles) {
                 const d = dist(mouseX, mouseY, c.x, c.y);
                 if (d < c.size / 2) {
@@ -398,7 +403,7 @@ function mouseClicked() {
 
 }
 
-//draws the enter button on the title and data screen
+//draws the enter button on the title and data screen in each variation
 function enterButton() {
     fill(0);
     noStroke();
@@ -407,7 +412,6 @@ function enterButton() {
     fill(button.textFill);
     textAlign(CENTER, CENTER);
     textSize(button.textSize);
-    textFont(myFont);
     text('ENTER', button.x, button.y);
     pop();
 }
@@ -425,14 +429,14 @@ function resetScreens() {
     enter = false;
 }
 
-//return to data screen when enter key is pressed
+//click enter key return to data screen in each variation
 function returnData() {
     if (
         (state === "swallow circle variation" ||
             state === "color cache variation" ||
             state === "bubble buster variation")
         && game === true
-        && keyIsDown(13)
+        && keyIsDown(13)//enter key code
     ) {
         data = true;
         game = false;
@@ -530,7 +534,6 @@ function titleScreenText1() {
     //universal qualities
     fill(255);
     textAlign(CENTER, CENTER);
-    textFont(myFont || 'Courier');
 
     //title
     push();
@@ -550,7 +553,6 @@ function titleScreenText1() {
 function dataScreenText1() {
     fill(255);
     textAlign(CENTER);
-    textFont(myFont);
 
     push();
     textSize(30);
@@ -1089,7 +1091,6 @@ function titleScreenText3() {
 function dataScreenText3() {
     fill(255);
     textAlign(CENTER);
-    textFont(myFont);
 
     push();
     textSize(30);
