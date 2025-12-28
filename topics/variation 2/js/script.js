@@ -28,7 +28,15 @@ const button = {
 
 //creates global variable of circle
 let circle;
-let screen = title;
+
+//game stages
+let title;
+let data;
+let game;
+title = true;
+data = false;
+game = false;
+
 let enter = false;
 
 function preload() {
@@ -66,17 +74,21 @@ function game2Setup() {
 }
 
 function game2Draw() {
-    if (screen === title) {
+    if (title === true) {
         background(0);
         titleScreenText2();
+        enterButton();
+        checkOverlap();
     }
-    else if (screen === data) {
+    else if (data === true) {
         background(0);
         cursor(ARROW);//include this so if go back to data the cursor will change to default
         dataScreenText()
         showInputs2();
+        enterButton();
+        checkOverlap();
     }
-    else if (screen === game) {
+    else if (game === true) {
         background(Number(red.value()), Number(green.value()), Number(blue.value()));//input valuse from data page
         cursor(CROSS);
         hideInputs2();
@@ -96,17 +108,16 @@ function game2Draw() {
 
         returnData();//when push enter button on game screen return to data page
     }
-
-    enterButton();
-    checkOverlap();
 }
 
 function mouseClicked() {
-    if (enter && screen === title) {
-        screen === data;
+    if (enter && title === true) {
+        title = false;
+        data = true;
     }
-    else if (enter && screen === data) {
-        screen === game;
+    else if (enter && data === true) {
+        data = false;
+        game = true;
     }
 };
 
