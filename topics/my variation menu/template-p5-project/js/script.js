@@ -35,7 +35,7 @@ let currentY;
 
 
 
-/**Game 1 Variables */
+/**Variation 1 Variables */
 //input box variables
 let redMin;
 let redMax;
@@ -63,7 +63,7 @@ let circles1;//array with all circles
 
 
 
-/**Game 2 Variables */
+/**Variation 2 Variables */
 //input box variables
 let red;
 let green;
@@ -74,7 +74,7 @@ let circle;
 
 
 
-/**Game 3 Variables */
+/**Variation 3 Variables */
 //input box variables, use game 1 input variables
 let cNumber;//have different number input variable because of different input width and default value
 let allInputs3 = [];//array with all input variables
@@ -438,6 +438,8 @@ function returnData() {
         && game === true
         && keyIsDown(13)//enter key code
     ) {
+        cursor(ARROW);//included because in color cache I change the cursor type
+
         data = true;
         game = false;
         title = false;
@@ -456,7 +458,7 @@ function returnMenu() {
         else if (state === "bubble buster variation") {
             hideInputs3();
         }
-
+        cursor(ARROW);//included because in color cache I change the cursor type
         state = "menu";
         resetScreens();
     }
@@ -475,7 +477,7 @@ function returnTitle() {
         else if (state === "bubble buster variation") {
             hideInputs3();
         }
-
+        cursor(ARROW);//included because in color cache I change the cursor type
         state = "title";
         resetScreens();
     }
@@ -488,43 +490,42 @@ function returnTitle() {
  * Game 1 functions
  *  */
 function game1Setup() {
-    dataInputs1();
-    hideInputs1();
+    dataInputs1();//create all inputs for data page
+    hideInputs1();//hides all inputs boxes
 }
 
 function game1Draw() {
 
     if (title === true) {
         background(0);
-        hideInputs1();
-        titleScreenText1();
+        titleScreenText1();//all title screen text
         enterButton();
         checkOverlap();
     }
 
     else if (data === true) {
         background(0);
-        showInputs1();
-        dataScreenText1();
+        showInputs1();//show all input boxes
+        dataScreenText1();//all data screen text
         enterButton();
         checkOverlap();
     }
 
     else if (game === true) {
         background(255);
-        hideInputs1(); //hides input boxes from title screen, hide doesn't erase input values just hides visuals 
-        moveCircles1();
-        stopCircles();
-        returnData();
+        hideInputs1(); //hides input boxes, hide doesn't erase input values just hides visuals 
+        moveCircles1(); //moves circles according to mouse position, eventual swallowing effect
+        stopCircles(); //freezes and unfreezes circle movement
+        returnData(); //click enter and return to data screen
 
+        //draws all circles
         for (let c of circles1) {
-            noStroke();
             fill(c.r, c.g, c.b, c.a);
             ellipse(c.x, c.y, c.size);
         }
     }
 
-    returnMenu();
+    returnMenu();//click m key and return to menu screen
     returnTitle();//click t key and return to title screen
 }
 
@@ -551,14 +552,17 @@ function titleScreenText1() {
 
 //all data screen text
 function dataScreenText1() {
+    //universal qualities
     fill(255);
     textAlign(CENTER);
 
+    //title
     push();
     textSize(30);
     text('CIRCLE DATA', width / 2, 60);
     pop();
 
+    //attribute label
     push();
     textSize(20);
     text('RED', 100, 120);
@@ -569,6 +573,7 @@ function dataScreenText1() {
     text('SIZE', 315, 400);
     pop();
 
+    //value label
     push();
     textSize(14);
     text('min', 175, 120);
@@ -583,7 +588,7 @@ function dataScreenText1() {
     pop();
 }
 
-//all data input boxes
+//all data input boxes, used in setup
 function dataInputs1() {
     redMinInput1();
     redMaxInput1();
@@ -598,7 +603,7 @@ function dataInputs1() {
 }
 //red min input box
 function redMinInput1() {
-    redMin = createInput(1);
+    redMin = createInput(1);//1 default value
     redMin.size(60);
 
     redMin.position(
@@ -608,7 +613,7 @@ function redMinInput1() {
 };
 //red max input box
 function redMaxInput1() {
-    redMax = createInput(255);
+    redMax = createInput(255);//255 default value
     redMax.size(60);
 
     redMax.position(
@@ -618,7 +623,7 @@ function redMaxInput1() {
 };
 //green min input box
 function greenMinInput1() {
-    greenMin = createInput(1);
+    greenMin = createInput(1);//1 default value
     greenMin.size(60);
 
     greenMin.position(
@@ -628,7 +633,7 @@ function greenMinInput1() {
 };
 //green max input box
 function greenMaxInput1() {
-    greenMax = createInput(255);
+    greenMax = createInput(255);//255 default value
     greenMax.size(60);
 
     greenMax.position(
@@ -638,7 +643,7 @@ function greenMaxInput1() {
 };
 //blue min input box
 function blueMinInput1() {
-    blueMin = createInput(1);
+    blueMin = createInput(1);//1 default value
     blueMin.size(60);
 
     blueMin.position(
@@ -648,7 +653,7 @@ function blueMinInput1() {
 };
 //blue max input box
 function blueMaxInput1() {
-    blueMax = createInput(255);
+    blueMax = createInput(255);//255 default value
     blueMax.size(60);
 
     blueMax.position(
@@ -658,7 +663,7 @@ function blueMaxInput1() {
 };
 //alpha min input box
 function alphaMinInput1() {
-    alphaMin = createInput(1);
+    alphaMin = createInput(1);//1 default value
     alphaMin.size(60);
 
     alphaMin.position(
@@ -668,7 +673,7 @@ function alphaMinInput1() {
 };
 //alpha max input box
 function alphaMaxInput1() {
-    alphaMax = createInput(255);
+    alphaMax = createInput(255);//255 default value
     alphaMax.size(60);
 
     alphaMax.position(
@@ -678,7 +683,7 @@ function alphaMaxInput1() {
 };
 //number input box
 function numberInput1() {
-    numberC = createInput(1000);
+    numberC = createInput(1000);//1000 default value
     numberC.size(60);
 
     numberC.position(
@@ -687,7 +692,7 @@ function numberInput1() {
 
 };
 function sizeInput1() {
-    sizeC = createInput(10);
+    sizeC = createInput(10);//10 default value
     sizeC.size(60);
 
     sizeC.position(
@@ -872,50 +877,54 @@ function game2Setup() {
 function game2Draw() {
     if (title === true) {
         background(0);
-        titleScreenText2();
+        titleScreenText2();//all title screen text
         enterButton();
         checkOverlap();
     }
     else if (data === true) {
         background(0);
-        cursor(ARROW);//include this so if go back to data the cursor will change to default
-        dataScreenText2()
-        showInputs2();
+        dataScreenText2()//all data screen text
+        showInputs2();//shows all input boxes
         enterButton();
         checkOverlap();
     }
     else if (game === true) {
-        background(Number(red.value()), Number(green.value()), Number(blue.value()));//input valuse from data page
-        cursor(CROSS);
-        hideInputs2();
+        background(Number(red.value()), Number(green.value()), Number(blue.value()));//background color based on input values from data page
+        cursor(CROSS);//change cursor from default
+        hideInputs2();//hides all input boxes
 
         //circle
         drawCircle();
-        moveCircle();
-        colorChange();
+        moveCircle();//circle moves based on mouse position
+        colorChange();//color changes when circle/mouse moves
 
         //text
-        //white padding at bottom so rgba values are always visible
+        //white padding at bottom so rgba values are always visible, not worth having a seperate function for such little code
         push();
         fill(255);
         rect(0, 425, width, height);
         pop();
-        showText();//rgba values
+        showText();//rgba values text
 
         returnData();//when push enter button on game screen return to data page
     }
 
-    returnMenu();
+    returnMenu();//click m key and return to menu screen
     returnTitle();//click t key and return to title screen
 }
 
 
 //all title screen text
 function titleScreenText2() {
+    //universal qualities
     fill(255);
     textAlign(CENTER, CENTER);
+
+    //title
+    push();
     textSize(30);
     text('COLOR CIRCLE', width / 2, 100);
+    pop();
 
     //explanation
     push();
@@ -925,14 +934,17 @@ function titleScreenText2() {
 }
 //all data screen text
 function dataScreenText2() {
+    //universal qualities
     fill(255);
     textAlign(CENTER);
 
+    //title
     push();
     textSize(30);
     text('CIRCLE DATA', width / 2, 100);
     pop();
 
+    //attribute labels
     push();
     textSize(20);
     text('RED', 125, 180);
@@ -949,7 +961,7 @@ function dataInputs2() {
 }
 //red min input box
 function redInput() {
-    red = createInput(255);
+    red = createInput(255);//255 default value
     red.size(200);
 
     red.position(
@@ -959,7 +971,7 @@ function redInput() {
 };
 //green min input box
 function greenInput() {
-    green = createInput(255);
+    green = createInput(255);//255 default value
     green.size(200);
 
     green.position(
@@ -969,7 +981,7 @@ function greenInput() {
 };
 //blue min input box
 function blueInput() {
-    blue = createInput(255);
+    blue = createInput(255);//255 default value
     blue.size(200);
 
     blue.position(
@@ -992,9 +1004,8 @@ function showInputs2() {
 
 //draws the circle
 function drawCircle() {
-    noStroke();
-    fill(circle.colorStart.r, circle.colorStart.g, circle.colorStart.b, circle.colorStart.a);
-    ellipse(circle.x, circle.y, circle.size);
+    fill(circle.colorStart.r, circle.colorStart.g, circle.colorStart.b, circle.colorStart.a);//random color and opacity
+    ellipse(circle.x, circle.y, circle.size);//center of the screen, size 100
 }
 //circle moves based on mouse position, has constraints which created visual padding
 function moveCircle() {
@@ -1005,7 +1016,7 @@ function moveCircle() {
     circle.x = constrain(circle.x, circle.size / 2 + 30, width - circle.size / 2 - 30);
     circle.y = constrain(circle.y, circle.size / 2 + 30, height - circle.size / 2 - 105);
 }
-//when mouse moves color of circle changes
+//when mouse/circle moves color of circle changes to new random color
 function colorChange() {
     if (mouseX !== pmouseX || mouseY !== pmouseY) {
         circle.colorStart.r = random(0, 255);
@@ -1015,15 +1026,15 @@ function colorChange() {
     }
 }
 
-//text showing rgba value of circle
+//text showing rgba values of circle
 function showText() {
     fill(0);
     textSize(20);
-    textAlign(LEFT, CENTER);
+    textAlign(LEFT, CENTER);//this alignment prevents shaking when values change
     text('R: ' + int(circle.colorStart.r), width / 5 - 35, 450);//int converts into integer
-    text('G: ' + int(circle.colorStart.g), width / 2 - 86, 450);
-    text('B: ' + int(circle.colorStart.b), width / 2 + 16, 450);
-    text('A: ' + int(circle.colorStart.a), width / 2 + 117, 450);
+    text('G: ' + int(circle.colorStart.g), width / 2 - 86, 450);//int converts into integer
+    text('B: ' + int(circle.colorStart.b), width / 2 + 16, 450);//int converts into integer
+    text('A: ' + int(circle.colorStart.a), width / 2 + 117, 450);//int converts into integer
 }
 
 
