@@ -55,12 +55,21 @@ let myFont;
 
 function setup() {
     createCanvas(500, 500);
+    game1Setup();
 
-    //all inputs from data page
-    dataInputs();
 }
 
 function draw() {
+
+    game1Draw();
+
+}
+
+function game1Setup() {
+    dataInputs();  //all inputs from data page
+}
+
+function game1Draw() {
     background(255);
 
     if (title === true) {
@@ -89,6 +98,7 @@ function draw() {
         }
     }
 }
+
 
 //event that triggers game screen from title screen and moves circle on game screen
 function mouseClicked() {
