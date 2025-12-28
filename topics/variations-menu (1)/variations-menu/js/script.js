@@ -48,13 +48,13 @@ function mousePressed() {
         case "menu":
             menuMousePressed();
             break;
-        case "red-variation":
+        case "game1-variation":
             redMousePressed();
             break
-        case "green-variation":
+        case "game2-variation":
             greenMousePressed();
             break;
-        case "blue-variation":
+        case "game3-variation":
             blueMousePressed();
             break;
     }
