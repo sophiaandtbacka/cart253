@@ -8,6 +8,8 @@
 
 "use strict";
 
+let game3 = true;
+
 //input box variables
 let redMin;
 let redMax;
@@ -19,16 +21,18 @@ let alphaMin;
 let alphaMax;
 let cNumber;
 
-//input box string data variables
-let colorRmin = 0;
-let colorRmax = 0;
-let colorGmin = 0;
-let colorGmax = 0;
-let colorBmin = 0;
-let colorBmax = 0;
-let colorAmin = 0;
-let colorAmax = 0;
-let circleNumber = 0;
+let allInputs = [];//array for inputs, will be used to easily hide and show them
+
+//default input values
+let colorRmin = 1;
+let colorRmax = 255;
+let colorGmin = 1;
+let colorGmax = 255;
+let colorBmin = 1;
+let colorBmax = 255;
+let colorAmin = 1;
+let colorAmax = 255;
+let circleNumber = 1000;
 
 //variable for enter button
 const button = {
@@ -41,12 +45,13 @@ const button = {
     textSize: 25,
 }
 
-let title = true;
+let title = true; //initial game state
 let data = false;
 let game = false;
-let enter = false;
-let circle = 0;
-let circles = [];
+
+let enter = false; //initial enter button state
+
+let circles = []; //array with all circles
 
 function preload() {
     myFont = loadFont("assets/font/8-font.otf");
@@ -60,7 +65,6 @@ function setup() {
 }
 
 function draw() {
-
     game1Draw();
 
 }
@@ -89,6 +93,8 @@ function game1Draw() {
     }
 
     else if (game === true) {
+        background(255);
+        hideInputs();
         returnData();
         //draws all of the circles
         for (let c of circles) {
@@ -102,28 +108,29 @@ function game1Draw() {
 
 //event that triggers game screen from title screen and moves circle on game screen
 function mouseClicked() {
-    if (enter === true && title === true) {
-        data = true;
-        title = false;
-        enter = false;
-    }
-    else if (enter === true && data === true) {
-        data = false;
-        grabData();
-        hideInputs();
-        initialCircles();
-        game = true;
+    if (game3 === true) {
+        if (enter === true && title === true) {
+            data = true;
+            title = false;
+            enter = false;
+        }
+        else if (enter === true && data === true) {
+            data = false;
+            initialCircles();
+            game = true;
 
-    }
+        }
 
-    else if (game === true) {
-        for (let c of circles) {
-            const d = dist(mouseX, mouseY, c.x, c.y);
-            if (d < c.size / 2) {
-                moveCircle(c);
+        else if (game === true) {
+            for (let c of circles) {
+                const d = dist(mouseX, mouseY, c.x, c.y);
+                if (d < c.size / 2) {
+                    moveCircle(c);
+                }
             }
         }
     }
+
 }
 
 function titleScreenText() {
@@ -141,35 +148,11 @@ function titleScreenText() {
 }
 
 function hideInputs() {
-    redMin.hide();
-    redMax.hide();
-
-    greenMin.hide();
-    greenMax.hide();
-
-    blueMin.hide();
-    blueMax.hide();
-
-    alphaMin.hide();
-    alphaMax.hide();
-
-    cNumber.hide();
+    for (let i of allInputs) i.hide();
 }
 
 function showInputs() {
-    redMin.show();
-    redMax.show();
-
-    greenMin.show();
-    greenMax.show();
-
-    blueMin.show();
-    blueMax.show();
-
-    alphaMin.show();
-    alphaMax.show();
-
-    cNumber.show();
+    for (let i of allInputs) i.show();
 }
 
 //all text on circle data page
@@ -216,10 +199,13 @@ function dataInputs() {
     alphaMinInput();
     alphaMaxInput();
     cNumberInput();
+
+    allInputs = [redMin, redMax, greenMin, greenMax, blueMin, blueMax, alphaMin, alphaMax, cNumber];
+
 }
 //red min input box
 function redMinInput() {
-    redMin = createInput();
+    redMin = createInput(colorRmin);
     redMin.size(60);
 
     redMin.position(
@@ -229,7 +215,7 @@ function redMinInput() {
 };
 //red max input box
 function redMaxInput() {
-    redMax = createInput();
+    redMax = createInput(colorRmax);
     redMax.size(60);
 
     redMax.position(
@@ -239,7 +225,7 @@ function redMaxInput() {
 };
 //green min input box
 function greenMinInput() {
-    greenMin = createInput();
+    greenMin = createInput(colorGmin);
     greenMin.size(60);
 
     greenMin.position(
@@ -249,7 +235,7 @@ function greenMinInput() {
 };
 //green max input box
 function greenMaxInput() {
-    greenMax = createInput();
+    greenMax = createInput(colorGmax);
     greenMax.size(60);
 
     greenMax.position(
@@ -259,7 +245,7 @@ function greenMaxInput() {
 };
 //blue min input box
 function blueMinInput() {
-    blueMin = createInput();
+    blueMin = createInput(colorBmin);
     blueMin.size(60);
 
     blueMin.position(
@@ -269,7 +255,7 @@ function blueMinInput() {
 };
 //blue max input box
 function blueMaxInput() {
-    blueMax = createInput();
+    blueMax = createInput(colorBmax);
     blueMax.size(60);
 
     blueMax.position(
@@ -279,7 +265,7 @@ function blueMaxInput() {
 };
 //alpha min input box
 function alphaMinInput() {
-    alphaMin = createInput();
+    alphaMin = createInput(colorAmin);
     alphaMin.size(60);
 
     alphaMin.position(
@@ -289,7 +275,7 @@ function alphaMinInput() {
 };
 //alpha max input box
 function alphaMaxInput() {
-    alphaMax = createInput();
+    alphaMax = createInput(colorAmax);
     alphaMax.size(60);
 
     alphaMax.position(
@@ -299,7 +285,7 @@ function alphaMaxInput() {
 };
 //number input box
 function cNumberInput() {
-    cNumber = createInput();
+    cNumber = createInput(circleNumber);
     cNumber.size(240);
 
     cNumber.position(
@@ -308,22 +294,6 @@ function cNumberInput() {
 
 };
 
-//grabs all the data from the input boxes
-function grabData() {
-    colorRmin = Number(redMin.value()); //number converts text string into actual numbers 
-    colorRmax = Number(redMax.value()); //number converts text string into actual numbers 
-
-    colorGmin = Number(greenMin.value()); //number converts text string into actual numbers 
-    colorGmax = Number(greenMax.value()); //number converts text string into actual numbers 
-
-    colorBmin = Number(blueMin.value()); //number converts text string into actual numbers 
-    colorBmax = Number(blueMax.value()); //number converts text string into actual numbers 
-
-    colorAmin = Number(alphaMin.value()); //number converts text string into actual numbers 
-    colorAmax = Number(alphaMax.value()); //number converts text string into actual numbers 
-
-    circleNumber = Number(cNumber.value()); //number converts text string into actual numbers 
-}
 
 
 //draws the enter button on the title screen
@@ -347,22 +317,22 @@ function checkOverlap() {
 }
 
 
-
-
 // pushes all circle data into an array
 function initialCircles() {
+    circles = []; //clears previous circles if you're going back and forth between data and game page
+
     //loop creating all the circle data
-    for (let i = 0; i < circleNumber; i++) {
+    for (let i = 0; i < Number(cNumber.value()); i++) {
         //pushes all the circle data into an array called circles
         circles.push({
             x: random(width),
             y: random(height),
             size: 40,
             color: {
-                r: random(colorRmin, colorRmax),
-                g: random(colorGmin, colorGmax),
-                b: random(colorBmin, colorBmax),
-                a: random(colorAmin, colorAmax),
+                r: random(Number(redMin.value()), Number(redMax.value())),
+                g: random(Number(greenMin.value()), Number(greenMax.value())),
+                b: random(Number(blueMin.value()), Number(blueMax.value())),
+                a: random(Number(alphaMin.value()), Number(alphaMax.value())),
             }
         });
     }
@@ -373,10 +343,10 @@ function moveCircle(c) {
     c.x = random(width);
     c.y = random(height);
     c.color = {
-        r: random(colorRmin, colorRmax),
-        g: random(colorGmin, colorGmax),
-        b: random(colorBmin, colorBmax),
-        a: random(colorAmin, colorAmax),
+        r: random(Number(redMin.value()), Number(redMax.value())),
+        g: random(Number(greenMin.value()), Number(greenMax.value())),
+        b: random(Number(blueMin.value()), Number(blueMax.value())),
+        a: random(Number(alphaMin.value()), Number(alphaMax.value())),
     };
 }
 
@@ -384,5 +354,7 @@ function moveCircle(c) {
 function returnData() {
     if (keyIsDown(13)) {//13 is Enter key code
         data = true;
+        game = false;
+        title = false;
     }
 }
