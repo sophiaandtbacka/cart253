@@ -66,8 +66,7 @@ let circles;
 */
 function setup() {
     createCanvas(500, 500);
-
-    dataInputs();
+    game1Setup()
 }
 
 
@@ -76,27 +75,35 @@ function setup() {
  * OOPS I DIDN'T DESCRIBE WHAT MY DRAW DOES!
 */
 function draw() {
+    game1Draw();
 
+};
+
+function game1Setup() {
+    dataInputs1();
+}
+
+function game1Draw() {
     if (title === true) {
         background(0);
-        hideInputs();
-        titleScreenText();
+        hideInputs1();
+        titleScreenText1();
         enterButton();
         checkOverlap();
     }
 
     else if (data === true) {
         background(0);
-        showInputs();
-        dataScreenText();
+        showInputs1();
+        dataScreenText1();
         enterButton();
         checkOverlap();
     }
 
     else if (game === true) {
         background(255);
-        hideInputs(); //hides input boxes from title screen, hide doesn't erase input values just hides visuals 
-        moveCircles();
+        hideInputs1(); //hides input boxes from title screen, hide doesn't erase input values just hides visuals 
+        moveCircles1();
         stopCircles();
         returnData();
 
@@ -107,8 +114,7 @@ function draw() {
         }
 
     }
-};
-
+}
 
 
 //event for enter button, connects title and data and game screens
@@ -122,13 +128,13 @@ function mouseClicked() {
         game = true;
 
         //generates initial circles and circle postions
-        createCircles();
+        createCircles1();
     }
 };
 
 
 //draws all text for title screen except enter text on button
-function titleScreenText() {
+function titleScreenText1() {
     //universal qualities
     fill(255);
     textAlign(CENTER, CENTER);
@@ -170,7 +176,7 @@ function checkOverlap() {
 
 
 //all text on circle data page
-function dataScreenText() {
+function dataScreenText1() {
     fill(255);
     textAlign(CENTER);
     textFont(myFont);
@@ -205,7 +211,7 @@ function dataScreenText() {
 }
 
 //hides all data inputs, use this on title and game screen
-function hideInputs() {
+function hideInputs1() {
     redMin.hide();
     redMax.hide();
 
@@ -222,7 +228,7 @@ function hideInputs() {
     sizeC.hide();
 }
 //shows all data inputs, use this on data screen
-function showInputs() {
+function showInputs1() {
     redMin.show();
     redMax.show();
 
@@ -239,21 +245,21 @@ function showInputs() {
     sizeC.show();
 }
 //all data input boxes
-function dataInputs() {
-    redMinInput();
-    redMaxInput();
-    greenMinInput();
-    greenMaxInput();
-    blueMinInput();
-    blueMaxInput();
-    alphaMinInput();
-    alphaMaxInput();
-    numberInput();
-    sizeInput();
+function dataInputs1() {
+    redMinInput1();
+    redMaxInput1();
+    greenMinInput1();
+    greenMaxInput1();
+    blueMinInput1();
+    blueMaxInput1();
+    alphaMinInput1();
+    alphaMaxInput1();
+    numberInput1();
+    sizeInput1();
 }
 //red min input box
-function redMinInput() {
-    redMin = createInput();
+function redMinInput1() {
+    redMin = createInput(1);
     redMin.size(60);
 
     redMin.position(
@@ -262,8 +268,8 @@ function redMinInput() {
 
 };
 //red max input box
-function redMaxInput() {
-    redMax = createInput();
+function redMaxInput1() {
+    redMax = createInput(255);
     redMax.size(60);
 
     redMax.position(
@@ -272,8 +278,8 @@ function redMaxInput() {
 
 };
 //green min input box
-function greenMinInput() {
-    greenMin = createInput();
+function greenMinInput1() {
+    greenMin = createInput(1);
     greenMin.size(60);
 
     greenMin.position(
@@ -282,8 +288,8 @@ function greenMinInput() {
 
 };
 //green max input box
-function greenMaxInput() {
-    greenMax = createInput();
+function greenMaxInput1() {
+    greenMax = createInput(255);
     greenMax.size(60);
 
     greenMax.position(
@@ -292,8 +298,8 @@ function greenMaxInput() {
 
 };
 //blue min input box
-function blueMinInput() {
-    blueMin = createInput();
+function blueMinInput1() {
+    blueMin = createInput(1);
     blueMin.size(60);
 
     blueMin.position(
@@ -302,8 +308,8 @@ function blueMinInput() {
 
 };
 //blue max input box
-function blueMaxInput() {
-    blueMax = createInput();
+function blueMaxInput1() {
+    blueMax = createInput(255);
     blueMax.size(60);
 
     blueMax.position(
@@ -312,8 +318,8 @@ function blueMaxInput() {
 
 };
 //alpha min input box
-function alphaMinInput() {
-    alphaMin = createInput();
+function alphaMinInput1() {
+    alphaMin = createInput(1);
     alphaMin.size(60);
 
     alphaMin.position(
@@ -322,8 +328,8 @@ function alphaMinInput() {
 
 };
 //alpha max input box
-function alphaMaxInput() {
-    alphaMax = createInput();
+function alphaMaxInput1() {
+    alphaMax = createInput(255);
     alphaMax.size(60);
 
     alphaMax.position(
@@ -332,8 +338,8 @@ function alphaMaxInput() {
 
 };
 //number input box
-function numberInput() {
-    numberC = createInput();
+function numberInput1() {
+    numberC = createInput(1000);
     numberC.size(60);
 
     numberC.position(
@@ -341,8 +347,8 @@ function numberInput() {
         (windowHeight / 2 + 134));
 
 };
-function sizeInput() {
-    sizeC = createInput();
+function sizeInput1() {
+    sizeC = createInput(10);
     sizeC.size(60);
 
     sizeC.position(
@@ -353,7 +359,7 @@ function sizeInput() {
 
 
 //creates all circles and initial positions
-function createCircles() {
+function createCircles1() {
     //creates array with all circles 
     circles = [];
 
@@ -425,7 +431,7 @@ Apply acceleration, friction, and velocity to circles,constrains its velocity
 Adapted from Pippin's Acceleration and Friction example, 
 I don't fully understand the math and physics will need to read up on
 */
-function moveCircles() {
+function moveCircles1() {
     //applies changed movement data to all circles in circles array
     for (let c of circles) {
 
