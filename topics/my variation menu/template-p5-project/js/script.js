@@ -932,18 +932,21 @@ function game2Draw() {
 function titleScreenText2() {
     //universal qualities
     fill(255);
-    textAlign(CENTER, CENTER);
+    textAlign(CENTER, TOP);
 
     //title
     push();
     textSize(30);
-    text('COULEUR CACHEE', width / 2, 100);//should be Couleur Cachée but my font doesn't have accents
+    textWrap(WORD);
+    text('COULEUR CACHEE', width / 2, 50);//should be Couleur Cachée but my font doesn't have accents
     pop();
 
     //explanation
     push();
-    textSize(20);
-    text('XXX', width / 2, 150);
+    textSize(13);
+    //textLeading(15);
+    textAlign(LEFT, TOP);
+    text("Couleur Cachee takes its name from the French word cachee, meaning hidden. The work rests on the notion that compelling colors and palettes are often hidden by expectation and bias. Conventional color selection tools tend to reinforce these predispositions, favoring deliberate choice over discovery. \n \n In this interactive piece, color is revealed through movement.The circle’s color shifts with cursor movement, as if each gesture briefly illuminates hidden pockets of color space.The hues flow unpredictably, guiding the viewer to wander through the spectrum until one unexpectedly resonates and “speaks” to them. \n \n Once a color captures your attention and you wish to build a palette, the data screen lets you set the background to this hue while exploring others that complement or contrast it. \n\n Click ENTER to begin the game", 40, 90, (width - 65));
     pop();
 }
 //all data screen text
