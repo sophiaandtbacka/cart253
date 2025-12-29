@@ -953,20 +953,30 @@ function titleScreenText2() {
 function dataScreenText2() {
     //universal qualities
     fill(255);
-    textAlign(CENTER);
 
     //title
     push();
+    textAlign(CENTER, TOP);
     textSize(30);
-    text('CIRCLE DATA', width / 2, 100);
+    text('CIRCLE DATA', width / 2, 50);
     pop();
 
     //attribute labels
     push();
+    textAlign(CENTER);
     textSize(20);
-    text('RED', 125, 180);
-    text('GREEN', 125, 280);
-    text('BLUE', 125, 380);
+    text('RED', 125, 125);
+    text('GREEN', 125, 205);
+    text('BLUE', 125, 285);
+    pop();
+
+    //instuction
+    push();
+    textSize(16);
+    //textLeading(15);
+    textAlign(CENTER, TOP);
+    text('Click ENTER to begin', width / 2, 355);
+    text('Press ENTER key to return', width / 2, 385);
     pop();
 }
 
@@ -983,7 +993,7 @@ function redInput() {
 
     red.position(
         (windowWidth / 2 - 95 + 40),
-        (windowHeight / 2 - 85));
+        (windowHeight / 2 - 130));
 
 };
 //green min input box
@@ -993,7 +1003,7 @@ function greenInput() {
 
     green.position(
         (windowWidth / 2 - 95 + 40),
-        (windowHeight / 2 + 15));
+        (windowHeight / 2 - 50));
 
 };
 //blue min input box
@@ -1003,7 +1013,7 @@ function blueInput() {
 
     blue.position(
         (windowWidth / 2 - 95 + 40),
-        (windowHeight / 2 + 115));
+        (windowHeight / 2 + 30));
 
 };
 //hides all inputs
