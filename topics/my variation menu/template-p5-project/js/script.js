@@ -153,7 +153,7 @@ function draw() {
         case "swallow circle variation":
             game1Draw();
             break
-        case "color cache variation":
+        case "couleur cachee variation":
             game2Draw();
             break;
         case "bubble buster variation":
@@ -198,7 +198,8 @@ function titleText() {
 //don't need a different setup 
 
 //draws all of menu screen
-//rotating circle on circle track, game variation titles, menu title, instruction text
+//  rotating circle on circle track, which moves based on left and right arrows
+//  textgame variation titles, menu title, instruction text
 function menuDraw() {
     background(0);
     menuText();//text and color change in text
@@ -249,7 +250,7 @@ function menuText() {
     }
     textAlign(CENTER, CENTER);
     textSize(15);
-    text('Color Cache', 250, 370);
+    text('Couleur Cachee', 250, 360);//should have an accent but my font doesn't have accents 
     pop();
 
     push();
@@ -259,7 +260,7 @@ function menuText() {
     }
     textSize(15);
     textAlign(LEFT, CENTER);
-    text('Bubble Buster', 20, 230);
+    text('Bubble Buster', 25, 230);
     pop();
 
     push();
@@ -319,9 +320,9 @@ function menuToGame() {
         resetScreens();
         game1Setup();
     }
-    else if (keyIsDown(13) && game2 === true) {//13 is Enter key code, game 2 is true when you roll the ball and the Color Cache game title is red (done with menuText function)
+    else if (keyIsDown(13) && game2 === true) {//13 is Enter key code, game 2 is true when you roll the ball and the Couleur Cachee game title is red (done with menuText function)
         //go to game2 title screen
-        state = "color cache variation";
+        state = "couleur cachee variation";
         resetScreens();
         game2Setup();
     }
@@ -366,7 +367,7 @@ function mouseClicked() {
     }
 
     //variation 2
-    if (state === "color cache variation") {
+    if (state === "couleur cachee variation") {
         if (enter === true && title === true) {
             title = false;
             data = true;
@@ -435,7 +436,7 @@ function resetScreens() {
 function returnData() {
     if (
         (state === "swallow circle variation" ||
-            state === "color cache variation" ||
+            state === "couleur cachee  variation" ||
             state === "bubble buster variation")
         && game === true
         && keyIsDown(13)//enter key code
@@ -460,7 +461,7 @@ function returnMenu() {
         else if (state === "bubble buster variation") {
             hideInputs3();
         }
-        cursor(ARROW);//included because in color cache I change the cursor type
+        cursor(ARROW);//included because in couleur cachee change the cursor type
         state = "menu";
         resetScreens();
     }
@@ -473,13 +474,13 @@ function returnTitle() {
         if (state === "swallow circle variation") {
             hideInputs1();
         }
-        else if (state === "color cache variation") {
+        else if (state === "couleur cachee variation") {
             hideInputs2();
         }
         else if (state === "bubble buster variation") {
             hideInputs3();
         }
-        cursor(ARROW);//included because in color cache I change the cursor type
+        cursor(ARROW);//included because in couleur cachee I change the cursor type
         state = "title";
         resetScreens();
     }
@@ -936,7 +937,7 @@ function titleScreenText2() {
     //title
     push();
     textSize(30);
-    text('Couleur Caché', width / 2, 100);//should be Color Caché but my font doens't have accents
+    text('COULEUR CACHEE', width / 2, 100);//should be Couleur Cachée but my font doesn't have accents
     pop();
 
     //explanation
