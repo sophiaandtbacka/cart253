@@ -194,6 +194,7 @@ function titleText() {
 /**
  * All Menu Functions
  */
+
 //don't need a different setup 
 
 //draws all of menu screen
@@ -345,6 +346,7 @@ function resetScreens() {
 /**
  * Universal Variation functions 
  */
+
 //event that triggers change from title data and game screens in variations
 // on game 1 creates all circles on game screen, on game 3 calculates distance from mouse and circle and moves circle 
 function mouseClicked() {
@@ -487,13 +489,19 @@ function returnTitle() {
 
 
 /**
- * Game 1 functions
+ * Variation 1 functions
  *  */
+
+//setup includes html user input boxes, hides these input boxes
 function game1Setup() {
     dataInputs1();//create all inputs for data page
     hideInputs1();//hides all inputs boxes
 }
-
+//draws title screen with variation explanation
+//draws data screen with input for circle color and number and size of circles
+//draws game screen which draws circles based on pyramid formation, 
+//  circles move based on mouse position and eventually overlap creating a swallowing effect,
+//  up arrow and w key freeze circles' movement, down and s key unfreeze circles' movement
 function game1Draw() {
 
     if (title === true) {
@@ -854,8 +862,10 @@ function stopCircles() {
 
 
 /**
- * Game 2 functions 
+ * Variation 2 functions 
  */
+
+//setup includes html user input boxes, hides these input boxes, circle color picker global variable
 function game2Setup() {
     dataInputs2(); //input boxes for rgb background value
     hideInputs2(); //hides all input boxes
@@ -873,7 +883,10 @@ function game2Setup() {
         size: 100
     };
 }
-
+//draws title screen with variation explanation
+//draws data screen with input for background color
+//draws game screen with circle which changes color and position based on mouse position,
+//  draws text which shows circle's currents rgba value
 function game2Draw() {
     if (title === true) {
         background(0);
@@ -923,7 +936,7 @@ function titleScreenText2() {
     //title
     push();
     textSize(30);
-    text('COLOR CIRCLE', width / 2, 100);
+    text('Couleur Caché', width / 2, 100);//should be Color Caché but my font doens't have accents
     pop();
 
     //explanation
@@ -1040,13 +1053,18 @@ function showText() {
 
 
 /**
- * Game 3 functions
+ * Variation 3 functions
 */
+
+//setup includes html user input boxes, hides these input boxes
 function game3Setup() {
     dataInputs3();//all inputs from data page
     hideInputs3();//hides all the inputs
 }
-
+//draws title screen with variation explanation
+//draws data screen with input for circle color and number of circles
+//draws game screen with specified number and color of circles, 
+//  you can interact with the circles by clicking on undersirably positioned circles and they will change position and color
 function game3Draw() {
     background(255);
 
