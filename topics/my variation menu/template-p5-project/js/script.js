@@ -26,7 +26,7 @@ let rotator = {
     // How fast can it accelerate?
     rotationAcceleration: 0.001,
     // Maximum rotation speed
-    maxRotationSpeed: 0.02,
+    maxRotationSpeed: 0.03,
 }
 
 //varible of current position of rotating circle, lets us calculate text fill change
@@ -171,6 +171,11 @@ function draw() {
 function titleDraw() {
     background(0);
     titleText();
+
+    noFill();
+    stroke('white');
+    strokeWeight(1);
+    ellipse(width / 2, height / 2 + 30, 300);
 }
 
 
@@ -185,7 +190,7 @@ function titleText() {
     push();
     textAlign(CENTER, TOP);
     textSize(30);
-    text('CIRCLE TITLE', width / 2, 50);
+    text('Project TITLE', width / 2, 50);
     pop();
 }
 
@@ -227,12 +232,14 @@ function menuText() {
 
     fill(255);//white text
 
+    //title text
     push();
     textAlign(CENTER, TOP);
     textSize(30);
     text('CIRCLE MENU', width / 2, 50);
     pop();
 
+    //game titles and text color change
     push();
     if (150 < currentY && currentY < 300 && currentX > (width / 2)) {
         game1 = true;
@@ -260,13 +267,26 @@ function menuText() {
     }
     textSize(15);
     textAlign(LEFT, CENTER);
-    text('Bubble Buster', 25, 230);
+    text('Bubble Burster', 20, 230);
     pop();
 
+    //menu instructions
     push();
     textSize(15);
     textAlign(CENTER, BOTTOM);
-    text('rOll the circle <left <  and  > right > \n Press ENTER to cOmense your creative journey', 250, 450);
+    text('rOll the circle <left <  and  > right > \nPress ENTER to cOmense your creative journey', 250, 445);
+    pop();
+
+    push();
+    textSize(13);
+    textAlign(LEFT, BOTTOM);
+    fill('red');
+    text('****', 62, 470);
+    textAlign(RIGHT, BOTTOM);
+    text('****', 438, 470);
+    textAlign(CENTER, BOTTOM);
+    fill('white');
+    text('Press M at any time to return to this page', width / 2, 470);
     pop();
 }
 
@@ -543,18 +563,20 @@ function game1Draw() {
 function titleScreenText1() {
     //universal qualities
     fill(255);
-    textAlign(CENTER, CENTER);
+    textAlign(CENTER, TOP);
 
     //title
     push();
     textSize(30);
-    text('SWALLOW CIRCLES', width / 2, 100);
+    text('SWALLOW CIRCLES', width / 2, 50);
     pop();
 
     //explanation
     push();
-    textSize(20);
-    text('XXX', width / 2, 150);
+    textSize(13);
+    textWrap(WORD);
+    textAlign(LEFT, TOP);
+    text('\n\n\n Click ENTER to begin the game \n\n When in game, press ENTER to return to the data screen and edit the number and color values', 40, 90, (width - 60));
     pop();
 
 };
@@ -946,7 +968,7 @@ function titleScreenText2() {
     textSize(13);
     //textLeading(15);
     textAlign(LEFT, TOP);
-    text("Couleur Cachee takes its name from the French word cachee, meaning hidden. The work rests on the notion that compelling colors and palettes are often hidden by expectation and bias. Conventional color selection tools tend to reinforce these predispositions, favoring deliberate choice over discovery. \n \n In this interactive piece, color is revealed through movement.The circle’s color shifts with cursor movement, as if each gesture briefly illuminates hidden pockets of color space.The hues flow unpredictably, guiding the viewer to wander through the spectrum until one unexpectedly resonates and “speaks” to them. \n \n Once a color captures your attention and you wish to build a palette, the data screen lets you set the background to this hue while exploring others that complement or contrast it. \n\n Click ENTER to begin the game", 40, 90, (width - 65));
+    text("Couleur Cachee takes its name from the French word cachee, meaning hidden. The work rests on the notion that compelling colors and palettes are often hidden by expectation and bias. Conventional color selection tools tend to reinforce these predispositions, favoring deliberate choice over discovery. \n \n In this interactive piece, color is revealed through movement. The circle color shifts with cursor movement, as if each gesture briefly illuminates hidden pockets of color space. The hues flow unpredictably, guiding you to wander through the spectrum until one unexpectedly resonates and SPEAKS to you. \n \n Once a color captures your attention and you wish to build a palette, the data screen lets you set the background to this hue while exploring others that complement or contrast it. Otherwise set the background to 255, 255, 255 for White or 0, 0, 0 for Black.\n\n Click ENTER to begin the game.", 40, 90, (width - 65));
     pop();
 }
 //all data screen text
@@ -1126,13 +1148,15 @@ function titleScreenText3() {
     //title
     push();
     textSize(30);
-    text('BUBBLE BUSTER', width / 2, 100);
+    text('BUBBLE BURSTER', width / 2, 50);
     pop();
 
     //explanation
     push();
-    textSize(20);
-    text('XXX', width / 2, 150);
+    textSize(13);
+    textWrap(WORD);
+    textAlign(LEFT, TOP);
+    text('Bubble Burster takes its name from the simple act of blowing bubbles and watching children try to burst them, a playful and seemingly random process.\n\n A field of circles appears, shaped by number of circles and the range of color values you set. Where the color ranges from 0 to 255, 255 being the highest possible value.\n\n If a circle seems off you can clicking on it, sending it to a new location with a fresh color. This allows the image to evolve through repeated bursts of change. Through repeated interaction and chance, unexpected patterns emerge.The final image is not predetermined but arises through exploration and play.\n\n\n Click ENTER to begin the game \n\n When in game, press ENTER to return to the data screen and edit the number and color values', 40, 90, (width - 60));
     pop();
 }
 
