@@ -1043,8 +1043,8 @@ function showText() {
  * Game 3 functions
 */
 function game3Setup() {
-    dataInputs3();  //all inputs from data page
-    hideInputs3();  //hides all the inputs
+    dataInputs3();//all inputs from data page
+    hideInputs3();//hides all the inputs
 }
 
 function game3Draw() {
@@ -1052,33 +1052,34 @@ function game3Draw() {
 
     if (title === true) {
         background(0);
-        hideInputs3();
-        titleScreenText3();
+        titleScreenText3();//all title screen text
         enterButton();
         checkOverlap();
     }
 
     else if (data === true) {
         background(0);
-        showInputs3();
-        dataScreenText3();
+        showInputs3();//show all data inputs
+        dataScreenText3();//all data screen text
         enterButton();
         checkOverlap();
     }
 
     else if (game === true) {
         background(255);
-        hideInputs3();
-        returnData();
+        hideInputs3();//hide all data inputs
+
         //draws all of the circles
         for (let c of circles) {
             noStroke();
             fill(c.color.r, c.color.g, c.color.b, c.color.a);
             ellipse(c.x, c.y, c.size);
         }
+
+        returnData();//click enter key and return to data screen
     }
 
-    returnMenu();
+    returnMenu();//click m key and return to menu screen
     returnTitle();//click t key and return to title screen
 }
 
@@ -1086,10 +1087,15 @@ function game3Draw() {
 
 //all title screen text
 function titleScreenText3() {
+    //universal qualities
     fill(255);
     textAlign(CENTER, CENTER);
+
+    //title
+    push();
     textSize(30);
     text('BUBBLE BUSTER', width / 2, 100);
+    pop();
 
     //explanation
     push();
@@ -1100,14 +1106,17 @@ function titleScreenText3() {
 
 //all text on circle data page
 function dataScreenText3() {
+    //universal qualities
     fill(255);
     textAlign(CENTER);
 
+    //title
     push();
     textSize(30);
     text('CIRCLE DATA', width / 2, 60);
     pop();
 
+    //attibute label
     push();
     textSize(20);
     text('RED', 100, 120);
@@ -1117,6 +1126,7 @@ function dataScreenText3() {
     text('NUMBER', 100, 400);
     pop();
 
+    //value label
     push();
     textSize(14);
     text('min', 175, 120);
@@ -1130,6 +1140,7 @@ function dataScreenText3() {
     pop();
 }
 
+
 //all data input boxes
 function dataInputs3() {
     redMinInput();
@@ -1142,10 +1153,13 @@ function dataInputs3() {
     alphaMaxInput();
     cNumberInput();
 
+    //array with all data inputs, streamlines hide and show
     allInputs3 = [redMin, redMax, greenMin, greenMax, blueMin, blueMax, alphaMin, alphaMax, cNumber];
 
 }
 //red min input box
+//default values colorRmin, colorRmax, etc.
+//different approach to game 1, more easily editable but more code heavy
 function redMinInput() {
     redMin = createInput(colorRmin);
     redMin.size(60);
@@ -1245,17 +1259,17 @@ function showInputs3() {
 }
 
 
-// pushes all circle data into an array
+// called in mouseClicked, created circles and pushes all circle data into an array
 function initialCircles() {
     circles = []; //clears previous circles if you're going back and forth between data and game page
 
     //loop creating all the circle data
-    for (let i = 0; i < Number(cNumber.value()); i++) {
+    for (let i = 0; i < Number(cNumber.value()); i++) {//cNumber is total number of circles created, pulled from data input page
         //pushes all the circle data into an array called circles
         circles.push({
-            x: random(width),
-            y: random(height),
-            size: 40,
+            x: random(width),//any x on canvas
+            y: random(height),//any y on canvas
+            size: 40,//could create and input for this in later versions
             color: {
                 r: random(Number(redMin.value()), Number(redMax.value())),
                 g: random(Number(greenMin.value()), Number(greenMax.value())),
@@ -1265,15 +1279,15 @@ function initialCircles() {
         });
     }
 }
-//in game screen, moves the circle randomly and changes color randomly
+//called in mouseClicked, in game screen, moves the circle to random position and changes color to new random value
 function moveCircles(c) {
-    c.x = random(width);
-    c.y = random(height);
-    c.color = {
+    //new random x and y position
+    c.x = random(width);//any x on canvas
+    c.y = random(height);//any y on canvas
+    c.color = {//new color created from same value range provided on data page
         r: random(Number(redMin.value()), Number(redMax.value())),
         g: random(Number(greenMin.value()), Number(greenMax.value())),
         b: random(Number(blueMin.value()), Number(blueMax.value())),
         a: random(Number(alphaMin.value()), Number(alphaMax.value())),
     };
 }
-
