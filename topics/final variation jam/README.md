@@ -41,11 +41,11 @@ Image of Title Page
 > ![Image of Title Page](./assets/images/projectTitle.png)
 
 Image of Menu Page
-> ![Image of Menu Page](./assets/images/projectMeny.png)
+> ![Image of Menu Page](./assets/images/projectMenu.png)
 
 Image of Variation 1 "Swallow Circle" game page
 > ![Image of Variation 1 "Swallow Circle" game page](./assets/images/swallowCircle1.png)
-![](.assets/images/swallowCircle2.png)
+![](./assets/images/swallowCircle2.png)
 ![](./assets/images/swallowCircle3.png)
 ![](./assets/images/swallowCircle4.png)
 
@@ -53,7 +53,7 @@ Image of Variation 2 "Couleur Cachée" title page
 > ![Image of Variation 2 "Couleur Cachée" title page](./assets/images/couleurCacheeTitle.png)
 
 Image of Variation 2 "Couleur Cachée" menu page
-> ![Image of Variation 2 "Couleur Cachée" menu page](./![]assets/images/couleurCacheeData.png)
+> ![Image of Variation 2 "Couleur Cachée" menu page](./assets/images/couleurCacheeData.png)
 
 Image of Variation 2 "Couleur Cachée" game page
 > ![Image of Variation 2 "Couleur Cachée" game page](./assets/images/couleurCacheeGame1.png)
