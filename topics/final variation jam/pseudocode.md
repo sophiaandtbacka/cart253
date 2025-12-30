@@ -1,8 +1,8 @@
-Variation Idea 
+## Variation Idea 
 
 Theme: Create mini games that allow you to explore your creativity through creating different unexpected visuals. Influenced by the Dada movement and process art. Leverages the unique properties of computers and progammable art (quick interation, mathmatic visualization, and color isolation) to explore visuals and process previously impossible
 
-1. Popping Circle
+# 1. Popping Circle
 Objective: create a group of circles which will generate and create a pattern, click and pop a circle if you don't like it's position
 
 Title Screen: title, explanation of game, enter button
@@ -68,7 +68,7 @@ function mousePressed() {
     }
 }
 
-2. Random Color Picker
+## 2. Random Color Picker
 Objective: create a random color picker, move around the circle to create a random color, stop when an unexpected color has spoken to you, note down the rgba value at the bottom and use the color for your next project. //my use for it, live coding light shows in clubs, I stop moving when a color speaks to me and surprisingly matches the music/vibe and que up the light transtion
 
 Title Screen: title, explanation of game, enter button
@@ -103,11 +103,8 @@ Event - mouseMove - Color Change
         }
     }
 
-3. Pattern
-Based on distance from center circle pattern appears, idea stemming from metal pattern torus thing
-want to use exponential
 
-4. Swirling Swallows 
+## 3. Swirling Swallows 
 Objective: create a group of circles which mimic a gulp of swallows where the mouse acts as the lead bird/circle.
 
 Title Page: title, explanation of game, enter button
@@ -160,4 +157,6 @@ while (count < totalCircles) {
 }
 
 
-
+## 4. Pattern
+Based on distance from center circle pattern appears, idea stemming from metal pattern torus thing
+want to use exponential
