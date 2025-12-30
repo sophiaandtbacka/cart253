@@ -28,7 +28,7 @@ let paragraphText = {
     strs: {
         para1: " This project draws \n inspiration from the Dada movement, bringing it into the digital age. Rather than creating traditional games with set objectives, it leans on the philosophy of process art, presenting interactive spaces for exploration and experimentation. At its core, the work begins with a single shape \n< the circle > and investigates how computation can generate a variety of uniquely digital experiences through \n this simple visual element. \n\n Click to Continue",
         para2: "Through this framework \n two uniquely digital concepts are \nexplored, randomness and digital movement. \nFirstly, randomness introduces true \nunpredictability, allowing each iteration to unfold\n differently and producing outcomes that cannot be \nfully anticipated. Secondly, movement in the digital \ndomain. This includes parameters such as acceleration, \nfriction, attraction, and constraints which can be \nprecisely defined, enabling behaviors and patterns \nthat would be impossible to replicate in the \nphysical world. Together, these mechanisms\n reveal the distinctive capacities of \ncomputation in visual creation. \n\n Click to Continue",
-        para3: "As a result, the role of the \nparticipant shifts from that of a player \n pursuing goals to that of an observer and curator. \nThe project encourages participants to step back \nand watch patterns and behaviors evolve, \nintervening only when particular moments resonate.  \nIn this way, creation becomes curation. \nThis act of noticing, choosing, and \nframing becomes the artistry.\n\n Click to Continue",
+        para3: "As a result, the role of the \nparticipant shifts from that of a player \n pursuing goals to that of an observer and curator. \nThe project encourages participants to step back \nand watch patterns and behaviors evolve, \nintervening only when particular moments resonate.  \nIn this way, creation becomes curation. \nThis act of noticing, choosing, and \nframing becomes the artistry.\n\n Press T at anytime to return to this page \nClick to Continue",
     },
 };
 
@@ -232,6 +232,7 @@ function titleText() {
     fill('black');
     textSize(paragraphText.strs.size);
 
+    //controls which paragraph is visible
     if (speechState === 0) {
         text(paragraphText.strs.para1, paragraphText.x, paragraphText.y - 25, 300)
     }
@@ -245,7 +246,7 @@ function titleText() {
 
 //rotating title
 function drawRotatingTitle(str, cx, cy, radius, startAngle = 0, spacing = 18) {
-
+    push();
     textAlign(CENTER, CENTER);
 
     let angle = startAngle;//where title starts
@@ -255,12 +256,15 @@ function drawRotatingTitle(str, cx, cy, radius, startAngle = 0, spacing = 18) {
         let x = cx + radius * cos(angle);
         let y = cy + radius * sin(angle);
 
+        push();
         translate(x, y);
         rotate(angle + HALF_PI); // half pi makes letters perpendicular
         text(str[i], 0, 0); //str[i] means each character in the string
+        pop();
 
-        angle += spacing / radius; // converts linear spacing into angular spacing
+        angle += spacing / radius; // converts linear spacing into angular spacing need push and pop otherwise every character will move seperately
     }
+    pop();
 }
 
 
@@ -575,12 +579,15 @@ function returnMenu() {
 function returnTitle() {
     if (keyIsDown(84)) {//84 code for T key
         if (state === "swallow circle variation") {
+            speechState = 0;
             hideInputs1();
         }
         else if (state === "couleur cachee variation") {
+            speechState = 0;
             hideInputs2();
         }
         else if (state === "bubble burster variation") {
+            speechState = 0;
             hideInputs3();
         }
         cursor(ARROW);//included because in couleur cachee I change the cursor type
@@ -610,9 +617,9 @@ function game1Draw() {
 
     if (title === true) {
         background(0);
-        titleScreenText1();//all title screen text
         enterButton();
         checkOverlap();
+        titleScreenText1();//all title screen text
     }
 
     else if (data === true) {
@@ -656,10 +663,10 @@ function titleScreenText1() {
 
     //explanation
     push();
-    textSize(13);
+    textSize(12);
     textWrap(WORD);
     textAlign(LEFT, TOP);
-    text('Swallow Circle explores how simple rules in code can generate unexpected visual forms. Initially, a set number of circles are generated in a pyramid formation. However, as the mouse moves across the screen the circles are drawn toward it, drifting from their original positions and creating new dynamic forms. Over time they overlap and cluster, producing a black-hole-like swallowing effect.\n\n The data screen allows you to adjust the number of circles, their size, and their color ranges, which changes how the circles interact and form new patterns. During the simulation, pressing the UP arrow or W key freezes the circles movement, allowing you to pause and study forms that capture your interest.Pressing the DOWN arrow or S key restarts the movement.This interaction between code, movement, and user input creates an experience where initial order transforms unpredictably into new structures. \nClick ENTER to begin the game \n\n When in game, press ENTER key to return to the data screen', 40, 85, (width - 60));
+    text('Swallow Circle explores how simple rules in code can generate unexpected visual forms. Initially, a set number of circles are generated in a pyramid formation. However, as the mouse moves across the screen the circles are drawn toward it, drifting from their original positions and creating new dynamic forms. Over time they overlap and cluster, producing a black-hole-like swallowing effect.\n\n The data screen allows you to adjust the number of circles, their size, and their color ranges, which changes how the circles interact and form new patterns. During the simulation, pressing the UP arrow or W key freezes the circles movement, allowing you to pause and study forms that capture your interest.Pressing the DOWN arrow or S key restarts the movement.This interaction between code, movement, and user input creates an experience where initial order transforms unpredictably into new structures. \nClick ENTER to begin the game \n\n When in game, press ENTER key to return to the data screen', 40, 75, (width - 60));
     pop();
 
 };
@@ -1048,9 +1055,9 @@ function titleScreenText2() {
 
     //explanation
     push();
-    textSize(13);
+    textSize(12);
     textAlign(LEFT, TOP);
-    text("Couleur Cachee takes its name from the French word cachee, meaning hidden. The work rests on the notion that compelling colors and palettes are often hidden by expectation and bias. Conventional color selection tools tend to reinforce these predispositions, favoring deliberate choice over discovery. \n \n In this interactive piece, color is revealed through movement. The circle color shifts with cursor movement, as if each gesture briefly illuminates hidden pockets of color space. The hues flow unpredictably, guiding you to wander through the spectrum until one unexpectedly resonates and SPEAKS to you. \n \n Once a color captures your attention and you wish to build a palette, the data screen lets you set the background to this hue while exploring others that complement or contrast it. Otherwise set the background to 255, 255, 255 for White or 0, 0, 0 for Black.\n\n Click ENTER to begin the game.", 40, 85, (width - 65));
+    text("Couleur Cachee takes its name from the French word cachee, meaning hidden. The work rests on the notion that compelling colors and palettes are often hidden by expectation and bias. Conventional color selection tools tend to reinforce these predispositions, favoring deliberate choice over discovery. \n \n In this interactive piece, color is revealed through movement. The circle color shifts with cursor movement, as if each gesture briefly illuminates hidden pockets of color space. The hues flow unpredictably, guiding you to wander through the spectrum until one unexpectedly resonates and SPEAKS to you. \n \n Once a color captures your attention and you wish to build a palette, the data screen lets you set the background to this hue while exploring others that complement or contrast it. Otherwise set the background to 255, 255, 255 for White or 0, 0, 0 for Black.\n\n Click ENTER to begin the game.", 40, 80, (width - 65));
     pop();
 }
 //all data screen text
@@ -1239,7 +1246,7 @@ function titleScreenText3() {
 
     //explanation
     push();
-    textSize(13);
+    textSize(12);
     textWrap(WORD);
     textAlign(LEFT, TOP);
     text('Bubble Burster takes its name from the simple act of blowing bubbles and watching children try to burst them, a playful and seemingly random process.\n\n A field of circles appears, shaped by number of circles and the range of color values you set. Where the color ranges from 0 to 255, 255 being the highest possible value.\n\n If a circle seems off you can clicking on it, sending it to a new location with a fresh color. This allows the image to evolve through repeated bursts of change. Through repeated interaction and chance, unexpected patterns emerge.The final image is not predetermined but arises through exploration and play.\n\n Click ENTER to begin the game \n\n When in game, press ENTER to return to the data screen', 40, 85, (width - 65));
