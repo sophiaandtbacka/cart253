@@ -42,19 +42,18 @@ This bit should have some images of the program running so that the reader has a
 > ![Image of Menu Page](./assets/images/projectMeny.png)
 
 > ![Image of Variation 1 "Swallow Circle" game page](./assets/images/swallowCircle1.png)
-[](./assets/images/swallowCircle2.png)
-[](./assets/images/swallowCircle3.png)
-[](./assets/images/swallowCircle4.png)
+![](./assets/images/swallowCircle3.png)
+![](./assets/images/swallowCircle4.png)
 
 > ![Image of Variation 2 "Couleur Cachée" title page](./assets/images/couleurCacheeTitle.png)
 
-> ![Image of Variation 2 "Couleur Cachée" menu page](./[]assets/images/couleurCacheeData.png)
+> ![Image of Variation 2 "Couleur Cachée" menu page](./!![]assets/images/couleurCacheeData.png)
 
 > ![Image of Variation 2 "Couleur Cachée" game page](./assets/images/couleurCacheeGame1.png)
-[](./assets/images/couleurCacheeGame2.png)
+![](./assets/images/couleurCacheeGame2.png)
 
 > ![Image of Variation 3 "Bubble Burster" game page](./assets/images/bubbleBuster1.png)
-[](./assets/images/bubbleBuster2.png)
+![](./assets/images/bubbleBuster2.png)
 
 
 
