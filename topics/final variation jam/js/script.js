@@ -2,8 +2,44 @@
  * Digital DADA
  * Sophia "Crystalitious" Maryse Andtbacka
  * 
- * HOW EMBARRASSING! I HAVE NO DESCRIPTION OF MY PROJECT!
- * PLEASE REMOVE A GRADE FROM MY WORK IF IT'S GRADED!
+ *Objective: create mini games that use circles to discover different forms, colours, and patterns
+ *Inspiration: Dada movement and process art
+ *
+ * Title Screen: has project description
+ *      Event Mouse click: click to read through the project description and enter the menu page
+ *      Event T key press: press T to return to the title page anytime
+ * 
+ * Menu Screen: has title text, instruction text, and rotating circle on a circle track which allows you to choose a variation
+ *      Event LEFT arrow press: accelerate circle anticlockwise
+ *      Event RIGHT arrow press: accelerate circle clockwise
+ *      Event M key press: returns to the menu from any variation
+ * 
+ * Variation 1 "Swallow Circle": create interesting forms with generated circle and mouse movement, define circles that will be generated with user input boxes
+ *      Title Screen: title text, description text, instruction text, and ENTER button
+ *          Event click ENTER button: switches screen to data input screen
+ *      Data Input Screen: title text, user input boxes, and ENTER button
+ *          Inputs: rgba max and min, number, and size user input boxes
+ *      Game Screen: generated circles
+ *          Event Mouse Moves: circles move based on mouse position
+ *          Event ENTER key press: return to data input page
+ *  
+ * Variation 2 "Couleur Cachee": random circle color picker, define background with rgb values
+ *      Title Screen: title text, description text, instruction text, and ENTER button
+ *          Event click ENTER button: switches screen to data input screen
+ *      Data Input Screen: title text, user input boxes, and ENTER button
+ *          Inputs: rgb values for background
+ *      Game Screen: generated circle with random color fill, colored background, current circle color fill rgba values text
+ *          Event Mouse Moves: circles color fill changes and text displaying it's rgba value changes
+ *          Event ENTER key press: return to data input page 
+ * 
+ * Variation 3 "Bubble Burster": created interesting patterns with generated circle, define circles that will be generated with user input boxes, click undesired circles to move it's position and colour
+ *      Title Screen: title text, description text, instruction text, and ENTER button
+ *          Event click ENTER button: switches screen to data input screen
+ *      Data Input Screen: title text, user input boxes, and ENTER button
+ *          Inputs: rgba max and min, and number input boxes
+ *      Game Screen: generated circles
+ *          Event Mouse Click: if the a circle(s) overlap the mouse position it(they) move position and change color
+ *          Event ENTER key press: return to data input page   
  */
 
 "use strict";
@@ -194,10 +230,12 @@ function draw() {
  * All Title Functions
  */
 //don't need a different setup 
+
+//draws project title screen, rotating title, circle frame, and str paragraphs
 function titleDraw() {
     background(0);
 
-    //center circle
+    //center circle frame
     push();
     fill('white');
     stroke('red');
@@ -205,7 +243,7 @@ function titleDraw() {
     ellipse(cCircle.x, cCircle.y, cCircle.size);
     pop();
 
-    //paragrph, description text
+    //paragraph and description text
     titleText();
 
     //rotating title
