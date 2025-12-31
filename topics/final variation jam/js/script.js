@@ -52,7 +52,7 @@
 /**Title Variables */
 let speechState = 0;//what paragraph is being shown
 
-let dataAngle = 0;//angle for rotating title
+let dataAngle = 270;//angle for rotating title
 
 //variable for center circle
 let cCircle = {
@@ -256,6 +256,7 @@ function titleDraw() {
     push();
     fill(255);
     textSize(30);
+    textAlign(CENTER, CENTER);
     drawRotatingTitle("DIGITAL DADA", cCircle.x, cCircle.y, 210, dataAngle);
     dataAngle += 0.01;
     pop();
@@ -623,17 +624,16 @@ function returnMenu() {
 function returnTitle() {
     if (keyIsDown(84)) {//84 code for T key
         if (state === "swallow circle variation") {
-            speechState = 0;
             hideInputs1();
         }
         else if (state === "couleur cachee variation") {
-            speechState = 0;
             hideInputs2();
         }
         else if (state === "bubble burster variation") {
-            speechState = 0;
             hideInputs3();
         }
+        speechState = 0;//start with para 1 on title
+        dataAngle = 270;//title rotation starts a 0 angle
         cursor(ARROW);//included because in couleur cachee I change the cursor type
         state = "title";
         resetScreens();
@@ -1214,6 +1214,7 @@ function colorChange() {
 
 //text showing rgba values of circle
 function showText() {
+    push();
     fill(0);
     textSize(20);
     textAlign(LEFT, CENTER);//this alignment prevents shaking when values change
@@ -1221,6 +1222,7 @@ function showText() {
     text('G: ' + int(circle.colorStart.g), width / 2 - 86, 450);//int converts into integer
     text('B: ' + int(circle.colorStart.b), width / 2 + 16, 450);//int converts into integer
     text('A: ' + int(circle.colorStart.a), width / 2 + 117, 450);//int converts into integer
+    pop();
 }
 
 
