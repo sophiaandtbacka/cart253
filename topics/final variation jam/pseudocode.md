@@ -2,7 +2,7 @@
 
 Theme: Create mini games that allow you to explore your creativity through creating different unexpected visuals. Influenced by the Dada movement and process art. Leverages the unique properties of computers and progammable art (quick interation, mathmatic visualization, and color isolation) to explore visuals and process previously impossible
 
-# 1. Popping Circle
+# 1. Popping Circle // Later Changed to Bubble Burster
 Objective: create a group of circles which will generate and create a pattern, click and pop a circle if you don't like it's position
 
 Title Screen: title, explanation of game, enter button
@@ -68,7 +68,7 @@ function mousePressed() {
     }
 }
 
-## 2. Random Color Picker
+## 2. Random Color Picker //Later Changed to Couleur Cachee
 Objective: create a random color picker, move around the circle to create a random color, stop when an unexpected color has spoken to you, note down the rgba value at the bottom and use the color for your next project. //my use for it, live coding light shows in clubs, I stop moving when a color speaks to me and surprisingly matches the music/vibe and que up the light transtion
 
 Title Screen: title, explanation of game, enter button
@@ -104,8 +104,8 @@ Event - mouseMove - Color Change
     }
 
 
-## 3. Swirling Swallows 
-Objective: create a group of circles which mimic a gulp of swallows where the mouse acts as the lead bird/circle.
+## 3. Swirling Swallows // Later Changed to Swallow Circles
+Objective: create a group of circles which mimic a gulp of swallows where the mouse acts as the lead bird/circle. //Later changed idea with experimentation to create a mouse attraction that allows for overlap and creates a sort of swallowing effect
 
 Title Page: title, explanation of game, enter button
 Data Page: title, data input for number of circles and size of circles, (maybe input for color of circles, become a bit of a theme in my other variations), enter button
@@ -157,6 +157,11 @@ while (count < totalCircles) {
 }
 
 
-## 4. Pattern
+//circle movement
+c.dir = createVector(mouseX - c.x, mouseY - c.y); // sets up a direction vector connecting mouse position and circle position
+
+//added acceleration, velocity, friction components -mirror Pippin's Acceleration and Friction code
+
+## 4. Pattern // not pursued 
 Based on distance from center circle pattern appears, idea stemming from metal pattern torus thing
-want to use exponential
+want to use exponential growth
