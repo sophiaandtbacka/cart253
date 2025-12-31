@@ -210,40 +210,7 @@ function dataScreenText1() {
     pop();
 }
 
-//hides all data inputs, use this on title and game screen
-function hideInputs1() {
-    redMin.hide();
-    redMax.hide();
 
-    greenMin.hide();
-    greenMax.hide();
-
-    blueMin.hide();
-    blueMax.hide();
-
-    alphaMin.hide();
-    alphaMax.hide();
-
-    numberC.hide();
-    sizeC.hide();
-}
-//shows all data inputs, use this on data screen
-function showInputs1() {
-    redMin.show();
-    redMax.show();
-
-    greenMin.show();
-    greenMax.show();
-
-    blueMin.show();
-    blueMax.show();
-
-    alphaMin.show();
-    alphaMax.show();
-
-    numberC.show();
-    sizeC.show();
-}
 //all data input boxes
 function dataInputs1() {
     redMinInput1();
@@ -356,7 +323,40 @@ function sizeInput1() {
         (windowHeight / 2 + 134));
 
 };
+//hides all data inputs, use this on title and game screen
+function hideInputs1() {
+    redMin.hide();
+    redMax.hide();
 
+    greenMin.hide();
+    greenMax.hide();
+
+    blueMin.hide();
+    blueMax.hide();
+
+    alphaMin.hide();
+    alphaMax.hide();
+
+    numberC.hide();
+    sizeC.hide();
+}
+//shows all data inputs, use this on data screen
+function showInputs1() {
+    redMin.show();
+    redMax.show();
+
+    greenMin.show();
+    greenMax.show();
+
+    blueMin.show();
+    blueMax.show();
+
+    alphaMin.show();
+    alphaMax.show();
+
+    numberC.show();
+    sizeC.show();
+}
 
 //creates all circles and initial positions
 function createCircles1() {
@@ -457,6 +457,7 @@ function moveCircles1() {
     }
 }
 
+//stops and restarts circle movement based on up down and w and s keys
 function stopCircles() {
     if (keyIsDown(UP_ARROW) || keyIsDown(87)) {
         for (let c of circles1) {
