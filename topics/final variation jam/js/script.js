@@ -40,6 +40,12 @@
  *      Game Screen: generated circles
  *          Event Mouse Click: if the a circle(s) overlap the mouse position it(they) move position and change color
  *          Event ENTER key press: return to data input page   
+ *
+ * Uses:
+ * p5.js
+ * https://p5js.org
+ * 
+ * code from Pippin's p5 collection, look at README.md for more specifics
  */
 
 "use strict";
