@@ -1,8 +1,8 @@
-## Variation Idea 
+# Variation Idea 
 
 Theme: Create mini games that allow you to explore your creativity through creating different unexpected visuals. Influenced by the Dada movement and process art. Leverages the unique properties of computers and progammable art (quick interation, mathmatic visualization, and color isolation) to explore visuals and process previously impossible
 
-# 1. Popping Circle // Later Changed to Bubble Burster
+## 1. Popping Circle // Later Changed to Bubble Burster
 Objective: create a group of circles which will generate and create a pattern, click and pop a circle if you don't like it's position
 
 Title Screen: title, explanation of game, enter button
